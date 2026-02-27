@@ -1,6 +1,7 @@
 # Red Team & Blue Team Operations Cheat  Sheet
 
-<img src="content/Asset/Saint Mary.jpg"  width="800"/>
+<img src="content/Asset/Pasted image 20260227170136.png"  width="800"/>
+
 # ATTvDEF
 
 > A structured knowledge base focused on **Attack vs Defense** concepts in cybersecurity.
@@ -49,27 +50,6 @@ It is built for learners, defenders, and offensive security enthusiasts who want
 3. Explore attack–defense relationships
 4. Contribute if you'd like
 
----
-
-## 🤝 Contributing
-
-Contributions are welcome.
-
-If you'd like to improve or expand the content:
-
-1. Fork the repository  
-2. Make your changes  
-3. Submit a Pull Request  
-
----
-
-## ⚙️ Built With
-
-- Static site generator
-- Markdown-based documentation
-- GitHub Pages deployment
-
----
 
 ## 📌 Author
 

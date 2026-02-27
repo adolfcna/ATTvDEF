@@ -57,7 +57,7 @@
 
 ### 🧠 Pointer Arithmetic – `KUSER_SHARED_DATA`
 
-<img src="../../../Asset/Pasted image 20260226023913.png" style="max-width:100%; height:auto;"/>
+![[Pasted image 20260226023913.png]]
 
 > [!info]+ Reading Windows Version via `KUSER_SHARED_DATA`
 > This example reads version information directly from the  

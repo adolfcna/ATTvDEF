@@ -73,4 +73,6 @@ If you'd like to improve or expand the content:
 
 ## 📌 Author
 
-Maintained by @Adolfcna
+Maintained by @adolfcna  
+  
+🔗 LinkedIn: https://www.linkedin.com/in/adolfcna/

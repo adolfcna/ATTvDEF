@@ -1,5 +1,5 @@
 
-<img src="../../../Asset/Pasted image 20260218113019.png"  style="max-width:100%; height:auto;"/>
+![[Pasted image 20260218113019.png]]
 
 ## 🧠 CPU Privilege Rings Overview (Ring -3 → Ring 3)
 

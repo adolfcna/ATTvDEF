@@ -135,7 +135,7 @@ That’s why `CONTEXT` looks different on:
 - ARM64
 ### Thread Context Hijack
 
-> [!warning]- Thread Context Hijack Example
+> [!danger]- Thread Context Hijack Example
 > ```cpp
 > #include <windows.h>
 > #include <iostream>

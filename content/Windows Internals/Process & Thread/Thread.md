@@ -6,7 +6,7 @@ A process can contain multiple threads, and each one runs independently.
 ## What a Thread Actually Contains
 
 
-<img src="../../../Asset/Pasted image 20260222205052.png"  style="max-width:100%; height:auto;"/>
+![[Pasted image 20260222205052.png]]
 
 ### 1. Thread Context
 

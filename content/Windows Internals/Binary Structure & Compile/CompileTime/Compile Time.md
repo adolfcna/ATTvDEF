@@ -1,3 +1,15 @@
+---
+title: Compile Time
+draft: false
+tags:
+  - Basic
+  - CompileTime
+related:
+  - Resource Development/Malware/SHELLCODE/Encode/Base64.md
+  - Resource Development/Malware/SHELLCODE/Encryption/XOR.md
+  - Resource Development/Malware/SHELLCODE/Encryption/AES.md
+  - Resource Development/Malware/SHELLCODE/CompileTime/Compile Time.md
+---
 
 ![[Pasted image 20260226005901.png]]
 

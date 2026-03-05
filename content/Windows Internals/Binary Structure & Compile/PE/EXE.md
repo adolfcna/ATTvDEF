@@ -1,3 +1,13 @@
+---
+title: Create Simple Exe
+draft:
+tags:
+  - Basic
+  - Executable
+related:
+  - Resource Development/Malware/SHELLCODE/CompileTime/Compile Time.md
+---
+
 > [!info]+ 🖥 Simple C++ Program: Hello World
 > Example of a minimal C++ program that prints "Hello world" and waits for user input:
 > ```c++

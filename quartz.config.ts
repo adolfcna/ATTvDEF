@@ -19,7 +19,7 @@ const config: QuartzConfig = {
     baseUrl: "adolfcna.github.io/ATTvDEF",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
-    socialImage: "og-image",
+    socialImage: "og-image.png",
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,
@@ -87,7 +87,7 @@ const config: QuartzConfig = {
       }),
       Plugin.Assets(),
       Plugin.Static(),
-      Plugin.Favicon(),
+      Plugin.Favicon({faviconPath: "/static/icon.png"}),
       Plugin.NotFoundPage(),
       // Comment out CustomOgImages to speed up build time
       //Plugin.CustomOgImages(),

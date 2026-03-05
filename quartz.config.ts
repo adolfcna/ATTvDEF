@@ -19,6 +19,7 @@ const config: QuartzConfig = {
     baseUrl: "adolfcna.github.io/ATTvDEF",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
+    socialImage: "og-image",
     theme: {
       fontOrigin: "googleFonts",
       cdnCaching: true,

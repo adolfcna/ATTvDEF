@@ -5,6 +5,10 @@ tags:
   - wifu
 related:
 ---
+
+
+![[Pasted image 20260308174858.png]]
+
 ### Wi-Fi Security Protocols: WEP, WPA, WPA2, and WPA3
 
 These protocols represent the evolution of security standards for wireless local area networks (WLANs) to protect data transmitted over Wi-Fi.
@@ -26,7 +30,7 @@ These protocols represent the evolution of security standards for wireless local
 > [!info] Symmetric Encryption
 >
 >```mermaid
->graph TD
+>graph LR
    > 
 >    subgraph Symmetric Encryption
 >        S1[Plaintext] -->|Use Shared Key| S2(Encrypt)

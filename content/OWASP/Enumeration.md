@@ -8,6 +8,7 @@ tags:
 related:
   - /OWASP
 ---
+
 ## Passive 
 
 > [!success]- Google Dork (Google Hacking)

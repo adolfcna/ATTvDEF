@@ -102,6 +102,11 @@ related:
 > amass enum --passive -d zonetransfer.me -src -dir /user/home/path
 > ```
 
+> [!success]- TheHarvester
+> ```
+> theHarvester -d example.com -b google,linkedin,dnsdumpster,yahoo,duckduckgo,crtsh...
+> ```
+
 ## Active
 
 > [!danger]- CURL 
@@ -112,10 +117,16 @@ related:
 > curl -v -X OPTIONS http://Example.com
 > ```
 > ```
+> curl -v -X POST http://Example.com -d "payload"
+> ```
+> ```
 > curl -v -I http://Example.com
 > ```
 > ```
-> curl -v http://example.com/upload --upload-file /usr/share/backdor.php
+> curl -v http://example.com/upload --upload-file /usr/share/webshell/php/backdor.php
+> ```
+>```
+> curl -X DELETE http://example.com/upload/backdor.php 
 > ```
 
 > [!danger]- DNS
@@ -143,12 +154,18 @@ related:
 > ```
 > dirb https://example.com /usr/share/metasploit-framework/data/wordlists/directory.txt
 > ``` 
+> ```
+> dirb https://example.com/ -X .txt
+> ```
 > ### GOBUSTER
 > ```
-> gobuster dir -u https://example.com -w /usr/share/wordlist/dirb/common.txt
+> gobuster dir -u https://example.com -w /usr/share/wordlists/dirb/common.txt
 > ```
 > ```
-> gobuster dir -u https://example.com -w /usr/share/wordlist/dirb/common.txt -b 404,403
+>gobuster dir -u https://example.com -w /usr/share/seclists/Discovery/Web-Content/CMS/wordpress.fuzz.txt -b '404'
+> ```
+> ```
+> gobuster dir -u https://example.com -w /usr/share/wordlists/dirb/common.txt -b 404,403
 > ```
 > ```
 > > gobuster dir -u https://example.com -w /usr/share/wordlist/dirb/common.txt -b 404,403 -x .php,.txt,.xml -r
@@ -235,3 +252,58 @@ related:
 > ```
 > amass enum -d zonetransfer.me -src -ip -brute -dir /user/home/path
 > ```
+
+> [!danger]- WPScan
+>## Manual Enumeration
+> ### Authentication
+>- `/wp-login.php`  
+  > *(This is usually changed to `/login.php` for security)*
+>
+>- `/wp-admin/login.php`
+>
+>- `/wp-admin/wp-login.php`
+>
+>- `xmlrpc.php`  
+>  Extensible Markup Language – Remote Procedure Call (XML‑RPC) is a protocol that allows external applications and services to interact with a WordPress site programmatically.  
+>  This functionality has largely been replaced by the **WordPress REST API**.
+>
+>### Directories
+>- `/wp-content`  
+  >Primary directory used to store **plugins and themes**.
+>- `/wp-content/uploads/`  
+>  Directory where **uploaded files** are stored.  
+>  Often **prone to directory listing** issues.
+>
+>- `/wp-config.php`  
+>  Contains information required by WordPress to connect to the **database**, including **database credentials**
+> ### wp version 
+> - Read Source Header
+> - example.com/readme.html
+> - example.com/wp-login.php
+> - example.com/wp-admin
+> - example.com/xmlrpc.php
+> - example.com/wp-json
+> ### User Enumeration
+> - curl -s -I -X GET "https://example.com/?author=1"
+> - curl "https://example.com/wp-json/wp/v2/users" 
+> ## Automatic
+> ```
+> wpscan --url https://example.com/login.php
+> ```
+> ### Plugin
+> ```
+> wpscan --url https://example.com/login.php --enumerate -p --plugins-detection aggressive
+> ```
+> ```
+> wpscan --url https://example.com/login.php --enumerate -p --plugins-detection aggressive --api-token jfhidngphtcghiwfjg34Hpfds...
+> ```
+> ### Users
+> ```
+> wpscan --url https://example.com --enumerate u
+> ```
+> ### BruteForce
+> ```
+> wpscan --url https://example.com -U Admin -P /usr/share/wordlist/rockyou.txt
+> ```
+
+

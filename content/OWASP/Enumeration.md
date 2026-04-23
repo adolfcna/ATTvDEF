@@ -128,6 +128,13 @@ related:
 >```
 > curl -X DELETE http://example.com/upload/backdor.php 
 > ```
+> Proxy
+> ```
+> curl --socks5-hostname 127.0.0.1:9050 https://ifconfig.me
+> ```
+> ```
+> curl -x 127.0.0.1:9050 https://ifconfig.me
+> ```
 
 > [!danger]- DNS
 > ### DNSENUM

@@ -1,63 +1,62 @@
 .md-header {
-    background-color: #1E1E1E; /* خاکستری تیره */
-    box-shadow: 0 6px 16px rgba(0,0,0,0.4); /* سایه نرم */
+    background-color: #1E1E1E; 
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
     transition: background-color 0.3s ease;
 }
 
-/* افکت hover روی هدر */
-.md-header:hover {
-    background-color: #272727; /* کمی روشن‌تر هنگام هاور */
-}
 
-/* --- لوگو --- */
+.md-header:hover {
+    background-color: #272727; 
+
+
 .md-logo svg {
-    display: none; /* مخفی کردن SVG پیش‌فرض */
+    display: none; 
 }
 
 .md-logo img {
-    height: 40px; /* لوگو کمی بزرگ‌تر */
+    height: 40px; 
     width: auto;
     vertical-align: middle;
     transition: transform 0.3s ease;
 }
 
-/* افکت hover روی لوگو */
+
 .md-logo img:hover {
     transform: scale(1.1);
 }
 
-/* --- عنوان سایت --- */
+
 .md-header__title .md-header__topic span {
-    color: #FFFFFF; /* متن سفید */
+    color: #FFFFFF; 
     font-family: 'Fira Code', monospace;
     font-weight: 700;
     letter-spacing: 0.5px;
 }
 
-/* زیرعنوان سایت */
+
 .md-header__topic[data-md-component="header-topic"] span {
-    color: #AAAAAA; /* خاکستری روشن برای زیرعنوان */
+    color: #AAAAAA; 
     font-size: 0.85em;
     font-weight: 500;
 }
 
-/* --- آیکون‌های منو و سرچ --- */
+
 .md-header__icon svg path {
     fill: #FFFFFF; 
     transition: fill 0.3s ease;
 }
 
-/* --- افکت هاور روی آیکون‌ها --- */
+
 .md-header__button.md-icon:hover svg path {
     fill: #FFD700; 
 }
 
-/* --- وسط‌چین کردن هدر --- */
+
 .md-header__inner {
     align-items: center;
 }
 
-/* --- فاصله بین لوگو و متن --- */
+
 .md-logo {
     margin-right: 12px;
 }

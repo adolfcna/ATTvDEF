@@ -1,7 +1,5 @@
 
-
 ![[481285.jpg]]
-
 
 # SQL 
 
@@ -13,6 +11,7 @@ SHOW DATABASES;
 >```sql
 -- Select a specific database
 USE nameofdatabase;
+USE mysql
 >```
 >```sql
 -- Show all tables inside the selected database
@@ -21,6 +20,7 @@ SHOW TABLES;
 
 > [!success] Search Query
 > ```sql
+> DESCRIBE tablename
 > SELECT <column> FROM <databasename.tablename> WHERE <condition> 
 > ```
 > ```sql
@@ -41,11 +41,12 @@ SELECT <column> FROM <databasename.tablename> WHERE <condition> UNION SELECT ...
 > Use this to create a new table in the current database.
 >```sql
 >CREATE TABLE nikola (
->    id VARCHAR(20),
->    name VARCHAR(100),
->    age VARCHAR(2),
->    email VARCHAR(100),
->    PRIMARY KEY (id)
+>    id INT PRIMARY KEY AUTO_INCREMENT,
+>    username VARCHAR(20) UNIQUE NOT NULL,
+>    name VARCHAR(100) NOT NULL,
+>    age INT,
+>    email VARCHAR(100) UNIQUE NOT NULL,
+>   create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 >    );
 >```
 

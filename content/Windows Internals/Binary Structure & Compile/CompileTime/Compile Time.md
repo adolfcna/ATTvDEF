@@ -13,6 +13,8 @@ related:
 
 ![[Pasted image 20260226005901.png]]
 
+![[Pasted image 20260508113141.png]]
+
 > [!hint]+ 💻 Windows / MinGW Build Commands
 > Various compile commands for Windows executables and DLLs, optimized for different scenarios.
 >

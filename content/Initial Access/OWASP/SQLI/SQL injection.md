@@ -59,9 +59,11 @@ is a type of SQL injection attack where the attacker uses the **same communicati
 It is called _in‑band_ because the **data extraction happens in the same channel as the injection**.
 
 #### **Error‑Based SQLi**
+
 Error‑based SQL injection is a technique where an attacker intentionally triggers database errors to extract information from the database. By injecting specially crafted SQL queries, the attacker forces the database management system to generate error messages that reveal sensitive data such as the database name, table names, column names, or even actual data values. Many databases include detailed error messages when a query fails, and poorly configured applications may display these errors directly in the web response. Attackers exploit this behavior by embedding functions or operations in their payloads that cause errors containing useful information, allowing them to retrieve data quickly through the application’s normal response.
 
 #### **Union‑Based SQLi**
+
 Union‑based SQL injection is a technique that uses the SQL `UNION` operator to combine the results of the original query with the results of a malicious query injected by the attacker. The attacker first determines the number of columns returned by the original query and identifies which columns are displayed in the web application’s response. Then they craft a `UNION SELECT` statement that retrieves data from other tables in the database, such as user credentials or sensitive records. Because the `UNION` operator merges the results of two queries with the same structure, the injected query’s results are returned as part of the normal application output, allowing the attacker to directly view extracted database information on the webpage.
 
 - The attacker finds a vulnerable input field (URL parameter, form, cookie, header).
@@ -212,3 +214,18 @@ When the database queries the attacker’s controlled domain, information (like 
 >```
 >sqlmap -u "<url>" --os-shell
 >```
+
+> [!hint]
+> ```sql
+> select schema_name from information_schema.schemata
+> ```
+> ```sql
+> select table_name from information_schema.tables
+> ```
+> ```sql
+> select column_name from information_schema.columns
+> ```
+> ```sql
+> select group_concat(column_name) from information_schema.columns where table_schema=<DSName> and table_name=<TableName>
+> ```
+

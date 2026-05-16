@@ -90,17 +90,17 @@ However, SQL injection vulnerabilities can occur at any location within the quer
 
 > [!info] Show Information
 > ```sql
--- Show all available databases
-SHOW DATABASES;
+>-- Show all available databases
+>SHOW DATABASES;
 >```
 >```sql
--- Select a specific database
-USE nameofdatabase;
-USE mysql
+>-- Select a specific database
+>USE nameofdatabase;
+>USE mysql
 >```
 >```sql
--- Show all tables inside the selected database
-SHOW TABLES;
+>-- Show all tables inside the selected database
+>SHOW TABLES;
 > ```
 
 > [!success] Search Query
@@ -110,7 +110,7 @@ SHOW TABLES;
 > ```
 > ```sql
 > -- UNION-based extraction (for SQL injection scenarios)
-SELECT <column> FROM <databasename.tablename> WHERE <condition> UNION SELECT ...;
+>SELECT <column> FROM <databasename.tablename> WHERE <condition> UNION SELECT ...;
 > ```
 
 > [!example]-
@@ -141,7 +141,7 @@ SELECT <column> FROM <databasename.tablename> WHERE <condition> UNION SELECT ...
 >Add a new record into the table:
 >
 >```sql
-INSERT INTO nikola (id, name, age, email) VALUES ("1234", "cna", "44", "example@mail.com");
+>INSERT INTO nikola (id, name, age, email) VALUES ("1234", "cna", "44", "example@mail.com");
 >```
 >
 >---

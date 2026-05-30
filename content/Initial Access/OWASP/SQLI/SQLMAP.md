@@ -68,5 +68,5 @@
 
 > [!warning] sqlmap proxy with brup
 >```sql
-sqlmap -r request.txt -p inputvartoFUZZ --dbs --batch --random-agent --proxy http://127.0.0.1:8080
+>sqlmap -r request.txt -p inputvartoFUZZ --dbs --batch --random-agent --proxy http://127.0.0.1:8080
 >```

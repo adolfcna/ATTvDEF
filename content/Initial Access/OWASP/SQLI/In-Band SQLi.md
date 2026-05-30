@@ -352,6 +352,7 @@ This returns output like the following:
 
 ```sql
 TABLE_CATALOG  TABLE_SCHEMA  TABLE_NAME   TABLE_TYPE 
+
 =====================================================
 
 MyDatabase        dbo         Products     BASE TABLE 
@@ -369,7 +370,9 @@ SELECT * FROM information_schema.columns WHERE table_name = 'Users'
 
 This returns output like the following:
 ```sql
-TABLE_CATALOG  TABLE_SCHEMA   TABLE_NAME  COLUMN_NAME   DATA_TYPE =================================================================
+TABLE_CATALOG  TABLE_SCHEMA   TABLE_NAME  COLUMN_NAME   DATA_TYPE 
+
+=================================================================
 
 MyDatabase         dbo          Users       UserId        int 
 MyDatabase         dbo          Users       Username      varchar 

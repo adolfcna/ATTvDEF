@@ -149,7 +149,7 @@ Modify session data
 >1. After login, the server sets a cookie:
 >
 >```
-Cookie: role=user
+>Cookie: role=user
 >```
 >
 >2. The browser sends it with requests:
@@ -171,7 +171,7 @@ Cookie: role=user
 >**Result**
 >
 >```
-Attacker gains admin privileges by modifying session data.
+>Attacker gains admin privileges by modifying session data.
 >```
 
 > [!success] **Ultra‑short comparison (Pentester view)**

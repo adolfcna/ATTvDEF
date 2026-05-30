@@ -24,4 +24,4 @@ with open("passlist.txt","r") as f:
 		if("Error" not in output.txt):
 			print("password found: ",password)
 			break
-```session
+```

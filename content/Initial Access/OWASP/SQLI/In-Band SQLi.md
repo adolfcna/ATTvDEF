@@ -353,6 +353,7 @@ This returns output like the following:
 ```sql
 TABLE_CATALOG  TABLE_SCHEMA  TABLE_NAME   TABLE_TYPE 
 =====================================================
+
 MyDatabase        dbo         Products     BASE TABLE 
 MyDatabase        dbo         Users        BASE TABLE
 MyDatabase        dbo         Feedback     BASE TABLE

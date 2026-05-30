@@ -4,7 +4,7 @@
 is a type of SQL injection attack where the attacker uses the **same communication channel** to both **inject malicious SQL queries and retrieve the results from the database**.
 It is called _in‑band_ because the **data extraction happens in the same channel as the injection**.
 
-#### **Error‑Based SQL Injection**
+## **Error‑Based SQL Injection**
 
 ```mermaid
 flowchart LR
@@ -124,3 +124,52 @@ Error‑based SQL injection is a technique where an attacker intentionally trigg
 >```
 >
 >This query returns the user whose `username` is `administrator` and successfully logs the attacker in as that user.
+
+## **Union‑Based SQL Injection**
+
+```mermaid
+flowchart LR
+
+A(SQL Injection)
+
+B(In-Band SQLi)
+C(Blind SQLi)
+D(Out-of-Band SQLi)
+
+E[Error-Based SQLi]
+F[Union-Based SQLi]
+
+G[Boolean-Based SQLi]
+H[Time-Based SQLi]
+
+I[DNS Base]
+J[HTTPS Base]
+
+A --> B
+A --> C
+A --> D
+
+B --> E
+B --> F
+
+C --> G
+C --> H
+
+D --> I
+D --> J
+
+%% Styles
+style A fill:#f4a261,stroke:#333,stroke-width:2px,color:#000
+
+style B fill:#f70800,stroke:#333,stroke-width:1px,color:#000
+style C fill:#8bc34a,stroke:#333,stroke-width:1px,color:#000
+style D fill:#8bc34a,stroke:#333,stroke-width:1px,color:#000
+
+style E fill:#4f79d9,stroke:#333,stroke-width:1px,color:#fff
+style F fill:#f70800,stroke:#333,stroke-width:1px,color:#fff
+style G fill:#4f79d9,stroke:#333,stroke-width:1px,color:#fff
+style H fill:#4f79d9,stroke:#333,stroke-width:1px,color:#fff
+style I fill:#4f79d9,stroke:#333,stroke-width:1px,color:#fff
+style J fill:#4f79d9,stroke:#333,stroke-width:1px,color:#fff
+```
+

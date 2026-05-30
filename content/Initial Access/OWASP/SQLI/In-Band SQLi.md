@@ -125,8 +125,7 @@ Error‑based SQL injection is a technique where an attacker intentionally trigg
 >
 >This query returns the user whose `username` is `administrator` and successfully logs the attacker in as that user.
 
-## **Union‑Based SQL Injection**
-
+### **Union‑Based SQL Injection**
 
 ```mermaid
 flowchart LR

@@ -1,9 +1,10 @@
 
+# In band SQL Injection
 
 is a type of SQL injection attack where the attacker uses the **same communication channel** to both **inject malicious SQL queries and retrieve the results from the database**.
 It is called _in‑band_ because the **data extraction happens in the same channel as the injection**.
 
-## **Error‑Based SQL Injection**
+#### **Error‑Based SQL Injection**
 
 ```mermaid
 flowchart LR
@@ -125,7 +126,7 @@ Error‑based SQL injection is a technique where an attacker intentionally trigg
 >
 >This query returns the user whose `username` is `administrator` and successfully logs the attacker in as that user.
 
-### **Union‑Based SQL Injection**
+#### **Union‑Based SQL Injection**
 
 ```mermaid
 flowchart LR

@@ -1,6 +1,4 @@
 
-# In band SQL Injection
-
 is a type of SQL injection attack where the attacker uses the **same communication channel** to both **inject malicious SQL queries and retrieve the results from the database**.
 It is called _in‑band_ because the **data extraction happens in the same channel as the injection**.
 

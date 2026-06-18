@@ -2,7 +2,6 @@
 
 <img src="content/Asset/Pasted image 20260227170136.png"  width="800"/>
 
-hell
 # ATTvDEF
 
 > A structured knowledge base focused on **Attack vs Defense** concepts in cybersecurity.

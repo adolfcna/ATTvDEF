@@ -1,9 +1,3 @@
----
-title: Mimikatz
-draft: false
-tags:
-  - Tools
----
 
 ![[Pasted image 20260227171733.png]]
 

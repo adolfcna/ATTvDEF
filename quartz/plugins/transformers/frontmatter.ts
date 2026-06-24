@@ -62,7 +62,11 @@ export const FrontMatter: QuartzTransformerPlugin<Partial<Options>> = (userOpts)
         [remarkFrontmatter, ["yaml", "toml"]],
         () => {
           return (_, file) => {
-            const fileData = Buffer.from(file.value as Uint8Array)
+            console.log(typeof file.value)
+            console.log(file.value?.constructor?.name)
+
+            const fileData = String(file.value)
+
             const { data } = matter(fileData, {
               ...opts,
               engines: {

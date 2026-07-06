@@ -42,7 +42,11 @@
 >	}
 >	// use named Pipe
 >	else if (method == PIPE) {
->		hSync = CreateNamedPipe(PIPENAME, PIPE_ACCESS_DUPLEX, PIPE_TYPE_MESSAGE, PIPE_UNLIMITED_INSTANCES, 1024, 1024, 0, NULL); 
+>		hSync = CreateNamedPipe(PIPENAME, 
+>		PIPE_ACCESS_DUPLEX, 
+>		PIPE_TYPE_MESSAGE, 
+>		PIPE_UNLIMITED_INSTANCES, 
+>		1024, 1024, 0, NULL); 
 >
 >		if (GetLastError() == ERROR_ALREADY_EXISTS) {
 >			CloseHandle(hSync);
@@ -53,7 +57,9 @@
 >	return ret;
 >}
 >
->//int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+>//int WINAPI WinMain(HINSTANCE hInstance, 
+>//HINSTANCE hPrevInstance, 
+>//LPSTR lpCmdLine, int nCmdShow) {
 >int main(void) {
 >
 >   

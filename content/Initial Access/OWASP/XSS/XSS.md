@@ -1,11 +1,10 @@
 ---
 title: Cross Site Scripting
+draft:
 tags:
-  - xss
-  - websecurity
-  - payloads
-  - redteam
-  - cheat-sheet
+  - XSS
+  - Web
+  - OWASP
 ---
 #  XSS Payload Vault
 

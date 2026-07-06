@@ -41,11 +41,6 @@ T2 -->|"HTTP Request"| W1
 W1 -->|"HTTP Response"| W2
 W2 -->|"Browser executes script"| T3
 
-classDef attacker fill:#FFF1F2,stroke:#BE123C,stroke-width:2px,color:#111827  
-classDef victim fill:#F0FDF4,stroke:#15803D,stroke-width:2px,color:#111827  
-classDef website fill:#EFF6FF,stroke:#1D4ED8,stroke-width:2px,color:#111827
-
-
 class A1 attacker
 class T1,T2,T3 victim
 class W1,W2 website

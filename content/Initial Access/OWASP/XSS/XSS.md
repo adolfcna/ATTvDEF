@@ -17,18 +17,18 @@ tags:
 ```mermaid
 flowchart TD
 
-subgraph Attacker
+subgraph "🧑‍💻Attacker"
     A1["Crafts malicious URL
 http://website.com/page.php?payload"]
 end
 
-subgraph Victim
+subgraph "💻Victim"
     T1["Receives malicious link"]
     T2["Clicks the link"]
     T3["Browser executes reflected payload"]
 end
 
-subgraph Website
+subgraph "🌐 Website"
     W1["Receives HTTP request
 with unsanitized input"]
     W2["Reflects payload in response
@@ -41,9 +41,6 @@ T2 -->|"HTTP Request"| W1
 W1 -->|"HTTP Response"| W2
 W2 -->|"Browser executes script"| T3
 
-class A1 attacker
-class T1,T2,T3 victim
-class W1,W2 website
 ```
 
 > [!info]
@@ -74,11 +71,6 @@ Victim -->| Victim visits the website| Website
 Website -->|Serves page containing<br>stored XSS payload| Victim
 
 Victim -->| Malicious script executes<br>and exfiltrates data| Attacker
-
-
-classDef attacker fill:#FFF1F2,stroke:#BE123C,stroke-width:2px,color:#111827  
-classDef victim fill:#F0FDF4,stroke:#15803D,stroke-width:2px,color:#111827  
-classDef server fill:#EFF6FF,stroke:#1D4ED8,stroke-width:2px,color:#111827
 
 
 class Attacker attacker;

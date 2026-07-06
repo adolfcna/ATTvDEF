@@ -36,9 +36,9 @@ W2["Reflects payload in HTTP Response<br><code>&lt;script&gt;PAYLOAD&lt;/script&
 end
 
 %% --- Flow connections ---
-A1 -->|1️⃣  Sends crafted link| T1
-T1 -->|2️⃣  Clicks link| W1
-W1 -->|3️⃣  Returns response containing payload| T3
+A1 -->|1️  Sends crafted link| T1
+T1 -->|2️  Clicks link| W1
+W1 -->|3️  Returns response containing payload| T3
 
 %% --- Styling ---
 classDef attacker fill:#ffe5e5,stroke:#ff4d4d,stroke-width:2px,color:#000;

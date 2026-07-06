@@ -35,11 +35,11 @@ with unsanitized input"]
 <script>PAYLOAD</script>"]
 end
 
-A1 -->|"1. Sends malicious link"| T1
-T1 -->|"2. User clicks"| T2
-T2 -->|"3. HTTP Request"| W1
-W1 -->|"4. HTTP Response"| W2
-W2 -->|"5. Browser executes script"| T3
+A1 -->|"Sends malicious link"| T1
+T1 -->|"User clicks"| T2
+T2 -->|"HTTP Request"| W1
+W1 -->|"HTTP Response"| W2
+W2 -->|"Browser executes script"| T3
 
 classDef attacker fill:#FFF1F2,stroke:#BE123C,stroke-width:2px,color:#111827  
 classDef victim fill:#F0FDF4,stroke:#15803D,stroke-width:2px,color:#111827  

@@ -16,6 +16,42 @@ tags:
 
 ```mermaid
 flowchart TD
+
+subgraph Attacker
+    A1["Crafts malicious URL
+http://website.com/page.php?payload"]
+end
+
+subgraph Victim
+    T1["Receives malicious link"]
+    T2["Clicks the link"]
+    T3["Browser executes reflected payload"]
+end
+
+subgraph Website
+    W1["Receives HTTP request
+with unsanitized input"]
+    W2["Reflects payload in response
+<script>PAYLOAD</script>"]
+end
+
+A1 -->|"1. Sends malicious link"| T1
+T1 -->|"2. User clicks"| T2
+T2 -->|"3. HTTP Request"| W1
+W1 -->|"4. HTTP Response"| W2
+W2 -->|"5. Browser executes script"| T3
+
+classDef attacker fill:#ffe5e5,stroke:#ff4d4d
+classDef victim fill:#e6ffe6,stroke:#28a745
+classDef website fill:#e6f2ff,stroke:#1a75ff
+
+class A1 attacker
+class T1,T2,T3 victim
+class W1,W2 website
+```
+
+```mermaid
+flowchart TD
 %% -------------------------------
 %% Reflected XSS Flow - Clean Report Style
 %% -------------------------------

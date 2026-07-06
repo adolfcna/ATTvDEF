@@ -41,9 +41,9 @@ T2 -->|"3. HTTP Request"| W1
 W1 -->|"4. HTTP Response"| W2
 W2 -->|"5. Browser executes script"| T3
 
-classDef attacker fill:#FDECEC,stroke:#C0392B,stroke-width:2px,color:#222
-classDef victim fill:#ECFDF3,stroke:#2E8B57,stroke-width:2px,color:#222
-classDef website fill:#EDF4FF,stroke:#2563EB,stroke-width:2px,color:#222
+classDef attacker fill:#FFF1F2,stroke:#BE123C,stroke-width:2px,color:#111827  
+classDef victim fill:#F0FDF4,stroke:#15803D,stroke-width:2px,color:#111827  
+classDef website fill:#EFF6FF,stroke:#1D4ED8,stroke-width:2px,color:#111827
 
 
 class A1 attacker
@@ -81,9 +81,10 @@ Website -->|Serves page containing<br>stored XSS payload| Victim
 Victim -->| Malicious script executes<br>and exfiltrates data| Attacker
 
 
-classDef attacker fill:#ffe5e5,stroke:#ff4d4d,stroke-width:2px,color:#000;
-classDef server fill:#e6f2ff,stroke:#1a75ff,stroke-width:2px,color:#000;
-classDef victim fill:#e6ffe6,stroke:#28a745,stroke-width:2px,color:#000;
+classDef attacker fill:#FFF1F2,stroke:#BE123C,stroke-width:2px,color:#111827  
+classDef victim fill:#F0FDF4,stroke:#15803D,stroke-width:2px,color:#111827  
+classDef server fill:#EFF6FF,stroke:#1D4ED8,stroke-width:2px,color:#111827
+
 
 class Attacker attacker;
 class Website server;

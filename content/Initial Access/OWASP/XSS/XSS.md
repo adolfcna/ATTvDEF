@@ -1,5 +1,5 @@
 ---
-title: XSS Payload Vault (Advanced Collapsible)
+title: Cross Site Scripting
 tags:
   - xss
   - websecurity

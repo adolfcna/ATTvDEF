@@ -41,51 +41,15 @@ T2 -->|"3. HTTP Request"| W1
 W1 -->|"4. HTTP Response"| W2
 W2 -->|"5. Browser executes script"| T3
 
-classDef attacker fill:#ffe5e5,stroke:#ff4d4d
-classDef victim fill:#e6ffe6,stroke:#28a745
-classDef website fill:#e6f2ff,stroke:#1a75ff
+classDef attacker fill:#FDECEC,stroke:#C0392B,stroke-width:2px,color:#222
+classDef victim fill:#ECFDF3,stroke:#2E8B57,stroke-width:2px,color:#222
+classDef website fill:#EDF4FF,stroke:#2563EB,stroke-width:2px,color:#222
+
 
 class A1 attacker
 class T1,T2,T3 victim
 class W1,W2 website
 ```
-
-```mermaid
-flowchart TD
-%% -------------------------------
-%% Reflected XSS Flow - Clean Report Style
-%% -------------------------------
-
-subgraph Attacker["🧑‍💻  Attacker"]
-A1["Crafts malicious URL<br><code>http://website.com/page.php?payload</code>"]
-end
-
-subgraph Target["💻  Target (Victim User)"]
-T1["Receives malicious link"]
-T2["Clicks the link → Browser sends request"]
-T3["Receives reflected response containing payload<br>and executes the injected script"]
-end
-
-subgraph Website["🌐  Vulnerable Website"]
-W1["Receives HTTP Request with unsanitized payload"]
-W2["Reflects payload in HTTP Response<br><code>&lt;script&gt;PAYLOAD&lt;/script&gt;</code>"]
-end
-
-%% --- Flow connections ---
-A1 -->|1️  Sends crafted link| T1
-T1 -->|2️  Clicks link| W1
-W1 -->|3️  Returns response containing payload| T3
-
-%% --- Styling ---
-classDef attacker fill:#ffe5e5,stroke:#ff4d4d,stroke-width:2px,color:#000;
-classDef target fill:#e6ffe6,stroke:#28a745,stroke-width:2px,color:#000;
-classDef website fill:#e6f2ff,stroke:#1a75ff,stroke-width:2px,color:#000;
-class A1 attacker;
-class T1,T2,T3 target;
-class W1,W2 website;
-
-```
-
 
 > [!info]
 > **Reflected XSS** occurs when user input is immediately reflected in the HTTP response without proper encoding.

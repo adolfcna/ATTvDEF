@@ -1,6 +1,6 @@
 ---
 title: DOM vs BOM
-draft:
+draft: false
 tags:
 ---
 ![[Pasted image 20260721063256.png|697]]

@@ -3,8 +3,7 @@ title: SOP vs CORS
 draft:
 tags:
 ---
-![[Pasted image 20260721072327.png]]
-
+![[Pasted image 20260721072616.png|695]]
 # Same Origin vs Cross Origin
 
 > [!info] Overview

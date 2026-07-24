@@ -1,3 +1,10 @@
+---
+title: HFGT
+draft: false
+tags:
+  - T1185
+---
+### Session Hijacking
 
 **Definition:**  
 Attacker **steals a valid active session ID** of a logged-in user and uses it to impersonate them.
@@ -182,5 +189,3 @@ Modify session data
 >Session Prediction → Guess session
 >Session Tampering  → Modify session
 >```
-
-

@@ -4,6 +4,7 @@ draft: false
 tags:
   - Basic
 ---
+![[Pasted image 20260726163745.png]]
 # HTTP Cookie Security Attributes
 
 HTTP cookies are created by the server using the `Set-Cookie` response header.
@@ -168,30 +169,7 @@ flowchart LR
 > [!danger] Security Purpose
 >
 > Secure prevents session cookies from being exposed over unencrypted HTTP connections.
-
----
-
-# Same Site
-
-> [!info] What is SameSite?
->
-> `SameSite` controls when browsers send cookies in **same-site** and **cross-site** requests.
->
-> Its main purpose is reducing the risk of:
->
-> ```text
-> CSRF (Cross-Site Request Forgery)
-> ```
-
-Example:
-
-> [!example] SameSite Attribute
->
-> ```http
-> Set-Cookie: sessionid=abc123; SameSite=Lax
-> ```
-
-# Same-Origin
+# Same Origin
 
 > [!info] Same-Origin Definition
 >
@@ -206,8 +184,6 @@ Example:
 > - **Scheme** → Protocol (`http`, `https`)
 > - **Host** → Domain name (`app.example.com`)
 > - **Port** → Network port (`443`, `8080`)
-
----
 
 > [!danger] Different Host
 >
@@ -233,8 +209,6 @@ Example:
 >
 > Because the hostname is different.
 
----
-
 > [!danger] Different Port
 >
 > ```text
@@ -258,8 +232,6 @@ Example:
 > ```
 >
 > Because the port is different.
-
----
 
 > [!danger] Different Scheme
 >
@@ -285,8 +257,6 @@ Example:
 >
 > Because the protocol scheme is different.
 
----
-
 > [!example] Same-Origin Examples
 >
 > | URL | Result |
@@ -295,10 +265,7 @@ Example:
 > | `https://app.example.com:8443` | Different Origin |
 > | `http://app.example.com` | Different Origin |
 > | `https://admin.example.com:443` | Different Origin |
-
----
-
-# Same-Site
+# Same Site
 
 > [!info] Same-Site Definition
 >
@@ -309,8 +276,6 @@ Example:
 > ```
 >
 > Unlike Same-Origin, different subdomains can still belong to the same site.
-
----
 
 > [!example] Same-Site Example
 >
@@ -357,79 +322,30 @@ Example:
 >
 > Two URLs can be **Same-Site** but still have **Different Origins**.
 
-Example:
+```mermaid
+flowchart LR
+    A["https:\/\/app.example.com"] --> C{Compare with}
+    B["https:\/\/admin.example.com"] --> C
 
-```text
-https://app.example.com
-
-https://admin.example.com
+    C --> D["Same Site ✅<br/>Both belong to example.com"]
+    C --> E["Same Origin ❌<br/>Different hostnames"]
 ```
 
-Result:
-
-```text
-Same Site      ✅
-Same Origin    ❌
-```
-
-Reason:
-
-```text
-Same Site:
-example.com is identical
-
-Same Origin:
-Hostnames are different
-```
-
----
-
-> [!example] Browser Security Model
->
-> ```mermaid
-> flowchart LR
->     A[URL A] --> B{Browser Comparison}
->     C[URL B] --> B
->
->     B --> D[Same-Origin Check]
->     B --> E[Same-Site Check]
->
->     D --> F[Scheme + Host + Port]
->     E --> G[Scheme + Registrable Domain]
-> ```
-
----
-
-# Cross-Site
+# Cross Site
 
 > [!danger] Cross-Site Example
 >
 > Two URLs are considered **cross-site** when they belong to different registrable domains.
 
-Example:
+```mermaid
+flowchart LR
+    A["https:\/\/evil.com"] --> C{Compare with}
+    B["https:\/\/bank.com"] --> C
 
-```text
-https://evil.com
-        |
-        v
-https://bank.com
+    C --> D["Registrable Domain ✘<br/>Different domains"]
+    D --> E["🔴 Cross Site"]
 ```
-
-Comparison:
-
-```text
-Registrable Domain ✘ Different domains
-```
-
-Result:
-
-```text
-🔴 Cross Site
-```
-
----
-
-# SameSite Cookie Modes
+# Same Site Cookie Modes
 
 > [!success] SameSite Values
 >
@@ -442,7 +358,7 @@ Strict
 Lax
 None
 ```
-# SameSite=Strict
+## SameSite : Strict
 
 > [!danger] Strict Mode
 >
@@ -604,8 +520,6 @@ None
 | SameSite=Strict | Maximum CSRF protection |
 | SameSite=Lax | Balance between security and usability |
 | SameSite=None | Allow cross-site cookie usage |
-
----
 
 # Complete Secure Cookie Example
 

@@ -4,6 +4,7 @@ draft: false
 tags:
   - T1185
 ---
+![[Pasted image 20260726163847.png]]
 ### Session Hijacking
 
 **Definition:**  

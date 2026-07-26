@@ -1,9 +1,7 @@
 
 # Red Team & Blue Team Operations Cheat  Sheet
 
-<img src="Asset/Saint Mary.jpg"  width="800"/>
-
-![[Pasted image 20260726164407.png]]
+<img src="Asset/Saint Mary.png"  width="800"/>
 
 # ATTvDEF – Cybersecurity Cheat Sheet
 

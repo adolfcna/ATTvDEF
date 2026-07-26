@@ -7,7 +7,6 @@ tags:
 # HTTP Cookie Security Attributes
 
 HTTP cookies are created by the server using the `Set-Cookie` response header.
-
 The server can attach security attributes to control how browsers store and send cookies.
 
 > [!example] Example
@@ -35,9 +34,7 @@ The browser receives the cookie and stores both the value and its security attri
 > ```
 
 The browser does **not** send these attributes back to the server.
-
 They are internal rules enforced by the browser.
-
 Future requests contain only the cookie name and value:
 
 > [!example] Cookie Request
@@ -68,8 +65,6 @@ Future requests contain only the cookie name and value:
 > [!info] What is HttpOnly?
 >
 > `HttpOnly` is a cookie attribute that prevents JavaScript running in the browser from accessing the cookie value.
-
-Example:
 
 > [!example] HttpOnly Cookie
 >
@@ -104,8 +99,6 @@ When `HttpOnly` is enabled:
 > ```text
 > sessionid is not visible
 > ```
-
----
 
 > [!danger] Security Purpose
 >
@@ -156,36 +149,18 @@ Cookie: sessionid=abc123
 >
 > The `Secure` attribute instructs the browser to send the cookie only over HTTPS connections.
 
-Example:
-
 > [!example] Secure Cookie
 >
 > ```http
 > Set-Cookie: sessionid=abc123; Secure
 > ```
 
-HTTPS request:
+```mermaid
+flowchart LR
+    A[Browser sends request] --> B{HTTPS?}
 
-```text
-https://example.com
-```
-
-Cookie:
-
-```text
-✅ Sent
-```
-
-HTTP request:
-
-```text
-http://example.com
-```
-
-Cookie:
-
-```text
-❌ Not Sent
+    B -->|Yes| C[Include Cookie Header ✅]
+    B -->|No| D[Do NOT Include Cookie Header ❌]
 ```
 
 ---
@@ -196,7 +171,7 @@ Cookie:
 
 ---
 
-# SameSite
+# Same Site
 
 > [!info] What is SameSite?
 >

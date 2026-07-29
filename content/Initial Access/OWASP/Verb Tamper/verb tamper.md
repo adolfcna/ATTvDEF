@@ -15,17 +15,17 @@ tags:
 
 ## HTTP Methods
 
-| Method | Description |
-| -------- | ---------------------- |
-| GET | Retrieve a resource |
-| POST | Submit data |
-| PUT | Replace a resource |
-| PATCH | Partial update |
-| DELETE | Delete a resource |
-| HEAD | Same as GET without body |
-| OPTIONS | Show supported methods |
-| TRACE | Diagnostic method |
-| CONNECT | Create proxy tunnel |
+| Method  | Description              |
+| ------- | ------------------------ |
+| GET     | Retrieve a resource      |
+| POST    | Submit data              |
+| PUT     | Replace a resource       |
+| PATCH   | Partial update           |
+| DELETE  | Delete a resource        |
+| HEAD    | Same as GET without body |
+| OPTIONS | Show supported methods   |
+| TRACE   | Diagnostic method        |
+| CONNECT | Create proxy tunnel      |
 
 > [!tip]
 >

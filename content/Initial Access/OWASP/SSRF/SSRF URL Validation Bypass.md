@@ -20,7 +20,7 @@ tags:
 A common insecure flow:
 
 ```mermaid
-flowchart TD
+flowchart LR
 
 A[User Controlled URL]
 
@@ -350,43 +350,22 @@ HTTPClient->>HTTPClient: Resolve host = evil.com
 HTTPClient-->>Input: Request sent
 ```
 
----
-
-# Secure URL Validation Checklist
-
-> [!todo]
-
-- Parse URL using a trusted URL parser.
-    
-- Normalize hostname before validation.
-    
-- Resolve DNS before making requests.
-    
-- Validate the final destination after redirects.
-    
-- Block localhost addresses.
-    
-- Block private IP ranges.
-    
-- Block link-local addresses.
-    
-- Block cloud metadata IPs.
-    
-- Avoid regex-only URL validation.
-    
-- Ensure validator and HTTP client parse URLs identically.
-    
-
----
+> [!todo] Secure URL Validation Checklist
+> - Parse URL using a trusted URL parser.
+> - Normalize hostname before validation.
+> - Resolve DNS before making requests.
+> - Validate the final destination after redirects.
+> - Block localhost addresses.
+> - Block private IP ranges.
+> - Block link-local addresses.
+> - Block cloud metadata IPs.
+> - Avoid regex-only URL validation.
+> - Ensure validator and HTTP client parse URLs identically.
 
 # Related Vulnerabilities
 
 - Server-Side Request Forgery (SSRF)
-    
 - Open Redirect
-    
 - DNS Rebinding
-    
 - URL Parser Confusion
-    
 - Access Control Bypass

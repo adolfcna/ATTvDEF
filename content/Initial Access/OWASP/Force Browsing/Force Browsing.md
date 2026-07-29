@@ -3,6 +3,7 @@ title: Force Browsing
 draft: false
 tags:
 ---
+
 > [!abstract]
 >
 > **Force Browsing** (also known as **Direct Browsing**, **Predictable Resource Location**, or **Forced Resource Discovery**) is a technique where an attacker manually requests files, directories, or endpoints that are not linked by the application but are still accessible on the server.
@@ -364,5 +365,5 @@ curl -i https://target.com/api/v1
 >application/json" -d '{"user": "UU", "pass": "PP"}' #fuzzing for valid credentials
 >```
 >```bash
->ffuf -w wordlist:CNA -u https://site.com/CNA.php -mc all -fc 400,401 -c
+>ffuf -w wordlist:CNA -u https://site.com/CNA.php -mc all -fc 404 -c
 >```

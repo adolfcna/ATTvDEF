@@ -1,33 +1,79 @@
-#### **Step 1 – Authentication Enumeration**
+---
+title: BruteForce
+draft:
+tags:
+---
+## Authentication Enumeration
 
-Intercept the authentication traffic using **Burp Suite** and analyze the HTTP requests to determine the authentication mechanism used by the application.
+> [!abstract]
+>
+> Before performing an authentication brute-force attack, identify **how the application authenticates users** and determine **how failed login attempts are indicated**. This information is required to correctly configure tools such as **Hydra**.
 
-Common authentication methods include:
+---
 
-- **Form‑Based Authentication** (credentials sent in POST body)
-- **HTTP Basic Authentication** (credentials encoded in Base64 in the `Authorization` header)
-- **HTTP Digest Authentication** (challenge–response mechanism using MD5)
+### Step 1 – Identify the Authentication Mechanism
 
-Identify the request responsible for authentication and extract the following information:
+Intercept the login request using **Burp Suite** and analyze the HTTP request responsible for authentication.
 
-- **HTTP method** (GET / POST)
-- **Authentication endpoint**
-- **Parameters used for credentials**
-- **Authentication headers (if present)**
+Common authentication methods:
 
-This information will be used to construct a **Hydra brute‑force command**.
+- **Form-Based Authentication** (credentials submitted in the POST body)
+- **HTTP Basic Authentication** (credentials sent in the `Authorization` header using Base64)
+- **HTTP Digest Authentication** (challenge-response authentication using MD5)
 
-#### **Step 2 – Identify the Failed Login Response**
+Collect the following information:
 
-Using **Burp Repeater**, send several invalid authentication attempts and analyze the server response.
+- HTTP Method (`GET` / `POST`)
+- Authentication Endpoint
+- Username Parameter
+- Password Parameter
+- Authentication Headers (if applicable)
 
-Pay attention to:
+```mermaid
+flowchart LR
 
-- **Response body**
-- **HTTP status code**
-- **Error message**
+A[User Login]
 
-This information helps identify the **failure condition** used in brute‑force tools such as Hydra.
+A --> B[Burp Proxy]
+
+B --> C[Intercept HTTP Request]
+
+C --> D[Identify Authentication Method]
+
+D --> E[Collect Required Parameters]
+```
+
+---
+
+### Step 2 – Identify the Failed Login Response
+
+Send several invalid authentication attempts using **Burp Repeater** and compare the server responses.
+
+Analyze:
+
+- HTTP Status Code
+- Response Body
+- Error Message
+- Response Length
+- Redirect Behavior
+
+The objective is to determine a reliable **failure indicator** that can later be supplied to **Hydra**.
+
+```mermaid
+sequenceDiagram
+
+participant Tester
+participant BurpRepeater
+participant Application
+
+Tester->>BurpRepeater: Invalid Credentials
+
+BurpRepeater->>Application: Send Request
+
+Application-->>BurpRepeater: Failed Login Response
+
+BurpRepeater-->>Tester: Analyze Response
+```
 
 >[!tip] Form‑Based Authentication Example
 >```http

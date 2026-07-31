@@ -1,6 +1,6 @@
 ---
 title: BruteForce
-draft:
+draft: false
 tags:
 ---
 ## Authentication Enumeration
@@ -8,8 +8,6 @@ tags:
 > [!abstract]
 >
 > Before performing an authentication brute-force attack, identify **how the application authenticates users** and determine **how failed login attempts are indicated**. This information is required to correctly configure tools such as **Hydra**.
-
----
 
 ### Step 1 – Identify the Authentication Mechanism
 
@@ -42,9 +40,6 @@ C --> D[Identify Authentication Method]
 
 D --> E[Collect Required Parameters]
 ```
-
----
-
 ### Step 2 – Identify the Failed Login Response
 
 Send several invalid authentication attempts using **Burp Repeater** and compare the server responses.

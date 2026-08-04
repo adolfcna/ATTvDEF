@@ -210,26 +210,12 @@ JWT hash mode:
 Command:
 
 ```bash
+hashcat -hh | grep -i jwt
+16500 | JWT (JSON Web Token) | Network Protocol 
 hashcat -m 16500 -a 0 fil.txt /usr/share/wordlists/rockyou.txt
 ```
 
----
-
-## Hashcat Result
-
-Hashcat successfully recovered the signing secret:
-
-```
-JWT:lol
-```
-
-Recovered secret:
-
-```
-lol
-```
-
----
+![[Pasted image 20260804153317.png]]
 
 ## Exploitation
 

@@ -437,7 +437,7 @@ This demonstrates **Local File Disclosure through XXE**.
 
 ---
 
-## Attack Flow
+## Flow
 
 ```mermaid
 flowchart LR
@@ -449,8 +449,6 @@ flowchart LR
     D -->|http:// / https://| F[Internal Service]
     D -->|http:// / https://| G[External Server]
 ```
-
----
 
 ## Types of XXE
 

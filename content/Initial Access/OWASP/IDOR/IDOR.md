@@ -4,15 +4,13 @@ draft: false
 tags:
 ---
 
-
 > [!abstract]
 >
 > **Insecure Direct Object Reference (IDOR)** is an access control vulnerability where an application exposes a direct reference to an object (such as a user ID, document ID, order number, or filename) without verifying whether the authenticated user is authorized to access that object.
 >
 > An attacker can manipulate the object identifier to access or modify resources belonging to other users.
 
----
-
+![[Pasted image 20260811163438.png]]
 # How IDOR Works
 
 Applications often expose object identifiers in requests.

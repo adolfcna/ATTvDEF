@@ -53,7 +53,7 @@ style J fill:#4f79d9,stroke:#333,stroke-width:1px,color:#fff
 ```
 
 
-
+![[Pasted image 20260811163025.png]]
 
 ## **Blind-Based SQL Injection**
 

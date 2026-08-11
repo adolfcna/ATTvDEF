@@ -11,6 +11,8 @@ tags:
 >
 > Instead of the attacker directly communicating with a target, the vulnerable server acts as a proxy and performs the request on behalf of the attacker.
 
+![[Pasted image 20260811162855.png]]
+
 > [!danger]- Vulnerable Code
 > ```php
 > <? php

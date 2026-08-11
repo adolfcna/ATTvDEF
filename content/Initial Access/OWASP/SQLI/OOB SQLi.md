@@ -1,6 +1,8 @@
 
 Out-of-Band SQL Injection is a class of SQL injection attacks where data exfiltration occurs **through external channels** rather than in the HTTP response.
 
+![[Pasted image 20260811163253.png]]
+
 ```mermaid
 flowchart LR
 

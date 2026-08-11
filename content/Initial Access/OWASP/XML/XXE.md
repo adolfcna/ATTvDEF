@@ -5,6 +5,7 @@ tags:
   - CWE-611
   - A05
 ---
+
 > [!info] Improper Restriction of XML External Entity Reference  
 > **CWE-611: Improper Restriction of XML External Entity Reference**
 > 
@@ -24,6 +25,8 @@ tags:
 >     
 > 
 > The vulnerability is not caused by XML itself. The problem is the combination of **untrusted XML input** and an **insecure XML parser configuration**.
+
+![[Pasted image 20260811162254.png]]
 
 ## What is XML?
 

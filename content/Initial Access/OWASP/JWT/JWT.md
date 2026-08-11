@@ -7,9 +7,11 @@ tags:
   - CWE-321
   - CWE-287
 ---
+
 > [!info]
 > JWT Forgery via Weak HS512 Secret
 
+![[Pasted image 20260811163407.png]]
 ## Overview
 
 In this challenge, the target application uses JSON Web Token (JWT) for authentication and authorization.

@@ -5,7 +5,6 @@ tags:
   - CWE-307
 ---
 
-
 > [!info]
 > ## What is XML-RPC?
 >
@@ -36,6 +35,8 @@ tags:
 > ```
 >
 > The server parses the XML, identifies the requested method, executes it, and returns an XML response.
+
+![[Pasted image 20260811162010.png]]
 
 ## How XML-RPC Works
 

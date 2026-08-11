@@ -13,8 +13,7 @@ tags:
 >
 > A secure checker must validate the **final destination** of the request, not only the initial user input.
 
----
-
+![[Pasted image 20260811162929.png]]
 # Why URL Validation Fails
 
 A common insecure flow:

@@ -11,8 +11,7 @@ tags:
 >
 > The vulnerability exists when an application protects one HTTP method (such as `GET` or `POST`) but unintentionally allows another method to access the same functionality.
 
----
-
+![[Pasted image 20260811162520.png]]
 ## HTTP Methods
 
 | Method  | Description              |

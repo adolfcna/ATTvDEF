@@ -10,8 +10,7 @@ tags:
 >
 > Unlike directory brute-forcing, Force Browsing is based on **guessing or knowing common resource names**.
 
----
-
+![[Pasted image 20260811163519.png]]
 # How It Works
 
 A web application may hide sensitive resources from users but fail to protect them.

@@ -1,4 +1,4 @@
-
+![[Pasted image 20260811165447.png]]
 ### weevely
 
 `Weevely` is a web shell designed for post-exploitation purposes that can be extended over the network at runtime.

@@ -8,8 +8,7 @@ tags:
 > [!abstract]  
 > **Cross-Site Request Forgery (CSRF)** is a web vulnerability that tricks an authenticated user into performing unintended actions on a web application without their knowledge.
 
----
-
+![[Pasted image 20260811163907.png]]
 ## What is CSRF
 
 

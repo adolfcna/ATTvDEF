@@ -1,4 +1,73 @@
-In command injection, a web application generate bash commands, including data from client. A malicious user adds custom command that **modify** the normal operation of the web application. In a short word, unsafe user supplied data to system shell. the severity is commonly considered as a critical issue.
+---
+title: Command Injection
+draft:
+tags:
+---
+![[Pasted image 20260811164040.png]]
+
+> [!info]  Command Injection
+> 
+> 
+> OS Command Injection occurs when a web application passes attacker-controlled input to the operating system shell without properly validating or safely handling that input.
+> 
+> In this vulnerability, the application normally generates or executes an operating system command using data supplied by the client. If that input is incorporated into the command unsafely, an attacker may be able to inject additional shell commands that are executed by the server.
+> 
+> In simple terms:
+> 
+> ```text
+> Untrusted User Input
+>         ↓
+> Web Application
+>         ↓
+> Operating System Shell
+>         ↓
+> Injected Command Execution
+> ```
+> 
+> For example, an application may expect a user to provide a filename:
+> 
+> ```text
+> filename = report.txt
+> ```
+> 
+> and construct a command such as:
+> 
+> ```bash
+> cat report.txt
+> ```
+> 
+> If the application directly places untrusted input into a shell command, an attacker may manipulate the input so that additional commands are interpreted by the shell.
+> 
+> The core security problem is therefore:
+> 
+> ```text
+> Attacker-Controlled Input
+>            +
+> Unsafe Shell Command Construction
+>            =
+> OS Command Injection
+> ```
+> 
+> The impact can be severe because the injected command executes with the privileges of the vulnerable application or operating-system process.
+> 
+> Depending on the application's privileges and environment, successful command injection may result in:
+> 
+> - Arbitrary command execution
+>     
+> - Reading sensitive files
+>     
+> - Modifying or deleting data
+>     
+> - Access to environment secrets
+>     
+> - Network access from the server
+>     
+> - Privilege escalation through subsequent attacks
+>     
+> - Full server compromise
+>     
+> 
+> **OS Command Injection is commonly considered a Critical-severity vulnerability when arbitrary command execution is possible.**
 
 ![[Pasted image 20260516180351.png]]
 
@@ -98,3 +167,13 @@ Procedure
 > ```
 
 resource : [RevShell](https://www.revshells.com)
+
+
+## Commix
+
+Is an open source penetration testing tool, Automates the detection and exploitation of Command Injection vulnerabilities. [WebSite](https://commixproject.com)
+
+>[!Danger] Commix 
+> ```python
+> python3 commix.py -r packet.burp -p var
+> ```

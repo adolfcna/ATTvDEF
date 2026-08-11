@@ -4,8 +4,7 @@ SSTI stands for server-side Template Injection, which is a vulnerability that ca
 - so user can inject arbitrary code in some case 
 - the flow is something like Detection -> Template engine identification -> Exploitation
 
-### Detection Payload
-
+![[Pasted image 20260811165342.png]]
 
 ```mermaid
 flowchart TD

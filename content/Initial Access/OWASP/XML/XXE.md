@@ -355,6 +355,10 @@ The entity is then referenced:
 &bar;
 ```
 
+```bash
+# curl -H "content-type:application/xml" example.com/xml.php -d "$(cat .\payloadxml.txt)"
+```
+
 If the parser resolves the entity, it may attempt to read the referenced resource.
 
 If the application includes the resolved value in its response, the attacker may receive the file contents.

@@ -11,6 +11,8 @@ tags:
 > [!abstract] **Overview**
 > Structured vault for common **XSS payload families**, organized by **execution context** for fast offensive testing and filter bypass analysis.
 
+![[Pasted image 20260814211226.png]]
+
 # Reflected XSS
 
 ```mermaid

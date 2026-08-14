@@ -2,6 +2,7 @@
 title: Data Transmission
 draft: false
 tags:
+  - Basic
 ---
 > [!abstract]
 > 

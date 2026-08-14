@@ -10,9 +10,10 @@ tags:
 >
 > Its primary goal is to reduce the impact of **Cross-Site Scripting (XSS)** and other code injection attacks.
 
-Example:
+![[Pasted image 20260814210924.png]]
 
-> [!example] CSP Response Header
+
+> [!example] CSP Response Header Example
 >
 > ```http
 > HTTP/1.1 200 OK

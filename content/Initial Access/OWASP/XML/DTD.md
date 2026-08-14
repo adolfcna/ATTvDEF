@@ -2,6 +2,7 @@
 title: Document Type Definition
 draft: false
 tags:
+  - Basic
 ---
 
 > [!abstract]  What is DTD?

@@ -1,3 +1,9 @@
+---
+title: Tools
+draft:
+tags:
+---
+
 ![[Pasted image 20260811165447.png]]
 ### weevely
 

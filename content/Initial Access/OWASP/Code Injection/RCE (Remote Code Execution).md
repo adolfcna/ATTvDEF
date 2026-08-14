@@ -2,6 +2,7 @@
 title: RCE
 draft:
 tags:
+  - CWE-94
 ---
 > [!info] What is RCE?
 > **Remote Code Execution (RCE)** is a vulnerability that allows an attacker to cause an application or server to execute **attacker-controlled code remotely**.

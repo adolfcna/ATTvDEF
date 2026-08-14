@@ -1,8 +1,62 @@
+---
+title: Server side Template Injection
+draft:
+tags:
+  - CWE-94
+  - CWE-1336
+---
 
-SSTI stands for server-side Template Injection, which is a vulnerability that can allow an attacker to inject malicious code into a web application's templates. this can occur when user input is not properly sanitized and is then used in the rendering of templates on the server-side
-- Dynamic pages often using templates with user-provided values
-- so user can inject arbitrary code in some case 
-- the flow is something like Detection -> Template engine identification -> Exploitation
+> [!info]
+> 
+> ## What is SSTI?
+> 
+> **SSTI (Server-Side Template Injection)** is a vulnerability that occurs when an attacker can inject **user-controlled input into a server-side template** and that input is interpreted by the template engine instead of being treated as ordinary data.
+> 
+> Dynamic web applications often use **templates** to generate pages with user-provided values. If this input is handled insecurely, an attacker may be able to inject template expressions or, depending on the template engine and configuration, potentially achieve **arbitrary code execution on the server**. Because apparently treating user input as code was not enough trouble already.
+> 
+> SSTI commonly involves:
+> 
+> - Dynamic pages that use server-side templates
+>     
+> - User-controlled input being inserted into templates
+>     
+> - Improper handling or sanitization of that input
+>     
+> - A template engine interpreting attacker-controlled expressions
+>     
+> - Possible access to sensitive data or server-side code execution in some cases
+>     
+> 
+> A simplified vulnerable flow looks like this:
+> 
+> ```text
+> User Input
+>     │
+>     ▼
+> Web Application
+>     │
+>     │ Inserts Input into Template
+>     ▼
+> Template Engine
+>     │
+>     │ Interprets User-Controlled Input
+>     ▼
+> Rendered Response
+> ```
+> 
+> A typical SSTI testing and analysis flow looks like this:
+> 
+> ```text
+> Detection
+>     │
+>     ▼
+> Template Engine Identification
+>     │
+>     ▼
+> Exploitation
+> ```
+> 
+> The exact impact depends on the **template engine**, the application's implementation, and the permissions available to the server-side process. In some cases, SSTI may only allow limited template manipulation, while in more severe cases it can lead to **sensitive information disclosure or Remote Code Execution (RCE)**.
 
 ![[Pasted image 20260811165342.png]]
 

@@ -3,13 +3,51 @@ title: RCE
 draft:
 tags:
 ---
-## What is RCE?
-
-**Remote Code Execution (RCE)** is a vulnerability that allows an attacker to cause an application or server to execute attacker-controlled code remotely.
-
-In other words, the application processes attacker-controlled input as **program code** instead of treating it as ordinary data.
-
-The important distinction is that the attacker is not simply controlling application data. The attacker is influencing **what code the application executes**.
+> [!info] What is RCE?
+> **Remote Code Execution (RCE)** is a vulnerability that allows an attacker to cause an application or server to execute **attacker-controlled code remotely**.
+> 
+> In other words, the application processes attacker-controlled input as **program code** instead of treating it as ordinary data.
+> 
+> The important distinction is that the attacker is not simply controlling application data. The attacker is influencing **what code or commands the application executes**.
+> 
+> A simplified vulnerable flow looks like this:
+> 
+> ```mermaid
+> flowchart TD
+>     A[Attacker-Controlled Input] --> B[Web Application]
+>     B -->|Input is interpreted as Code| C[Code Execution]
+>     C --> D[Server]
+> ```
+> 
+> RCE vulnerabilities can occur when an application insecurely handles user-controlled input and passes it to dangerous functionality, such as:
+> 
+> - Command execution functions
+>     
+> - Code evaluation functions
+>     
+> - Template engines
+>     
+> - Deserialization mechanisms
+>     
+> - File upload or processing functionality
+>     
+> - Vulnerable third-party components
+>     
+> 
+> The impact of RCE depends on the permissions of the vulnerable application. An attacker may be able to execute code with the same privileges as the affected process, which can potentially lead to:
+> 
+> - Access to sensitive data
+>     
+> - Modification or deletion of files
+>     
+> - Access to internal systems
+>     
+> - Further privilege escalation
+>     
+> - Complete compromise of the affected server in severe cases
+>     
+> 
+> **RCE is therefore one of the most critical vulnerability classes because the attacker may gain control over what the vulnerable system actually executes.**
 
 ![[Pasted image 20260811164841.png]]
 

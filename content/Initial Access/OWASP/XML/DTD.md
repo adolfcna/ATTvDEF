@@ -4,17 +4,62 @@ draft: false
 tags:
 ---
 
-**DTD (Document Type Definition)** is a set of declarations used to define the **structure, rules, and allowed components of an XML document**.
+> [!abstract]  What is DTD?
+> **DTD (Document Type Definition)** is a set of declarations used to define the **structure, rules, and allowed components of an XML document**.
+> 
+> In other words, a DTD defines what elements and attributes an XML document is allowed to contain and how those elements can be organized.
+> 
+> A DTD can define:
+> 
+> - Allowed elements
+>     
+> - Relationships between elements
+>     
+> - Element content
+>     
+> - Attributes
+>     
+> - Entities
+>     
+> - Entity values
+>     
+> - The overall document structure
+>     
+> 
+> For example, consider the following XML document:
+> 
+> ```xml
+> <?xml version="1.0"?>
+> <user>
+>     <name>CNA</name>
+>     <email>cna@example.com</email>
+> </user>
+> ```
+> 
+> A DTD can define the expected structure of this document:
+> 
+> ```xml
+> <!DOCTYPE user [
+>     <!ELEMENT user (name, email)>
+>     <!ELEMENT name (#PCDATA)>
+>     <!ELEMENT email (#PCDATA)>
+> ]>
+> ```
+> 
+> This DTD defines that:
+> 
+> - The root element must be `<user>`
+>     
+> - The `<user>` element must contain `<name>` and `<email>`
+>     
+> - Both `<name>` and `<email>` contain text data
+>     
+> 
+> The XML parser can use the DTD to validate whether the XML document follows the expected structure.
+> 
+> DTDs can also define **entities**, which allow reusable values or references to be declared inside the document. Because apparently XML needed a way to make data look even more like a tiny programming language.
 
-A DTD can define:
-
-- Allowed elements
-- Element relationships
-- Element content
-- Attributes
-- Entities
-- Entity values
-- Document structure
+![[Pasted image 20260814205457.png]]
 
 The basic idea is:
 

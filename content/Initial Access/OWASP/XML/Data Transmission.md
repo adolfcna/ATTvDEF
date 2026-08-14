@@ -3,9 +3,78 @@ title: Data Transmission
 draft: false
 tags:
 ---
-**Data Transmission** in web applications refers to the process of sending data between a **Client** and a **Server** over a network.
+> [!abstract]
+> 
+> ## What is Data Transmission?
+> 
+> **Data Transmission** in web applications refers to the process of sending and receiving data between a **Client** and a **Server** over a network.
+> 
+> In a typical web application, the Client sends an **HTTP Request** containing data, the Server receives and processes that data, and then returns an **HTTP Response**.
+> 
+> The transmitted data can include:
+> 
+> - User input
+>     
+> - Login credentials
+>     
+> - Form data
+>     
+> - JSON or XML data
+>     
+> - Cookies
+>     
+> - Authentication tokens
+>     
+> - Files and other resources
+>     
+> 
+> A simplified communication flow looks like this:
+> 
+> ```text
+> Client
+>    │
+>    │ HTTP Request
+>    │
+>    ▼
+> Server
+>    │
+>    │ Process Request
+>    │
+>    ▼
+> HTTP Response
+>    │
+>    ▼
+> Client
+> ```
+> 
+> For example, a Client may send user credentials to a Server:
+> 
+> ```http
+> POST /login HTTP/1.1
+> Host: example.com
+> Content-Type: application/json
+> 
+> {
+>     "username": "CNA",
+>     "password": "password123"
+> }
+> ```
+> 
+> The Server processes the received data and returns a response:
+> 
+> ```http
+> HTTP/1.1 200 OK
+> Content-Type: application/json
+> 
+> {
+>     "status": "success",
+>     "message": "Login successful"
+> }
+> ```
+> 
+> The method used to transmit data can vary depending on the application, including **URL parameters, HTTP headers, request bodies, cookies, and other communication mechanisms**.
 
-In a typical web application, the Client sends an HTTP Request containing data, the Server processes that data, and then returns an HTTP Response.
+![[Pasted image 20260814205948.png]]
 
 The basic communication model is:
 

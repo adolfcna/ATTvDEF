@@ -5,9 +5,7 @@ tags:
   - CWE-307
 ---
 
-> [!info]
-> ## What is XML-RPC?
->
+> [!abstract] What is XML-RPC?
 > **XML-RPC (XML Remote Procedure Call)** is a protocol that allows a client to execute methods on a remote server using XML-encoded requests and responses.
 >
 > XML-RPC uses HTTP as the transport layer and XML as the data format.

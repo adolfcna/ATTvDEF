@@ -6,7 +6,7 @@ tags:
   - A05
 ---
 
-> [!info] Improper Restriction of XML External Entity Reference  
+> [!abstract] Improper Restriction of XML External Entity Reference  
 > **CWE-611: Improper Restriction of XML External Entity Reference**
 > 
 > **XXE (XML External Entity Injection)** is a vulnerability that occurs when an application processes attacker-controlled XML and the XML parser allows external entity resolution.

@@ -1,6 +1,6 @@
 ---
 title: Smuggling
-draft:
+draft: false
 tags:
 ---
 >[!abstract]

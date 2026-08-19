@@ -211,8 +211,8 @@ tags:
      B -->|de| D[German Cached Response]
      B -->|fr| E[French Cached Response]
  ```
- 
 
+ > [!info]
 > Without appropriate cache variation, requests with different headers may incorrectly receive the same cached response.
 > 
 > However, the exact handling of `Vary` depends on the caching implementation, and some CDNs or cache configurations may restrict or ignore certain variations.

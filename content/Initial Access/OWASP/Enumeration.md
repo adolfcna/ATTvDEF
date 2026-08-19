@@ -8,6 +8,7 @@ tags:
 related:
   - /OWASP
 ---
+![[Pasted image 20260819135654.png]]
 
 ## Passive 
 
@@ -325,5 +326,3 @@ related:
 > ```
 > wpscan --url https://example.com -U Admin -P /usr/share/wordlist/rockyou.txt
 > ```
-
-

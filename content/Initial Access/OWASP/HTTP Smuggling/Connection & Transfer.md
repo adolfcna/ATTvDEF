@@ -257,8 +257,6 @@ The most common HTTP/1.1 transfer coding you will encounter is:
 chunked
 ```
 
----
-
 # Chunked Transfer Encoding
 
 **Chunked Transfer Encoding** allows the server to send the response body in multiple pieces called **chunks**.
@@ -420,9 +418,6 @@ The response body is:
 ```text
 HelloWorld
 ```
-
----
-
 ### Example 2: Multiple Chunks
 
 ```http
@@ -445,9 +440,6 @@ The client combines the chunks:
 ```text
 Hello World
 ```
-
----
-
 ### Example 3: HTTP Request Using Chunked Encoding
 
 Chunked encoding can also appear in an HTTP request.
@@ -469,9 +461,6 @@ The reconstructed request body becomes:
 ```text
 testdata
 ```
-
----
-
 # Content-Length vs Transfer-Encoding
 
 ## Content-Length
@@ -509,8 +498,6 @@ The server reconstructs the body until it encounters:
 ```text
 0
 ```
-
----
 
 ## Comparison
 
@@ -569,29 +556,16 @@ That disagreement can cause part of the request to be treated as belonging to an
 
 > [!warning]  
 > The presence of both `Content-Length` and `Transfer-Encoding` does not automatically mean a vulnerability. Request smuggling requires inconsistent parsing behavior between multiple HTTP components.
-
----
-
 # Key Takeaways
 
 - **Keep-Alive** allows multiple HTTP requests and responses to reuse the same TCP connection.
-    
 - HTTP/1.1 uses persistent connections by default.
-    
 - `Connection: close` tells the other side to close the connection.
-    
 - **HTTP Pipelining** allows multiple requests to be sent without waiting for previous responses.
-    
 - Pipelining suffers from **Head-of-Line Blocking** and is largely obsolete in browsers.
-    
 - **Transfer-Encoding** describes how an HTTP message body is transferred.
-    
 - **Chunked Transfer Encoding** divides a message body into multiple chunks.
-    
 - Each chunk starts with its size written in hexadecimal.
-    
 - A chunk size of `0` marks the end of the message body.
-    
 - `Content-Length` specifies the total body size, while chunked encoding sends the body incrementally.
-    
 - Differences in how HTTP components process `Content-Length` and `Transfer-Encoding` are important when studying **HTTP Request Smuggling**.

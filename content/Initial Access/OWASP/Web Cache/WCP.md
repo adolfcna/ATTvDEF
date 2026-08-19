@@ -2,7 +2,8 @@
 title: Web Cache Poisoning
 draft:
 tags:
-  - CWE-444
+  - CWE-524
+  - CWE-525
 ---
 ![[Pasted image 20260819135422.png]]
 

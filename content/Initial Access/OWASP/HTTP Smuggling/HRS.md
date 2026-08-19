@@ -1,7 +1,8 @@
 ---
-title: Smuggling
+title: HTTP Request Smuggling
 draft: false
 tags:
+  - CWE-444
 ---
 >[!abstract]
 >

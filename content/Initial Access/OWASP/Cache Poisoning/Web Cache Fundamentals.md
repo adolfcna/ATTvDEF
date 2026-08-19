@@ -1,4 +1,8 @@
-
+---
+title: Web Cache Fundamentals
+draft:
+tags:
+---
 
 > [!info] Web Cache Fundamentals
 > Before exploring **Web Cache vulnerabilities**, it is important to understand how web caching and **Content Delivery Networks (CDNs)** work.
@@ -244,3 +248,4 @@
 > This indicates that the response becomes stale immediately and generally requires revalidation before reuse.
 > 
 > Understanding **cache keys**, **keyed and unkeyed inputs**, **cache hits and misses**, and **cache control mechanisms** is essential before analyzing vulnerabilities such as **Web Cache Poisoning**, where attacker-controlled input can influence a response that is later served from a shared cache to other users.
+

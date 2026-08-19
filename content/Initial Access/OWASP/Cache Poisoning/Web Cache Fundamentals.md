@@ -3,6 +3,7 @@ title: Web Cache Fundamentals
 draft:
 tags:
 ---
+![[Pasted image 20260819115446.png]]
 
 > [!info] Web Cache Fundamentals
 > Before exploring **Web Cache vulnerabilities**, it is important to understand how web caching and **Content Delivery Networks (CDNs)** work.

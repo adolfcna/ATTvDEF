@@ -2,6 +2,7 @@
 title: Web Cache Deception
 draft: false
 tags:
+  - CWE-524
 ---
 ![[Pasted image 20260819123221.png]]
 

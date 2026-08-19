@@ -2,6 +2,7 @@
 title: Insecure Direct Object Reference
 draft: false
 tags:
+  - CWE-639
 ---
 
 > [!abstract]

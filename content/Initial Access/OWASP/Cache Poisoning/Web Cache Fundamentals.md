@@ -69,7 +69,7 @@ tags:
 
 >[!info] Diagram
 > ```mermaid
-> flowchart TD
+> flowchart LR
 >     A[Client Request] --> B{Is the Response Cached?}
 >     B -->|Yes| C[Return Cached Response]
 >     B -->|No| D[Forward Request to Upstream]
@@ -194,7 +194,7 @@ tags:
 > 
 > ### The `Vary` Header
 > 
-> The ** Vary ** response header tells caches that the response may change depending on specific request headers.
+> The **Vary** response header tells caches that the response may change depending on specific request headers.
 
 >[!example]
 > ```http

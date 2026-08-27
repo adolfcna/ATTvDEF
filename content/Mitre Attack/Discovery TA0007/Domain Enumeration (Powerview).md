@@ -14,7 +14,7 @@
 > :: Run as standard user
 > .\RunWithRegistryNonAdmin.bat
 > ```
-> *See also:* [[Defense Evasion (PS Log)]]
+> *See also:* [[Invisible Shell]]
 
 ---
 

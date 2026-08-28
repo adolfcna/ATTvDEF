@@ -1,3 +1,9 @@
+---
+title: ELF
+draft:
+tags:
+  - ELF
+---
 
 > [!danger]+ 🧩 Simple Shared Library (`.so`) with Constructor and Exported Function (C++)
 > Example of a Linux shared library that prints a message when loaded/unloaded and exposes an exported function:
@@ -102,4 +108,14 @@
 > - `LD_PRELOAD=./libimplant.so` → forces the OS to load your library into the memory space of the next executed command (`ls`).
 > - This will trigger the `on_load()` constructor and print "Shared Library Loaded!" before `ls` runs.
 > - Useful for quick testing or hooking legitimate binaries (Living Off The Land).
+
+
+### ELF32
+
+![[elf101.svg]]
+
+
+### ELF64
+
+![[64.svg]]
 

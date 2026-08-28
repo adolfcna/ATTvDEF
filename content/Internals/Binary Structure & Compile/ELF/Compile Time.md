@@ -3,7 +3,6 @@ title: Compile Time
 draft:
 tags:
   - CompileTime
-  - Basic
 ---
 
 > [!abstract] C Compilation Process & Intermediate Files

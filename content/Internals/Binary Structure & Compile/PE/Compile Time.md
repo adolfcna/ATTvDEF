@@ -2,9 +2,12 @@
 title: Compile Time
 draft: false
 tags:
-  - Basic
   - CompileTime
 ---
+
+> [!abstract] C Compilation Process & Intermediate Files
+> When a C program is compiled using GCC or CL the process goes through several distinct stages before producing the final executable. Using the `-save-temps` flag (`gcc -save-temps file.c`) retains all intermediate files, allowing reverse engineers and developers to inspect how the code transforms at each step.
+> **MITRE ATT&CK Mapping:** [T1027 - Obfuscated Files or Information](https://attack.mitre.org/techniques/T1027/) (Relevant to malware analysis and understanding binary obfuscation).
 
 ```mermaid
 flowchart TD

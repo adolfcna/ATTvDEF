@@ -2,10 +2,7 @@
 title: Create Simple DLL
 draft:
 tags:
-  - Basic
-  - DLL
-related:
-  - Resource Development/Malware/SHELLCODE/CompileTime/Compile Time.md
+  - PE
 ---
 
 > [!info]+ 🧩 Simple DLL with `DllMain` and Exported Function (C++)
@@ -125,3 +122,13 @@ related:
 > - `RunMe` → exported function name  
 > - Quick way to test the DLL without writing a C loader
 
+
+
+
+### PE32
+
+![[pe101.svg]]
+
+### PE64
+
+![[pe101-64.svg]]

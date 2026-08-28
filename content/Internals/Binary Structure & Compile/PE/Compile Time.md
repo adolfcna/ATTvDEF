@@ -4,16 +4,27 @@ draft: false
 tags:
   - Basic
   - CompileTime
-related:
-  - Resource Development/Malware/SHELLCODE/Encode/Base64.md
-  - Resource Development/Malware/SHELLCODE/Encryption/XOR.md
-  - Resource Development/Malware/SHELLCODE/Encryption/AES.md
-  - Resource Development/Malware/SHELLCODE/CompileTime/Compile Time.md
 ---
 
-![[Pasted image 20260226005901.png]]
+```mermaid
+flowchart TD
+    A["<b>Source Code</b><br>file.c<br><i>(C/C++ Source)</i>"] --> B
+    
+    B["<b>1. Preprocessor</b><br>file.i<br><i>(Expanded C Code: Macros & Headers)</i><br>━━━━━━━━━━━━━━<br>MinGW: gcc -E main.c -o main.i<br>MSVC: cl /P main.c"] --> C
+    
+    C["<b>2. Compiler</b><br>file.s / file.asm<br><i>(Assembly Code: mov, push, call)</i><br>━━━━━━━━━━━━━━<br>MinGW: gcc -S main.c<br>MSVC: cl /Fa main.c"] --> D
+    
+    D["<b>3. Assembler</b><br>file.o / file.obj<br><i>(Object Code: Binary, Relocatable)</i><br>━━━━━━━━━━━━━━<br>MinGW: gcc -c main.c<br>MSVC: cl /c main.c"] --> E
+    
+    E["<b>4. Linker</b><br>file.exe<br><i>(Executable: Linked with Libraries)</i><br>━━━━━━━━━━━━━━<br>MinGW: gcc main.c -o main.exe<br>MSVC: cl main.c /Fe:main.exe"]
+    
+    style A fill:#ffcc66,stroke:#333,stroke-width:2px
+    style B fill:#ccffcc,stroke:#333,stroke-width:2px
+    style C fill:#ccddff,stroke:#333,stroke-width:2px
+    style D fill:#ffcccc,stroke:#333,stroke-width:2px
+    style E fill:#d4d4d4,stroke:#333,stroke-width:2px
+```
 
-![[Pasted image 20260508113141.png]]
 
 > [!hint]+ 💻 Windows / MinGW Build Commands
 > Various compile commands for Windows executables and DLLs, optimized for different scenarios.

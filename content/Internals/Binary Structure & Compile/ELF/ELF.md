@@ -26,8 +26,9 @@
 > - `__attribute__((constructor))` → equivalent to `DLL_PROCESS_ATTACH`, runs automatically on load
 > - `__attribute__((destructor))` → equivalent to `DLL_PROCESS_DETACH`, runs automatically on unload
 > - In Linux, functions are exported by default, but `extern "C"` is still used to prevent C++ name mangling so the function can be called by name.
-> - `-fPIC` (Position Independent Code) is required for shared libraries in Linux.
->> [!hint]- 🛠 GCC Compiler Dynamic Link Library (Linux)
+> - `-fPIC` (Position Independent Code) is required for shared libraries in Linux).
+> - 
+>>[!hint]- 🛠 GCC Compiler Dynamic Link Library
 >> To build a Shared Library (`.so`) on Linux using GCC:
 >> ```bash
 >> # Compile to object file first (with Position Independent Code)

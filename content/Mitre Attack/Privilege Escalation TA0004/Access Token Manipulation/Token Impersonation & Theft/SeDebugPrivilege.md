@@ -93,7 +93,35 @@
 > }
 > ```
 
----
+```mermaid
+flowchart LR
+    %% API Calls
+    API1["OpenProcessToken()"] --> VarH["HANDLE hToken<br>(Current process token)"]
+    API2["LookupPrivilegeValue()"] --> VarL["LUID luid<br>(Unique ID of SeDebug)"]
+
+    %% Populating Struct
+    VarH --> |"Passed as input parameter"| API3
+    VarL --> |"1. Populates"| FieldL["tp.Privileges[0].Luid"]
+    Flag["SE_PRIVILEGE_ENABLED"] --> |"2. Populates"| FieldA["tp.Privileges[0].Attributes"]
+    Num["1"] --> |"3. Populates"| FieldC["tp.PrivilegeCount"]
+
+    %% Final Struct
+    FieldL --> Struct["TOKEN_PRIVILEGES tp (Ready to use)"]
+    FieldA --> Struct
+    FieldC --> Struct
+
+    %% Execution
+    VarH --> |"1st parameter"| API3["AdjustTokenPrivileges()"]
+    Struct --> |"3rd parameter"| API3
+
+    style API1 fill:#ccddff,stroke:#333
+    style API2 fill:#ccddff,stroke:#333
+    style API3 fill:#ffcccc,stroke:#cc0000,stroke-width:2px
+    style Struct fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
+    style VarL fill:#fff3e0,stroke:#e65100
+    style VarH fill:#fff3e0,stroke:#e65100
+```
+
 
 ## Detection & Threat Hunting
 

@@ -221,7 +221,7 @@ Once `SeDebugPrivilege` is active, the attacker can bypass Windows ACLs to open 
 > 4. The attacker duplicates this token and passes it to `CreateProcessWithTokenW` to spawn a SYSTEM shell.
 > 
 > ```mermaid
-> flowchart TD
+> flowchart LR
 >     subgraph Attacker ["🧑‍💻 Attacker Process (Medium/High Integrity)"]
 >         A1["1. Enable SeDebugPrivilege<br>(AdjustTokenPrivileges)"] --> A2["2. OpenProcess(winlogon.exe PID)<br>Bypasses ACL"]
 >         A2 --> A3["3. OpenProcessToken()<br>Extract SYSTEM Token"]
@@ -361,13 +361,11 @@ Once `SeDebugPrivilege` is active, the attacker can bypass Windows ACLs to open 
 > ```
 
 > [!tip] Code Explanation (Step-by-Step)
-> - **`EnableSeDebugPrivilege()`**: Retrieves the current process token, looks up the LUID for `SeDebugPrivilege`, and enables it using `AdjustTokenPrivileges`.
-> - **`OpenProcess()`**: Opens a handle to `winlogon.exe`. The `PROCESS_QUERY_LIMITED_INFORMATION` access right is sufficient to query its token. This only succeeds because `SeDebug` is active.
-> - **`OpenProcessToken()`**: Extracts the access token (`hToken`) from `winlogon.exe`. We need `TOKEN_DUPLICATE` rights to copy it.
-> - **`DuplicateTokenEx()`**: Creates a new primary token (`hDupToken`) based on `winlogon.exe`'s token. You cannot use the original token directly to create a process; it must be duplicated into a primary token.
-> - **`CreateProcessWithTokenW()`**: Spawns `cmd.exe`. Instead of using the attacker's token, it uses the `hDupToken` (SYSTEM token). The resulting `cmd.exe` window runs as `NT AUTHORITY\SYSTEM`.
-
----
+> - `EnableSeDebugPrivilege()`: Retrieves the current process token, looks up the LUID for `SeDebugPrivilege`, and enables it using `AdjustTokenPrivileges`.
+> - `OpenProcess()`: Opens a handle to `winlogon.exe`. The `PROCESS_QUERY_LIMITED_INFORMATION` access right is sufficient to query its token. This only succeeds because `SeDebug` is active.
+> - `OpenProcessToken()`: Extracts the access token (`hToken`) from `winlogon.exe`. We need `TOKEN_DUPLICATE` rights to copy it.
+> - `DuplicateTokenEx()`: Creates a new primary token (`hDupToken`) based on `winlogon.exe`'s token. You cannot use the original token directly to create a process; it must be duplicated into a primary token.
+> - `CreateProcessWithTokenW()`: Spawns `cmd.exe`. Instead of using the attacker's token, it uses the `hDupToken` (SYSTEM token). The resulting `cmd.exe` window runs as `NT AUTHORITY\SYSTEM`.
 
 ## 4. Detection & Threat Hunting
 

@@ -3,6 +3,7 @@
 > **SeDebugPrivilege** is a highly powerful Windows user right that allows a process to debug other programs, granting it the ability to read and write the memory of critical OS components. Exploitation begins by programmatically enabling this privilege using `AdjustTokenPrivileges`.
 > **MITRE ATT&CK Mapping:** [T1134 - Access Token Manipulation](https://attack.mitre.org/techniques/T1134/)
 
+![[Pasted image 20260831191221.png]]
 ## Privilege Fundamentals & Assignment
 
 > [!info] Capabilities & Assignment Context

@@ -133,8 +133,6 @@ tags:
 >     class I impact;
 > ```
 
----
-
 ## 2. Phase 1: Enabling the Privilege (Code Mechanics)
 
 Before a process can use `SeDebugPrivilege`, it must be explicitly enabled in code. This is done by manipulating the `TOKEN_PRIVILEGES` structure.

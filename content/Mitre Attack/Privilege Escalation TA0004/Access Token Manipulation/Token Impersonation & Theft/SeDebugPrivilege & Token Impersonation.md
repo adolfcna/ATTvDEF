@@ -2,6 +2,8 @@
 title: SeDebugPrivilege & Token Impersonation
 draft:
 tags:
+  - T1134
+  - T1134-002
 ---
 
 > [!abstract] SeDebugPrivilege Exploitation: From Theory to SYSTEM Shell

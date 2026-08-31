@@ -1,5 +1,5 @@
 ---
-title: SeDebugPrivilege & Token Impersonation
+title: Dance With Token
 draft:
 tags:
   - T1134

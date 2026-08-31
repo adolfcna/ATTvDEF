@@ -1,10 +1,11 @@
 ---
 title: CreateProcess
-draft:
+draft: false
 tags:
   - T1055
   - T1562
 ---
+![[Pasted image 20260831143642.png]]
 
 > [!abstract] Advanced Windows Process Creation & Handle Management
 > A comprehensive guide to stealthy process execution and inter-process communication in Windows. This covers creating processes in hidden or suspended states, and passing File Handles between Parent and Child processes using Handle Inheritance.

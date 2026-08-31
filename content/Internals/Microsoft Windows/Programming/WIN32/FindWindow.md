@@ -1,11 +1,12 @@
 ---
 title: Hide Window
-draft: true
+draft: false
 tags:
   - T1055
   - T1562
   - T1059
 ---
+![[Pasted image 20260831143609.png]]
 
 > [!abstract] Windows Process & Window Manipulation (Stealth & Injection Prep)
 > A comprehensive guide to controlling windows and process creation using the Windows API. This covers manipulating existing windows (`FindWindow`/`ShowWindow`) and creating new processes in various stealthy states (Hidden, No Console, Suspended) for malware development, defense evasion, and process injection.

@@ -8,10 +8,8 @@ tags:
 ![[Pasted image 20260831143642.png]]
 
 > [!abstract] Advanced Windows Process Creation & Handle Management
-> A comprehensive guide to stealthy process execution and inter-process communication in Windows. This covers creating processes in hidden or suspended states, and passing File Handles between Parent and Child processes using Handle Inheritance.
+> A comprehensive guide to stealthy process execution and inter-process communication in Windows. This covers creating processes in hidden or suspended states, manipulating their working directory and environment variables, and passing File Handles between Parent and Child processes using Handle Inheritance.
 > **MITRE ATT&CK Mapping:** [T1562 - Impair Defenses](https://attack.mitre.org/techniques/T1562/) | [T1055 - Process Injection](https://attack.mitre.org/techniques/T1055/) | [T1106 - Native API](https://attack.mitre.org/techniques/T1106/)
-
----
 
 ## 1. Stealthy Process Creation (`CreateProcess`)
 
@@ -109,7 +107,81 @@ Instead of finding a window *after* it becomes visible, you can launch a process
 
 ---
 
-## 2. Windows Handle Inheritance (Passing Handles to Child Processes)
+## 2. Controlling Process Environment & Working Directory
+
+`CreateProcess` allows you to define exactly where the child process will operate (its working directory) and what environment variables it will see.
+
+> [!tip] Technique D: Setting a Custom Working Directory
+> By default, the child process inherits the parent's working directory. You can change this by passing a string path to the 8th parameter (`lpCurrentDirectory`). This is useful for malware that needs to drop files or read configs from a specific folder without calling `SetCurrentDirectory`.
+> ```cpp
+> #include <stdio.h>
+> #include <windows.h>
+> 
+> int main() {
+>     STARTUPINFOA si = { sizeof(si) };
+>     PROCESS_INFORMATION pi = { 0 };
+> 
+>     // Define the custom working directory
+>     const char *my_dir = "C:\\Users\\John\\Music\\";
+> 
+>     if (CreateProcessA("C:\\Windows\\System32\\notepad.exe", 
+>             NULL, NULL, NULL, FALSE, 0, 
+>             NULL,       // Use parent's environment
+>             my_dir,     // Set custom working directory here (8th param)
+>             &si, &pi)) 
+>     {
+>         printf("Parent process ID: %lu\n", GetCurrentProcessId());
+>         printf("Process created successfully with ID %lu\n", pi.dwProcessId);
+>         
+>         CloseHandle(pi.hProcess);
+>         CloseHandle(pi.hThread);
+>     }
+>     else {
+>         printf("Error: %lu\n", GetLastError());
+>         return 1;
+>     }
+>     return 0;
+> }
+> ```
+
+> [!example] Technique E: Modifying Environment Variables
+> You can pass a custom environment block to the child process (7th parameter, `lpEnvironment`). If you do this, the child process will **only** see the variables you provide, not the system's variables.
+> *Note: The environment block must be double-null terminated (`\0\0`).*
+> ```cpp
+> #include <stdio.h>
+> #include <windows.h>
+> 
+> int main() {
+>     STARTUPINFOA si = { sizeof(si) };
+>     PROCESS_INFORMATION pi = { 0 };
+> 
+>     // Create a custom environment block (must be double-null terminated)
+>     char custom_env[] = "MY_VAR=HELLOCHILD\0\0";
+> 
+>     if (CreateProcessA("C:\\Windows\\System32\\notepad.exe", 
+>             NULL, NULL, NULL, FALSE, 0, 
+>             custom_env, // Pass custom environment variables here (7th param)
+>             NULL,       // Use parent's working directory
+>             &si, &pi)) 
+>     {
+>         printf("Process created successfully\n");
+>         printf("Process ID: %lu\n", pi.dwProcessId);
+>         
+>         CloseHandle(pi.hProcess);
+>         CloseHandle(pi.hThread);
+>         getchar(); // Pause to view output
+>     }
+>     else {
+>         printf("Error: %lu\n", GetLastError());
+>         return 1;
+>     }
+>     return 0;
+> }
+> ```
+
+---
+
+## 3. Windows Handle Inheritance (Passing Handles to Child Processes)
 
 In Windows, Handles are not accessible to other processes by default. However, by using **Handle Inheritance**, a Parent Process can create a Handle (e.g., an open file) and grant access to it for the Child Process it spawns.
 
@@ -251,7 +323,7 @@ flowchart TD
 
 ---
 
-## 3. Compilation
+## 4. Compilation
 
 > [!success]+ Compiling the Codes
 > To compile these executables on Windows:

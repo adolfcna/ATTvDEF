@@ -223,4 +223,5 @@
 > [!info] Compilation
 > Rubeus is not distributed as a pre-compiled binary to avoid brittle signatures. It must be compiled using Visual Studio. It targets .NET 3.5 by default but can be retargeted to .NET 4.x if needed. It can also be compiled as a Class Library (DLL) and executed in-memory via PowerShell using `[Reflection.Assembly]::Load()`.
 
+https://docs.specterops.io/ghostpack-docs/Rubeus-mdx/overview
 

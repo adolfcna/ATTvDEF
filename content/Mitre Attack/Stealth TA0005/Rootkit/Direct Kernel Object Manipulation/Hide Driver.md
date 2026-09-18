@@ -61,6 +61,8 @@ flowchart TD
 > [!example] Step-by-Step Driver Unlinking
 > This requires an active Kernel Debugging session. We will hide the `ipf_acpi` driver using the exact memory addresses from your session.
 
+![[Pasted image 20260918174315.png]]
+![[Pasted image 20260918174443.png]]
 #### 1. Locate the Driver Object
 We use the `!drvobj` extension to find the address of the `_DRIVER_OBJECT` for `ipf_acpi`.
 ```text
@@ -110,9 +112,6 @@ To clean up the disconnected driver, we modify its own `LIST_ENTRY`. In your com
 lkd> eq 0xffff8583`b002a500 0xffff8583`b9f0ddd0
 lkd> eq 0xffff8583`b002a500+0x008 0xffff8583`b9f08de0
 ```
-
----
-
 ## 👨‍💻 Reverse Engineer Quick Glance (Command Summary)
 
 > [!quote] WinDbg Command Flow (Copy/Paste Reference)

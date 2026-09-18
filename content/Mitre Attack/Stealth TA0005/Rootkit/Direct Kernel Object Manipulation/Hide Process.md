@@ -5,6 +5,7 @@ tags:
   - T1564
   - T1014
 ---
+
 > [!abstract] Hiding Processes via `ActiveProcessLinks` (DKOM)
 > In the Windows kernel, all active processes are linked together in a circular doubly-linked list using the `ActiveProcessLinks` field inside the `_EPROCESS` structure. By manipulating this list (a technique called DKOM - Direct Kernel Object Manipulation), we can "unlink" a process, making it completely invisible to Task Manager, `tasklist`, and most EDRs.
 > **MITRE ATT&CK Mapping:** [T1564 - Hide Artifacts](https://attack.mitre.org/techniques/T1564/) | [T1014 - Rootkit](https://attack.mitre.org/techniques/T1014/)

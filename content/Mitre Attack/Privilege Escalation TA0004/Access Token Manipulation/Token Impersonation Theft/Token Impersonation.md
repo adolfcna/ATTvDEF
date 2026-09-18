@@ -2,7 +2,6 @@
 > [!abstract] Token Impersonation & Potato Escalation
 > Windows Access Tokens are objects that describe the security context of a process or thread. If a process has the `SeImpersonatePrivilege` or `SeAssignPrimaryTokenPrivilege`, it can impersonate another user's token (e.g., SYSTEM) and execute code on their behalf. Attackers abuse built-in Windows services (like COM/DCOM, Print Spooler, or RPC) to coerce a high-privileged token and steal it.
 > **MITRE ATT&CK Mapping:** [T1134 - Access Token Manipulation](https://attack.mitre.org/techniques/T1134/) | [T1134.001 - Token Impersonation/Theft](https://attack.mitre.org/techniques/T1134/001/)
-
 ## Understanding Access Tokens
 
 > [!info] How Tokens Work

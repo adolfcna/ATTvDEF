@@ -36,9 +36,6 @@ flowchart LR
     style Cmd fill:#ffebee,stroke:#b71c1c,stroke-width:2px
     style Payload fill:#fff3e0,stroke:#e65100,stroke-width:2px
 ```
-
----
-
 ## 🕵️‍♂️ Manual Execution (WinDbg Breakdown)
 
 ![[Pasted image 20260918130448.png]]
@@ -102,9 +99,6 @@ lkd> dt nt!_EX_FAST_REF ffffdf8d5ca88080+0x248
    +0x000 Value            : 0xffffcd08`f427979a
 ```
 `cmd.exe` is now holding the exact same token as the `System` process.
-
----
-
 ## 💻 The Programmatic Approach (C Kernel Driver)
 
 > [!bug] Conceptual C Exploit Code

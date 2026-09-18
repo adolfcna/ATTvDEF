@@ -41,6 +41,8 @@ flowchart LR
 
 ## 🕵️‍♂️ Manual Execution (WinDbg Breakdown)
 
+![[Pasted image 20260918130448.png]]
+
 > [!example] Step-by-Step Kernel Surgery
 > This requires an active Kernel Debugging session (e.g., via `kd.exe` or WinDbg attached to a VM).
 

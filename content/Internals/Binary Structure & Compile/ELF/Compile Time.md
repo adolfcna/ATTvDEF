@@ -190,5 +190,3 @@ flowchart TD
 > - `-s` → Strips all symbol tables and relocation info during linking.
 > - `-static` → Statically links all standard libraries (e.g., `libc.a`). The binary becomes larger, but it doesn't depend on the target system's `.so` files, making it highly portable and immune to `LD_PRELOAD` hooking.
 > - `strip --strip-all` → Secondary pass to ensure absolutely all debugging info and symbols are removed.
-
-

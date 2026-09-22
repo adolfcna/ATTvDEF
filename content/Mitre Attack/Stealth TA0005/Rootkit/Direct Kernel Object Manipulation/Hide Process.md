@@ -58,30 +58,31 @@ To hide `cmd.exe`, we take the `Flink` of the Previous process and point it dire
 
 ```mermaid
 flowchart TD
-    subgraph Active ["🔗 Active Process List (Visible)"]
-        direction LR
-        Prev["🛡️ Previous Process<br>Links: 0xffffdf8d76dc8258"]
-        Next["🌐 Next Process<br>Links: 0xffffdf8d7b0c7258"]
-        
-        %% Linking Prev and Next directly
-        Prev -- "1. Flink patched to Next" --> Next
-        Next -- "2. Blink patched to Prev" --> Prev
+
+    subgraph Active["Active Process List - Visible"]
+        Prev["Previous Process<br/>Links: 0xffffdf8d76dc8258"]
+        Next["Next Process<br/>Links: 0xffffdf8d7b0c7258"]
+
+        Prev -->|"1. Flink patched to Next"| Next
+        Next -->|"2. Blink patched to Prev"| Prev
     end
 
-    subgraph Hidden ["👻 Ghost Process (Unlinked & Invisible)"]
-        Cmd["💀 cmd.exe<br>EPROCESS: 0xffffdf8d5ca88080"]
-        Cmd -- "Flink zeroed (0x00)" --> Null1["NULL"]
-        Cmd -- "Blink zeroed (0x00)" --> Null2["NULL"]
+    subgraph Hidden["Ghost Process - Unlinked"]
+        Cmd["cmd.exe<br/>EPROCESS: 0xffffdf8d5ca88080"]
+        Null1["NULL"]
+        Null2["NULL"]
+
+        Cmd -->|"Flink = 0x00"| Null1
+        Cmd -->|"Blink = 0x00"| Null2
     end
 
-    %% Visualizing the bypass
-    Prev -. "Bypasses cmd.exe" .-> Next
+    Prev -.->|"Bypasses cmd.exe"| Next
 
     style Active fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
     style Hidden fill:#ffebee,stroke:#b71c1c,stroke-width:2px
-    style Prev fill:#ccffcc,stroke:#333
-    style Next fill:#ccffcc,stroke:#333
-    style Cmd fill:#ffcccc,stroke:#cc0000,stroke-width:3px,stroke-dasharray: 5 5
+    style Prev fill:#ccffcc,stroke:#333333
+    style Next fill:#ccffcc,stroke:#333333
+    style Cmd fill:#ffcccc,stroke:#cc0000,stroke-width:3px
 ```
 
 ## 🕵️‍♂️ Manual Execution (WinDbg Breakdown)

@@ -25,24 +25,29 @@ tags:
 flowchart TD
     subgraph Prev ["Previous Process"]
         P_Base["EPROCESS: ..."]
-        P_Base --> P_Links["ActiveProcessLinks: 0xffffdf8d`76dc8258<br>Flink: 0xffffdf8d`5ca88258<br>Blink: 0xffffdf8d`94406258"]
+        P_Links["ActiveProcessLinks: 0xffffdf8d76dc8258<br>Flink: 0xffffdf8d5ca88258<br>Blink: 0xffffdf8d94406258"]
+        P_Base --> P_Links
     end
 
     subgraph Cmd ["cmd.exe (Target)"]
-        C_Base["EPROCESS: 0xffffdf8d`5ca88080"]
-        C_Base --> C_Links["ActiveProcessLinks: 0xffffdf8d`5ca88258<br>Flink: 0xffffdf8d`7b0c7258<br>Blink: 0xffffdf8d`76dc8258"]
+        C_Base["EPROCESS: 0xffffdf8d5ca88080"]
+        C_Links["ActiveProcessLinks: 0xffffdf8d5ca88258<br>Flink: 0xffffdf8d7b0c7258<br>Blink: 0xffffdf8d76dc8258"]
+        C_Base --> C_Links
     end
 
     subgraph Next ["Next Process"]
         N_Base["EPROCESS: ..."]
-        N_Base --> N_Links["ActiveProcessLinks: 0xffffdf8d`7b0c7258<br>Flink: 0xffffdf8d`55a70258<br>Blink: 0xffffdf8d`5ca88258"]
+        N_Links["ActiveProcessLinks: 0xffffdf8d7b0c7258<br>Flink: 0xffffdf8d55a70258<br>Blink: 0xffffdf8d5ca88258"]
+        N_Base --> N_Links
     end
 
-    %% Normal Links
-    P_Links --"Flink points to Next"--> C_Links
-    N_Links --"Blink points to Prev"--> C_Links
-    C_Links --"Flink points to Next"--> N_Links
-    C_Links --"Blink points to Prev"--> P_Links
+    %% Forward Links (Flink)
+    P_Links -- "Flink points to Next" --> C_Links
+    C_Links -- "Flink points to Next" --> N_Links
+
+    %% Backward Links (Blink)
+    N_Links -- "Blink points to Prev" --> C_Links
+    C_Links -- "Blink points to Prev" --> P_Links
 
     style Prev fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
     style Next fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px

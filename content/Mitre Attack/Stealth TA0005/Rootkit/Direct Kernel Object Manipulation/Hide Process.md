@@ -10,7 +10,7 @@ tags:
 > In the Windows kernel, all active processes are linked together in a circular doubly-linked list using the `ActiveProcessLinks` field inside the `_EPROCESS` structure. By manipulating this list (a technique called DKOM - Direct Kernel Object Manipulation), we can "unlink" a process, making it completely invisible to Task Manager, `tasklist`, and most EDRs.
 > **MITRE ATT&CK Mapping:** [T1564 - Hide Artifacts](https://attack.mitre.org/techniques/T1564/) | [T1014 - Rootkit](https://attack.mitre.org/techniques/T1014/)
 
-![[Pasted image 20260918145312.png|700]]
+![[Pasted image 20260922113037.png]]
 
 ## 📊 Visualizing the Doubly-Linked List
 
@@ -20,6 +20,8 @@ tags:
 > 2. `Blink` (Backward Link): Points to the previous process's `ActiveProcessLinks`.
 > 
 > *Crucial Note:* These pointers point to the `LIST_ENTRY` structure *inside* the `_EPROCESS`, not the start of the `_EPROCESS` itself. To get the base address of the process, the kernel subtracts the offset of `ActiveProcessLinks` from the pointer value. On this Windows build, the offset is `0x1d8`.
+
+
 
 ```mermaid
 flowchart TD

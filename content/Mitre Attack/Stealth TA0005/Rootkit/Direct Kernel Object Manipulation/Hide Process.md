@@ -63,8 +63,8 @@ To hide `cmd.exe`, we take the `Flink` of the Previous process and point it dire
 flowchart TD
     subgraph Active ["🔗 Active Process List (Visible)"]
         direction LR
-        Prev["🛡️ Previous Process<br>Links: 0xffffdf8d`76dc8258"]
-        Next["🌐 Next Process<br>Links: 0xffffdf8d`7b0c7258"]
+        Prev["🛡️ Previous Process<br>Links: 0xffffdf8d76dc8258"]
+        Next["🌐 Next Process<br>Links: 0xffffdf8d7b0c7258"]
         
         %% Linking Prev and Next directly
         Prev -- "1. Flink patched to Next" --> Next
@@ -72,7 +72,7 @@ flowchart TD
     end
 
     subgraph Hidden ["👻 Ghost Process (Unlinked & Invisible)"]
-        Cmd["💀 cmd.exe<br>EPROCESS: 0xffffdf8d`5ca88080"]
+        Cmd["💀 cmd.exe<br>EPROCESS: 0xffffdf8d5ca88080"]
         Cmd -- "Flink zeroed (0x00)" --> Null1["NULL"]
         Cmd -- "Blink zeroed (0x00)" --> Null2["NULL"]
     end

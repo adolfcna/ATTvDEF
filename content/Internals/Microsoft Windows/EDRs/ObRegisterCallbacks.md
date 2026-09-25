@@ -1,40 +1,43 @@
 
 > [!abstract] Deep Dive: Object Operation Kernel Callbacks (`ObRegisterCallbacks`)
-> In Windows, everything is an "Object" (Processes, Threads, Files, Events, Mutexes). To interact with a process, you must first obtain a "Handle" to it using `OpenProcess`. EDRs use Object Callbacks to intercept this exact moment. By registering an Object Callback, an EDR can strip dangerous access rights (like `PROCESS_VM_READ` or `PROCESS_VM_WRITE`) from a handle *before* it is handed back to the user-mode application. This is how EDRs protect `lsass.exe` from credential dumping and protect their own `EDR.exe` process from being killed or injected into.
+> In Windows, everything is an "Object" (Processes, Threads, Files). To interact with a process, you must first obtain a "Handle" to it using `OpenProcess`. EDRs use Object Callbacks to intercept this exact moment. By registering an Object Callback, an EDR can strip dangerous access rights (like `PROCESS_VM_READ` or `PROCESS_VM_WRITE`) from a handle *before* it is handed back to the user-mode application. This is how EDRs protect `lsass.exe` from credential dumping and protect their own `EDR.exe` process from being killed or injected into.
 > **MITRE ATT&CK Mapping:** [T1003.001 - OS Credential Dumping: LSASS Memory](https://attack.mitre.org/techniques/T1003/001/) | [T1055 - Process Injection](https://attack.mitre.org/techniques/T1055/)
 
 ### Syscall to Callback Flow
 
 > [!info] The Execution & Notification Path
-> When a process requests a handle to another process, the request transitions from User Mode to Kernel Mode. The Object Manager processes the request, but before creating the handle, it invokes the registered Pre-Operation callbacks. This gives the EDR a chance to alter the requested access rights.
+> When a process requests a handle to another process, the request transitions from User Mode to Kernel Mode via a syscall. The Object Manager processes the request, but before creating the handle, it invokes the internal `ObpCallPreOperationCallbacks` function, which iterates through the registered Callback List to notify the EDR.
 
 ```mermaid
 sequenceDiagram
     autonumber
-    participant UM as User Mode (Ring 3)
-    participant KM as Kernel Mode (Ring 0)
-    participant ObjMgr as Object Manager
-    participant EDR as EDR.sys (Driver)
+    participant UM as User Mode Ring 3
+    participant KM as Kernel Mode Ring 0
+    participant ObjMgr as Object Manager (ObpCallPreOperationCallbacks)
+    participant EDR as EDR.sys Driver
 
-    Note over UM: malware.exe requests handle to lsass.exe
+    Note over UM: malware.exe (PID: 1234) requests handle to lsass.exe
     UM->>UM: kernelbase!OpenProcess
     UM->>UM: ntdll!NtOpenProcess
     UM->>KM: syscall (Transition to Ring 0)
     
-    Note over KM: Object Manager receives handle request
-    KM->>ObjMgr: NtOpenProcess validates requested access
+    Note over KM: Object Manager receives handle creation request
+    KM->>ObjMgr: ObpCallPreOperationCallbacks
+    
+    Note over ObjMgr: Iterates Callback List (registered via ObRegisterCallbacks)
     
     ObjMgr->>EDR: Triggers EDR!PreOperationCallback
-    EDR->>EDR: Inspects RequestedAccess (e.g., PROCESS_VM_READ)
+    EDR->>EDR: Inspects OB_PRE_OPERATION_INFORMATION (DesiredAccess, Target)
     
-    Note over EDR: EDR evaluates the request
-    alt Benign Caller (e.g., svchost.exe)
+    Note over EDR: EDR evaluates if it's malicious (e.g., targeting LSASS)
+    alt Benign Caller
         EDR-->>ObjMgr: STATUS_SUCCESS (Allow full access)
     else Malicious Caller (e.g., cmd.exe targeting lsass.exe)
         EDR-->>ObjMgr: Strips PROCESS_VM_READ / WRITE rights
     end
     
     ObjMgr-->>UM: Returns stripped Handle to malware.exe
+    EDR-->>UM: Sends Object operation Telemetry to EDR.exe
     Note over UM: malware.exe attempts ReadProcessMemory -> Access Denied
 ```
 

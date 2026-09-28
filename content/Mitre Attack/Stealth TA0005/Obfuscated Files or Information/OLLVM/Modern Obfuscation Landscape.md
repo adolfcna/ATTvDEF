@@ -1,3 +1,10 @@
+---
+title: Modern Obfuscation Landscape
+draft:
+tags:
+  - T1027
+  - T1027-002
+---
 
 > [!abstract] The Modern Obfuscation Landscape: From OLLVM to Tigress
 > Code obfuscation is the art of transforming executable code into a form that is extremely difficult for humans and automated tools (like IDA Pro or Ghidra) to reverse engineer, while preserving its original functionality. As reverse engineering tools have evolved, so have obfuscators. This note breaks down the most powerful open-source and commercial-grade obfuscators available today.

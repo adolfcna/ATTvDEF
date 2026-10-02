@@ -1,14 +1,9 @@
-بفرمایید، این هم یک نوت فوق‌العاده خفن و تحلیلی که دقیقاً به تفاوت این ۴ روش می‌پردازد و از زاویه دید یک Red Teamer به شما می‌گوید کدام روش برای کدام سناریو بهتر است.
-
-***
 
 > [!abstract] OPSEC: Single-Instance Payload Enforcement via Kernel Objects
 > Running multiple instances of the same payload (like a C2 implant or ransomware) on a single machine is a massive OPSEC failure. It causes resource exhaustion, duplicate network callbacks, and redundant telemetry that instantly triggers EDR alerts. This technique uses Windows Kernel Synchronization Objects to enforce a strict "single instance" rule. If the payload is already running, subsequent executions will silently exit. 
 > **MITRE ATT&CK Mapping:** [T1497 - Virtualization/Sandbox Evasion](https://attack.mitre.org/techniques/T1497/) | [T1106 - Native API](https://attack.mitre.org/techniques/T1106/)
 
----
 
-## 🛡️ The Concept: The `Global\` Namespace & `ERROR_ALREADY_EXISTS`
 
 > [!info] How Cross-Session Detection Works
 > In Windows, Kernel Objects (Mutexes, Events, Semaphores, Pipes) can be named. When a process creates a named object, the Windows Object Manager adds it to a specific namespace.
@@ -17,10 +12,7 @@
 > - By using the `Global\` prefix (e.g., `"Global\\SyncMe"`), the object is created in the **Global Kernel Namespace**. This means a payload running as a SYSTEM service in Session 0 can detect if a payload is already running in a user's Session 1, and vice versa.
 > 
 > If a second process tries to create an object with the exact same name, the Kernel doesn't create a new one. It returns a handle to the *existing* object and sets `GetLastError()` to `ERROR_ALREADY_EXISTS`. The payload reads this code and commits suicide (exits).
-
----
-
-## 💻 The Multi-Method Implementation (C++)
+## The Multi-Method
 
 > [!example]+ Code: 4 Ways to Check for Existing Instances
 > This code provides four different methods to check if a payload is already running. Red Teams often switch between these methods to evade specific EDR behavioral rules.
@@ -93,10 +85,7 @@
 >     return 0;
 > }
 > ```
-
----
-
-## ⚖️ Comparison: Which Method is the Best?
+## ⚖️ Comparison
 
 > [!tip] Deep Dive: Differences & EDR Visibility
 > All four methods achieve the exact same result, but they use different kernel objects. From a defensive and EDR perspective, these objects are not monitored equally. 

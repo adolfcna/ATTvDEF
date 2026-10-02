@@ -1,5 +1,5 @@
 ---
-title: ETW Architecture
+title: WFP Architecture
 draft:
 tags:
   - T1562

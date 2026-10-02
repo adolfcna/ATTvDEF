@@ -10,7 +10,7 @@ tags:
 > Code obfuscation is the art of transforming executable code into a form that is extremely difficult for humans and automated tools (like IDA Pro or Ghidra) to reverse engineer, while preserving its original functionality. As reverse engineering tools have evolved, so have obfuscators. This note breaks down the most powerful open-source and commercial-grade obfuscators available today.
 > **MITRE ATT&CK Mapping:** [T1027 - Obfuscated Files or Information](https://attack.mitre.org/techniques/T1027/) | [T1027.002 - Software Packing](https://attack.mitre.org/techniques/T1027/002/)
 
-## 📊 The Obfuscation Taxonomy
+![[Pasted image 20261002160016.png]]
 
 > [!info] Compiler-Level vs. Source-Level
 > Obfuscators generally fall into two categories. LLVM-based obfuscators modify the Intermediate Representation (IR) during compilation, making them compatible with any language LLVM supports (C, C++, Rust, Swift). Source-level obfuscators (like Tigress) modify the `.c` files *before* they hit the compiler, allowing for transformations that compilers cannot do.

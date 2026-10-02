@@ -1,9 +1,14 @@
-
+---
+title: Steganography
+draft:
+tags:
+  - T1027-003
+---
 > [!abstract] Steganography & Data Hiding Cheat Sheet
 > Techniques for hiding data within other files (images, audio) or filesystem features to bypass security controls, exfiltrate data, or hide payloads. 
 > **MITRE ATT&CK Mapping:** [T1027.003 - Steganography](https://attack.mitre.org/techniques/T1027/003/)
 
-## Steghide (Image & Audio Steganography)
+![[Pasted image 20261002160215.png]]
 
 > [!info] What is Steghide?
 > `steghide` is a steganography program that allows you to hide confidential files in image or audio files. It supports BMP, JPEG, WAV, and AU files.

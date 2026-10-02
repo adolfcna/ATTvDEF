@@ -1,3 +1,12 @@
+---
+title: Filter Manager
+draft:
+tags:
+  - T1006
+  - T1562
+  - T1486
+  - Internals
+---
 
 > [!abstract] Deep Dive: File System Operation Kernel Callbacks (Mini-filters)
 > In Windows, file operations (Create, Read, Write, Delete) don't go straight to the hard drive. They pass through the I/O Manager and a special kernel component called the **Filter Manager** (`fltmgr.sys`**)**. EDRs and Antiviruses register as "Mini-filters" using `FltRegisterFilter`. This allows them to intercept any I/O Request Packet (IRP) targeting the file system *before* it is executed. This is how EDRs detect ransomware encrypting files, malware dropping payloads into the `Temp` folder, and rootkits modifying system binaries.

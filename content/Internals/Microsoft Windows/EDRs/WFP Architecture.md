@@ -1,3 +1,10 @@
+---
+title: ETW Architecture
+draft:
+tags:
+  - T1562
+  - T1205
+---
 
 > [!abstract] Deep Dive: Windows Filtering Platform (WFP)
 > The Windows Filtering Platform (WFP) is a set of API and system services built into Windows that allows developers to filter network traffic at multiple layers of the TCP/IP stack. It is the engine behind the Windows Firewall, EDR network telemetry, and parental controls. WFP allows you to intercept, block, or modify packets before they reach the network or the application.

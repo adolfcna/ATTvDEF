@@ -1,4 +1,11 @@
-
+---
+title: CmRegisterCallbackEx
+draft:
+tags:
+  - Internals
+  - T1112
+  - T1547-001
+---
 > [!abstract] Deep Dive: Registry Operation Kernel Callbacks (`CmRegisterCallbackEx`)
 > The Windows Registry is the heart of the operating system's configuration and persistence mechanisms. Attackers constantly modify the registry to establish persistence (e.g., Run keys, Winlogon Shell), steal credentials (e.g., LSA secrets), or disable security tools. To counter this, the Windows Configuration Manager (CM) provides kernel callbacks. EDRs use `CmRegisterCallbackEx` to intercept registry operations *before* they are committed to disk, allowing them to block malicious changes in real-time.
 > **MITRE ATT&CK Mapping:** [T1112 - Modify Registry](https://attack.mitre.org/techniques/T1112/) | [T1547.001 - Boot or Logon Autostart Execution: Registry Run Keys](https://attack.mitre.org/techniques/T1547/001/)

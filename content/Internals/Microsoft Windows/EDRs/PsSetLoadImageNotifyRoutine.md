@@ -1,9 +1,10 @@
-
-> [!abstract] Deep Dive: Image Load Kernel Callbacks (`PsSetLoadImageNotifyRoutine`)
-> An "Image" in Windows is any portable executable (PE) file—this includes `.exe` files, `.dll` files, and kernel drivers (`.sys`). When an image is mapped into memory so it can be executed, the kernel fires the Image Load callback. EDRs heavily rely on this mechanism to detect DLL injection, hijacking, and the loading of unsigned kernel modules. If a process tries to load a DLL from a weird temp folder, or injects a DLL directly from memory (Reflective DLL Injection), this callback is the EDR's first line of defense.
-> **MITRE ATT&CK Mapping:** [T1055.001 - Process Injection: Dynamic-link Library Injection](https://attack.mitre.org/techniques/T1055/001/) | [T1574.001 - Hijack Execution Flow: DLL Search Order Hijacking](https://attack.mitre.org/techniques/T1574/001/)
-
-### Syscall to Callback Flow
+---
+title: PsSetLoadImageNotifyRoutine
+draft:
+tags:
+  - Internals
+---
+### SYSCALLL to Callback Flow
 
 > [!info] The Execution & Notification Path
 > When a process attempts to load a module (like a malicious DLL), the request transitions from User Mode to Kernel Mode via a syscall. The kernel maps the PE file into the process's memory space, and then iterates through a specific array to notify all registered drivers that a new image has arrived.

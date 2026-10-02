@@ -1,3 +1,10 @@
+---
+title: ETW Architecture
+draft:
+tags:
+  - T1562
+  - Internals
+---
 
 > [!abstract] ETW Architecture: The Nervous System of Windows
 > Event Tracing for Windows (ETW) is the core tracing mechanism built into the Windows OS. It allows kernel-mode and user-mode components to log events with minimal performance overhead. EDRs, Sysmon, and Event Viewer all rely on ETW to detect malicious behavior in real-time. Understanding its architecture—specifically how data flows from RAM to Disk, the role of controllers like `logman` and `wevtutil`, and how EDRs use Kernel Callbacks—is critical for both defenders and Red Teams.

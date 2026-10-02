@@ -1,9 +1,15 @@
-
+---
+title: ObRegisterCallbacks
+draft:
+tags:
+  - Internals
+  - T1003-001
+  - T1055
+---
 > [!abstract] Deep Dive: Object Operation Kernel Callbacks (`ObRegisterCallbacks`)
 > In Windows, everything is an "Object" (Processes, Threads, Files). To interact with a process, you must first obtain a "Handle" to it using `OpenProcess`. EDRs use Object Callbacks to intercept this exact moment. By registering an Object Callback, an EDR can strip dangerous access rights (like `PROCESS_VM_READ` or `PROCESS_VM_WRITE`) from a handle *before* it is handed back to the user-mode application. This is how EDRs protect `lsass.exe` from credential dumping and protect their own `EDR.exe` process from being killed or injected into.
 > **MITRE ATT&CK Mapping:** [T1003.001 - OS Credential Dumping: LSASS Memory](https://attack.mitre.org/techniques/T1003/001/) | [T1055 - Process Injection](https://attack.mitre.org/techniques/T1055/)
-
-### Syscall to Callback Flow
+### SYSCALL to Callback Flow
 
 > [!info] The Execution & Notification Path
 > When a process requests a handle to another process, the request transitions from User Mode to Kernel Mode via a syscall. The Object Manager processes the request, but before creating the handle, it invokes the internal `ObpCallPreOperationCallbacks` function, which iterates through the registered Callback List to notify the EDR.

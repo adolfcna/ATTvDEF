@@ -1,3 +1,11 @@
+---
+title: PsSetCreateThreadNotifyRoutine
+draft:
+tags:
+  - T1106
+  - T1055
+  - Internals
+---
 
 > [!abstract] Deep Dive: Thread Creation Kernel Callbacks (`PsSetCreateThreadNotifyRoutine`)
 > A process is just a container; it does nothing without a **Thread**. Threads are the actual execution units that run code. EDRs monitor thread creation because attackers rarely execute malicious code directly in the main process thread. Instead, they inject a new thread into a legitimate process (like `explorer.exe` or `svchost.exe`) to run their payload. The `PsSetCreateThreadNotifyRoutine` callback is the EDR's primary defense against this, firing the exact moment a new thread is born, anywhere on the system.

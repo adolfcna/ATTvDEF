@@ -4,8 +4,6 @@ draft:
 tags:
   - Internals
 ---
-
-
 > [!info] The Execution & Notification Path
 > When a process attempts to load a module (like a malicious DLL), the request transitions from User Mode to Kernel Mode via a syscall. The kernel maps the PE file into the process's memory space, and then iterates through a specific array to notify all registered drivers that a new image has arrived.
 
@@ -37,7 +35,6 @@ sequenceDiagram
     
     Note over UM,KM: If malicious, EDR can unmap the section or kill the process
 ```
-
 ### Registration & Mechanics
 
 > [!tip] Registration & Storage
@@ -48,7 +45,6 @@ sequenceDiagram
 > **Registration APIs:** Drivers can register their callback routines into this array using the following Kernel API:
 > - `PsSetLoadImageNotifyRoutine` (Standard): Provides basic telemetry (Image Base, Image Size, PID, and a pointer to the Unicode image name).
 > - `PsSetLoadImageNotifyRoutineEx` (Modern): Extends the telemetry to include the `IMAGE_INFO` class, which provides deeper context like whether the image is signed, and a handle to the file object.
-
 ### The Telemetry Goldmine: `IMAGE_INFO`
 
 > [!bug]+ Deep Dive: How EDRs Catch Malicious Modules
@@ -79,7 +75,6 @@ sequenceDiagram
 > 3. **Is it an unsigned or unbacked DLL?** If the `ImageBase` points to memory but there is no `ImageFileHandle` (or the path is empty), the EDR knows this is a **Reflective DLL Injection**—a DLL loaded entirely from memory without touching the disk.
 > 
 > *If the EDR detects an unsigned or malicious module, it can use the `ImageSection` handle to unmap the memory, effectively crashing the injection attempt before the DLL's `DllMain` can execute.*
-
 ### Enumerating the Callback Array
 
 > [!example]+ DCMB Output: Inspecting Registered Callbacks
@@ -96,7 +91,6 @@ sequenceDiagram
 > [DCMB] Image Load : mssecflt.sys+0x438f0 = 0xFFFFF800417F38F0
 > ```
 > *Notice `CI.dll` (Code Integrity) is in the list. This is the Windows component responsible for validating driver signatures. An EDR driver would also be here, watching every single DLL that gets loaded into any process.*
-
 ### OPSEC & Bypassing Image Load Callbacks (Red Team Perspective)
 
 > [!danger] Bypassing Image Load Callbacks

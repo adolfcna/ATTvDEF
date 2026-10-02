@@ -7,7 +7,6 @@ tags:
   - T1486
   - Internals
 ---
-
 > [!abstract] Deep Dive: File System Operation Kernel Callbacks (Mini-filters)
 > In Windows, file operations (Create, Read, Write, Delete) don't go straight to the hard drive. They pass through the I/O Manager and a special kernel component called the **Filter Manager** (`fltmgr.sys`**)**. EDRs and Antiviruses register as "Mini-filters" using `FltRegisterFilter`. This allows them to intercept any I/O Request Packet (IRP) targeting the file system *before* it is executed. This is how EDRs detect ransomware encrypting files, malware dropping payloads into the `Temp` folder, and rootkits modifying system binaries.
 > **MITRE ATT&CK Mapping:** [T1486 - Data Encrypted for Impact (Ransomware)](https://attack.mitre.org/techniques/T1486/) | [T1006 - Direct Volume Access](https://attack.mitre.org/techniques/T1006/) | [T1562 - Impair Defenses](https://attack.mitre.org/techniques/T1562/)
@@ -60,7 +59,6 @@ flowchart TD
     style PreCreate fill:#ccddff,stroke:#01579b
     style UM fill:#e8f5e9,stroke:#1b5e20
 ```
-
 ### How Mini-filters Intercept I/O
 
 > [!tip] The I/O Request Packet (IRP) Flow
@@ -110,10 +108,7 @@ sequenceDiagram
 > ```
 > 
 > If we inspect the memory at these offsets, we see exactly which functions the EDR has registered. When `fltmgr.sys` walks the list, it reads the `0x018` offset and executes that function pointer.
-
----
-
-## 🛠️ Managing Mini-filters with `fltmc` (Line-by-Line Breakdown)
+## Managing Mini-filters with `fltmc` (Line-by-Line Breakdown)
 
 `fltmc` (Filter Manager Control) is the built-in Windows command-line tool to interact with the Filter Manager. It allows defenders and attackers to enumerate, attach, and detach Mini-filters.
 
@@ -163,7 +158,7 @@ If an attacker gains SYSTEM/Admin privileges, they can attempt to detach the EDR
 
 ---
 
-## 💻 Writing a Mini-filter in C (Kernel-Mode)
+## Writing a Mini-filter in C (Kernel-Mode)
 
 To intercept file operations, you must write a Kernel Driver (`.sys`) that registers a `PreOperationCallback` for specific IRP Major Functions (like `IRP_MJ_WRITE` or `IRP_MJ_CREATE`).
 

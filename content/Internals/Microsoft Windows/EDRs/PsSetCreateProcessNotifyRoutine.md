@@ -6,6 +6,7 @@ tags:
   - T1106
   - T1562
 ---
+
 > [!abstract] Deep Dive: Process Creation Kernel Callbacks (`PsSetCreateProcessNotifyRoutineEx`)
 > Process Creation Kernel Callback routines are the absolute backbone of modern Endpoint Detection and Response (EDR) solutions. They are used by the Windows kernel to notify drivers whenever a process is created or terminated on the system. EDRs heavily rely on this mechanism to collect initial telemetry on malicious process creation (such as capturing the full file image path of the new process) and to be aware of its existence the moment it spawns—before a single instruction of the new process executes.
 > **MITRE ATT&CK Mapping:** [T1106 - Native API](https://attack.mitre.org/techniques/T1106/) (Detection perspective) | [T1562 - Impair Defenses](https://attack.mitre.org/techniques/T1562/) (Bypass perspective)

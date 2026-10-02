@@ -11,7 +11,7 @@ tags:
 > A process is just a container; it does nothing without a **Thread**. Threads are the actual execution units that run code. EDRs monitor thread creation because attackers rarely execute malicious code directly in the main process thread. Instead, they inject a new thread into a legitimate process (like `explorer.exe` or `svchost.exe`) to run their payload. The `PsSetCreateThreadNotifyRoutine` callback is the EDR's primary defense against this, firing the exact moment a new thread is born, anywhere on the system.
 > **MITRE ATT&CK Mapping:** [T1055 - Process Injection](https://attack.mitre.org/techniques/T1055/) | [T1106 - Native API](https://attack.mitre.org/techniques/T1106/)
 
-### Syscall to Callback Flow
+![[Pasted image 20261002154434.png]]
 
 > [!info] The Execution & Notification Path
 > When a process attempts to spawn a new thread (often in the context of another process for injection), the request transitions from User Mode to Kernel Mode via a syscall. The kernel creates the thread (`_ETHREAD`), and then iterates through a specific array to notify all registered drivers that a new thread has arrived.

@@ -7,6 +7,7 @@ tags:
 > [!abstract] EDR Architecture: The Telemetry Pipeline (Ring 0 to Ring 3)
 > Endpoint Detection and Response (EDR) solutions act as the ultimate surveillance system for an operating system. This diagram visualizes the complete telemetry pipeline. Data originates from various OS components in both User-Space (Ring 3) and Kernel-Space (Ring 0), is converted into telemetry logs, and is funneled directly into the central EDR Core for real-time analysis and threat hunting.
 
+![[Pasted image 20261002155054.png]]
 ```mermaid
 flowchart RL
 

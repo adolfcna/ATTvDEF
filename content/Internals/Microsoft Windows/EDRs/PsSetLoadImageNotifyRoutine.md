@@ -4,10 +4,12 @@ draft:
 tags:
   - Internals
 ---
-### SYSCALLL to Callback Flow
+
 
 > [!info] The Execution & Notification Path
 > When a process attempts to load a module (like a malicious DLL), the request transitions from User Mode to Kernel Mode via a syscall. The kernel maps the PE file into the process's memory space, and then iterates through a specific array to notify all registered drivers that a new image has arrived.
+
+![[Pasted image 20261002155230.png]]
 
 ```mermaid
 sequenceDiagram

@@ -10,7 +10,7 @@ tags:
 > Event Tracing for Windows (ETW) is the core tracing mechanism built into the Windows OS. It allows kernel-mode and user-mode components to log events with minimal performance overhead. EDRs, Sysmon, and Event Viewer all rely on ETW to detect malicious behavior in real-time. Understanding its architecture—specifically how data flows from RAM to Disk, the role of controllers like `logman` and `wevtutil`, and how EDRs use Kernel Callbacks—is critical for both defenders and Red Teams.
 > **MITRE ATT&CK Mapping:** [T1562 - Impair Defenses](https://attack.mitre.org/techniques/T1562/) (ETW Bypass perspective)
 
-## 📊 ETW Architecture & Data Flow (RAM vs. Disk)
+![[Pasted image 20261002154836.png]]
 
 > [!info] The 3 Pillars of ETW
 > ETW is built on a decoupled architecture consisting of Providers, Controllers, and Consumers. This separation allows high-speed tracing without blocking the system. 
@@ -100,7 +100,7 @@ sequenceDiagram
 
 ---
 
-## 🛠️ Managing ETW with `logman` (The Trace Controller)
+## Managing ETW with `logman` (The Trace Controller)
 
 `logman` is a built-in Windows command-line tool that acts as an ETW Controller for **Tracing Sessions**. It is used by defenders to debug telemetry and by attackers to enumerate what EDRs are watching in real-time.
 
@@ -134,7 +134,7 @@ We can use `logman` to start a trace, capturing kernel process events and writin
 > logman stop "RedTeam_Trace" -ets
 > ```
 
-## 📜 Managing Event Logs with `wevtutil` (The Log Controller)
+## Managing Event Logs with `wevtutil` (The Log Controller)
 
 While `logman` is used to start/stop raw ETW tracing sessions (`.etl` files), **`wevtutil`** (Windows Events Command Line Utility) is used to manage the Windows Event Log (`.evtx` files). It acts as a controller and consumer for the structured logs saved on disk.
 

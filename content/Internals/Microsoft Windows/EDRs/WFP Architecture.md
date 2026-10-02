@@ -9,7 +9,9 @@ tags:
 > [!abstract] Deep Dive: Windows Filtering Platform (WFP)
 > The Windows Filtering Platform (WFP) is a set of API and system services built into Windows that allows developers to filter network traffic at multiple layers of the TCP/IP stack. It is the engine behind the Windows Firewall, EDR network telemetry, and parental controls. WFP allows you to intercept, block, or modify packets before they reach the network or the application.
 > **MITRE ATT&CK Mapping:** [T1562 - Impair Defenses](https://attack.mitre.org/techniques/T1562/) (WFP Bypass/Disabling perspective) | [T1205 - Traffic Signaling](https://attack.mitre.org/techniques/T1205/)
-## 📊 WFP Architecture & Traffic Flow (User-Mode to Kernel-Mode)
+
+![[Pasted image 20261002154248.png]]
+## WFP Architecture & Traffic Flow (User-Mode to Kernel-Mode)
 
 > [!info] How WFP Intercepts Traffic
 > WFP is deeply integrated into the network stack. When an application sends a packet, it travels down from User-Mode to the Kernel. Inside the Kernel, the `tcpip.sys` driver passes the packet through the WFP Engine (`netio.sys`). If a Callout Driver has registered a callback at that layer, WFP pauses the packet, invokes the callback, and waits for the verdict (Permit, Block, or Modify). The state is then synchronized back to User-Mode via the Base Filtering Engine (BFE).

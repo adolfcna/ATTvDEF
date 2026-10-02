@@ -12,7 +12,7 @@ tags:
 > In Windows, file operations (Create, Read, Write, Delete) don't go straight to the hard drive. They pass through the I/O Manager and a special kernel component called the **Filter Manager** (`fltmgr.sys`**)**. EDRs and Antiviruses register as "Mini-filters" using `FltRegisterFilter`. This allows them to intercept any I/O Request Packet (IRP) targeting the file system *before* it is executed. This is how EDRs detect ransomware encrypting files, malware dropping payloads into the `Temp` folder, and rootkits modifying system binaries.
 > **MITRE ATT&CK Mapping:** [T1486 - Data Encrypted for Impact (Ransomware)](https://attack.mitre.org/techniques/T1486/) | [T1006 - Direct Volume Access](https://attack.mitre.org/techniques/T1006/) | [T1562 - Impair Defenses](https://attack.mitre.org/techniques/T1562/)
 
-## The Filter Manager Architecture
+![[Pasted image 20261002154725.png]]
 
 > [!info] How `FltRegisterFilter` Stores Callbacks & How `CreateFile` Invokes Them
 > Unlike process callbacks which use a flat global array, File System callbacks use a hierarchical tree structure managed by `fltmgr.sys`. 

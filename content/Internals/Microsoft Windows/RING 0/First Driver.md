@@ -212,7 +212,7 @@ Red Teams and malware developers often use a custom executable to load their dri
 ```mermaid
 flowchart TD
     subgraph UserMode ["User Mode (Ring 3)"]
-        Loader["Loader.exe"] -->|"1. OpenSCManager / CreateServiceW"| SCM["Service Control Manager (services.exe)"]
+        Loader["Loader.exe"] -->|"1 OpenSCManager / CreateServiceW"| SCM["Service Control Manager (services.exe)"]
     end
 
     subgraph KernelMode ["Kernel Mode (Ring 0)"]
@@ -220,10 +220,10 @@ flowchart TD
         Driver["FD.sys (Your Driver)"]
     end
 
-    Loader -->|"2. StartServiceW"| SCM
-    SCM -->|"3. Load Driver into Memory"| NTOS
-    NTOS -->|"4. Maps sections & resolves imports"| Driver
-    Driver -->|"5. Executes DriverEntry()"| Driver
+    Loader -->|"2 StartServiceW"| SCM
+    SCM -->|"3 Load Driver into Memory"| NTOS
+    NTOS -->|"4 Maps sections & resolves imports"| Driver
+    Driver -->|"5 Executes DriverEntry()"| Driver
     
     style UserMode fill:#e1f5fe,stroke:#01579b,stroke-width:2px
     style KernelMode fill:#ffebee,stroke:#b71c1c,stroke-width:2px

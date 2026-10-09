@@ -9,8 +9,8 @@ tags:
 > A kernel driver (`.sys`) cannot communicate with user-mode applications using standard sockets or pipes. Instead, Windows uses **I/O Request Packets (IRPs)** sent through a Device Object. A user-mode application opens a handle to the driver's Symbolic Link (e.g., `\\.\FD`) and uses APIs like `DeviceIoControl` or `ReadFile` to send/receive data. The driver intercepts these IRPs, processes the data in Ring 0, and returns the result.
 > **MITRE ATT&CK Mapping:** [T1106 - Native API](https://attack.mitre.org/techniques/T1106/) | [T1543.003 - Create or Modify System Process: Windows Service](https://attack.mitre.org/techniques/T1543/003/)
 
+![[Pasted image 20261009205833.png]]
 ## Architecture Flow
-
 
 > [!info] The IRP Journey & Buffered I/O
 > When a user-mode application calls `DeviceIoControl` or `ReadFile`, the Windows I/O Manager creates an IRP. Because we set the `DO_BUFFERED_IO` flag, the I/O Manager automatically copies the user's data into a safe, kernel-allocated buffer (`SystemBuffer`). This prevents the kernel from crashing if the user-mode memory is paged out or invalid.

@@ -12,7 +12,8 @@ tags:
 > Developing a Windows Kernel Driver (`.sys`) is the first step into Ring 0 (Kernel Mode). Unlike user-mode applications that start at `main()`, kernel drivers start at `DriverEntry` and must be loaded by the Service Control Manager (SCM). This note covers the basic driver structure, test-signing requirements, and a custom C++ loader to dynamically install and start kernel drivers.
 > **MITRE ATT&CK Mapping:** [T1543.003 - Create or Modify System Process: Windows Service](https://attack.mitre.org/techniques/T1543/003/) | [T1106 - Native API](https://attack.mitre.org/techniques/T1106/)
 
-## 🛠️ Prerequisites & Environment Setup
+![[Pasted image 20261009212228.png]]
+## Prerequisites & Environment Setup
 
 > [!info] Setting up the Kernel Development Environment
 > To compile kernel drivers, you need the right toolchain and a test environment configured to accept unsigned (test-signed) drivers.
